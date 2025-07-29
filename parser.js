@@ -15,18 +15,18 @@ function splitBeforeSubstring(str, sub) {
  * @param {string} attack
  */
 function parseAttack(attack) {
-  // const [_, quantity, name, bonus, __, ___, damage] = attack.match(
+	console.log(attack);
   let matches = attack.match(
-    /^(?<qty>\d+) (?<name>.+)( (?<bonus>(\+|-)(\d+)) (?<damage>\(.+\)))$/,
+    /^(?<qty>\w+) (?<name>.+)( (?<bonus>(\+|-)(\d+)) \((?<damage>.+)\))$/,
   );
 	if (!matches) {
-		matches = attack.match(/^(?<qty>\d+) (?<name>.*)$/)
+		matches = attack.match(/^(?<qty>\w+) (?<name>.*)$/)
 	}
   return {
-		quantity: matches.groups.qty,
-    name: matches.groups.name,
-    bonus: matches.groups.bonus,
-    damage: matches.groups.damage,
+		quantity: matches?.groups.qty,
+    name: matches?.groups.name,
+    bonus: matches?.groups.bonus,
+    damage: matches?.groups.damage,
   };
 }
 
@@ -46,11 +46,9 @@ function parseAttacks(attacks) {
  */
 function isAbilityStart(part) {
   if (part.indexOf(".") === -1) return false;
-  if (part[0].toUpperCase() !== part[0]) return false;
+	if (!/^[A-Z]$/.test(part[0])) return false
   const lastWordBeforePeriod = part.match(/\w+\./)[0];
-  if (lastWordBeforePeriod[0].toUpperCase() !== lastWordBeforePeriod[0]) {
-    return false;
-  }
+	if (!/^[A-Z]$/.test(lastWordBeforePeriod[0])) return false;
   return true;
 }
 
@@ -93,7 +91,7 @@ function parseStatblock(statblockText) {
   }
   description = description.trim();
   let stats = "";
-  while (!/LV \d+$/.test(lines[0])) {
+  while (!/LV [0-9/]+$/.test(lines[0])) {
     stats += ` ${lines.shift()}`;
   }
   stats += ` ${lines.shift()}`;
@@ -103,11 +101,11 @@ function parseStatblock(statblockText) {
   stats = result[1];
   const ac = Number(result[0].split(" ")[1]);
 
-  const armor = result[0].match(/\((.+)\)$/)[1];
+  const armor = result[0].match(/\((.+)\)$/)?.[1];
 
   result = splitBeforeSubstring(stats, ", ATK ");
   stats = result[1];
-  const hp = Number(result[0].split(" ")[1]);
+  const hp = Number(result[0].split(" ")[1]) || result[0].split(" ")[1];
 
   result = splitBeforeSubstring(stats, ", MV");
   stats = result[1];
@@ -145,7 +143,7 @@ function parseStatblock(statblockText) {
   stats = result[1];
   const alignment = result[0].trim();
 
-  const level = Number(stats);
+  const level = Number(stats) || stats;
 
   return {
     name,
@@ -166,3 +164,16 @@ function parseStatblock(statblockText) {
     abilities: parseAbilities(lines),
   };
 }
+
+console.log(parseStatblock(`
+ELEMENTAL, FIRE
+A roaring column of flames.
+AC 15, HP 30/43, ATK 3 slam +6
+(2d10/3d10) or 1 inferno, MV near
+(fly), S +4, D +3, C +3, I -2, W +1, Ch
+-2, AL N, LV 6/9
+Impervious. Only damaged by
+magical sources. Fire immune.
+Inferno. All within near DC 15
+DEX or 3d8 damage.
+`))
