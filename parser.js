@@ -164,16 +164,3 @@ function parseStatblock(statblockText) {
     abilities: parseAbilities(lines),
   };
 }
-
-console.log(parseStatblock(`
-ELEMENTAL, FIRE
-A roaring column of flames.
-AC 15, HP 30/43, ATK 3 slam +6
-(2d10/3d10) or 1 inferno, MV near
-(fly), S +4, D +3, C +3, I -2, W +1, Ch
--2, AL N, LV 6/9
-Impervious. Only damaged by
-magical sources. Fire immune.
-Inferno. All within near DC 15
-DEX or 3d8 damage.
-`))
