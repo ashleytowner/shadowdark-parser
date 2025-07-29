@@ -15,7 +15,6 @@ function splitBeforeSubstring(str, sub) {
  * @param {string} attack
  */
 function parseAttack(attack) {
-	console.log(attack);
   let matches = attack.match(
     /^(?<qty>\w+) (?<name>.+)( (?<bonus>(\+|-)(\d+)) \((?<damage>.+)\))$/,
   );
@@ -67,11 +66,11 @@ function parseAbilities(abilities) {
       current += ` ${line}`;
     }
   }
-  parsed.push(current);
+  parsed.push(current.trim());
   return parsed.filter(Boolean).map((ability) => {
     const indexOfPeriod = ability.indexOf(". ");
-    const name = ability.slice(0, indexOfPeriod);
-    const description = ability.slice(indexOfPeriod + 1, ability.length);
+    const name = ability.slice(0, indexOfPeriod).trim();
+    const description = ability.slice(indexOfPeriod + 1, ability.length).trim();
     return {
       name,
       description,
@@ -91,7 +90,7 @@ function parseStatblock(statblockText) {
   }
   description = description.trim();
   let stats = "";
-  while (!/LV [0-9/]+$/.test(lines[0])) {
+  while (!/LV [0-9/*]+$/.test(lines[0])) {
     stats += ` ${lines.shift()}`;
   }
   stats += ` ${lines.shift()}`;
@@ -163,4 +162,13 @@ function parseStatblock(statblockText) {
     level,
     abilities: parseAbilities(lines),
   };
+}
+
+module.exports = {
+	splitBeforeSubstring,
+	parseAttack,
+	parseAttacks,
+	isAbilityStart,
+	parseAbilities,
+	parseStatblock
 }

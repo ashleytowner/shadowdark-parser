@@ -1,0 +1,22 @@
+{
+  "name": "shadowdark-statblock-parser",
+  "version": "0.1.0",
+  "main": "parser.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashleytowner/shadowdark-statblock-parser.git"
+  },
+  "author": "Ashley Towner",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/ashleytowner/shadowdark-statblock-parser/issues"
+  },
+  "homepage": "https://github.com/ashleytowner/shadowdark-statblock-parser#readme",
+  "description": "",
+  "dependencies": {
+    "jest": "^30.0.5"
+  }
+}
