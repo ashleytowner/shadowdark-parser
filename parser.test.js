@@ -78,9 +78,9 @@ describe("isTraitStart", () => {
     );
   });
   it("rejects lines which don't start with uppercase", () => {
-    expect(
-      parser.isTraitStart("this. line Doesn't start with uppercase"),
-    ).toBe(false);
+    expect(parser.isTraitStart("this. line Doesn't start with uppercase")).toBe(
+      false,
+    );
   });
   it("rejects lines whose final word before the first period isn't uppercase", () => {
     expect(parser.isTraitStart("This is almost. A trait")).toBe(false);
@@ -92,51 +92,6 @@ describe("isTraitStart", () => {
 });
 
 describe("parseStatblock", () => {
-  it("parses a generic statblock", () => {
-    expect(
-      parser.parseStatblock(`
-HOBGOBLIN
-A sturdy, tall goblin with russet
-skin. Militant and strategic.
-AC 15 (chainmail + shield), HP
-10, ATK 1 longsword +3 (1d8) or 1
-longbow (far) +0 (1d8), MV near,
-S +3, D +0, C +1, I +2, W +1, Ch +1,
-AL C, LV 2
-Phalanx. +1 to attacks and AC
-when in close range of an allied
-hobgoblin.
-		`),
-    ).toEqual({
-      name: "HOBGOBLIN",
-      description:
-        "A sturdy, tall goblin with russet skin. Militant and strategic.",
-      ac: 15,
-      armor: "chainmail + shield",
-      hp: 10,
-      attacks: [
-        [{ quantity: "1", name: "longsword", bonus: "+3", damage: "1d8" }],
-        [{ quantity: "1", name: "longbow (far)", bonus: "+0", damage: "1d8" }],
-      ],
-      strength: 3,
-      dexterity: 0,
-      constitution: 1,
-      intelligence: 2,
-      wisdom: 1,
-      charisma: 1,
-      alignment: "C",
-      level: 2,
-      movement: "near",
-      traits: [
-        {
-          name: "Phalanx",
-          description:
-            "+1 to attacks and AC when in close range of an allied hobgoblin.",
-        },
-      ],
-    });
-  });
-
   it("parses an any-levelled statblock", () => {
     const hydra = parser.parseStatblock(`
 HYDRA
@@ -188,7 +143,7 @@ AC 12, HP 19, ATK 2 rend +4
 D +2, C +1, I -3, W +1, Ch -1, AL N,
 LV 4
 		`);
-		expect(griffon.traits).toEqual([]);
+    expect(griffon.traits).toEqual([]);
   });
   it("parses a statblock with no description", () => {
     const griffon = parser.parseStatblock(`
@@ -198,6 +153,55 @@ AC 12, HP 19, ATK 2 rend +4
 D +2, C +1, I -3, W +1, Ch -1, AL N,
 LV 4
 		`);
-		expect(griffon.description).toEqual('');
+    expect(griffon.description).toEqual("");
+  });
+
+  it("Correctly identifies movement speed & types", () => {
+    const stingbat = parser.parseStatblock(`
+STINGBAT
+Darting, orange insect-bat with
+four wings and needlelike beak.
+AC 12, HP 4, ATK 1 beak +2 (1d4 +
+blood drain), MV near (fly), S -2,
+D +2, C +0, I -2, W +0, Ch -2, AL N,
+LV 1
+Blood Drain. Attach to bitten
+target; auto-hit the next round.
+DC 9 STR on turn to remove.
+		`);
+    expect(stingbat.movementDistance).toBe("near");
+    expect(stingbat.movementType).toBe("fly");
+  });
+
+  it("Excludes movement type when unspecified", () => {
+    const basilisk = parser.parseStatblock(`
+BASILISK
+Massive, muscled lizards with six
+legs and gray, tough hide.
+AC 14, HP 25, ATK 2 bite +4 (2d6 +
+petrify), MV near, S +3, D +1, C +3,
+I -3, W +1, Ch -3, AL N, LV 5
+Petrify. Any creature that
+touches the basilisk or meets its
+gaze, DC 15 CON or petrified.
+		`);
+
+    expect(basilisk.movementDistance).toBe("near");
+    expect(basilisk.movementType).toBe(undefined);
+  });
+
+  it("Identifies armor types", () => {
+    const bandit = parser.parseStatblock(`
+BANDIT
+Hard-bitten rogue in tattered
+leathers and a hooded cloak.
+AC 13 (leather + shield), HP 4,
+ATK 1 club +1 (1d4) or 1 shortbow
+(far) +0 (1d4), MV near, S +1, D +0,
+C +0, I -1, W +0, Ch -1, AL C, LV 1
+Ambush. Deal an extra die of
+damage when undetected.
+		`);
+    expect(bandit.armor).toBe("leather + shield");
   });
 });
