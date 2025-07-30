@@ -41,7 +41,8 @@ DC 9 STR on turn to remove.
       }
     ]
   ],
-  "movement": "near (fly)",
+  "movementDistance": "near",
+  "movementType": "fly",
   "strength": -2,
   "dexterity": 2,
   "constitution": 0,
