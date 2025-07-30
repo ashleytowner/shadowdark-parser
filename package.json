@@ -1,6 +1,6 @@
 {
   "name": "shadowdark-parser",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "main": "parser.js",
   "scripts": {
     "test": "jest"
@@ -10,7 +10,7 @@
     "url": "git+https://github.com/ashleytowner/shadowdark-parser.git"
   },
   "author": "Ashley Towner",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/ashleytowner/shadowdark-statblock-parser/issues"
   },
