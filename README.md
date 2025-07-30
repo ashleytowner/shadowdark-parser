@@ -34,6 +34,7 @@ DC 9 STR on turn to remove.
 
 - `parseStatblock` - Parses monster statblocks & outputs JSON
 - `parseRollTable` - Parses a rolltable into a JSON format readable by Foundry
+- `parseSpell` - Parses spells & outputs in JSON
 
 
 ## Contributions
