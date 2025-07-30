@@ -7,6 +7,29 @@ This tool takes the default shadowdark statblock format and converts the monster
 - It can handle monsters with variable/multiple levels (like the hydra, or elementals)
 - It can handle monsters complex monsters like the ten-eyed oracle & the tarrasque
 
+## Usage
+
+1. Run `npm install shadowdark-parser`
+2. Use it in your code:
+
+```js
+const shadowdarkParser = require('shadowdark-parser');
+const stingbat = shadowdarkParser.parseStatblock(`
+STINGBAT
+Darting, orange insect-bat with
+four wings and needlelike beak.
+AC 12, HP 4, ATK 1 beak +2 (1d4 +
+blood drain), MV near (fly), S -2,
+D +2, C +0, I -2, W +0, Ch -2, AL N,
+LV 1
+Blood Drain. Attach to bitten
+target; auto-hit the next round.
+DC 9 STR on turn to remove.
+`);
+
+// ...
+```
+
 ## Example
 
 ### Input
@@ -59,12 +82,6 @@ DC 9 STR on turn to remove.
   ]
 }
 ```
-
-## Usage
-
-The actual core code here has no dependencies, just clone the repo and use the `parser.js` file. Call the `parseStatblock` function specifically.
-
-For testing, you'll need to install dependencies. 
 
 ## Contributions
 
