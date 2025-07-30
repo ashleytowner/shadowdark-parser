@@ -205,7 +205,7 @@ damage when undetected.
     expect(bandit.armor).toBe("leather + shield");
   });
 
-	it('expands alignment to a full word', () => {
+  it("expands alignment to a full word", () => {
     const bandit = parser.parseStatblock(`
 BANDIT
 Hard-bitten rogue in tattered
@@ -217,7 +217,7 @@ C +0, I -1, W +0, Ch -1, AL C, LV 1
 Ambush. Deal an extra die of
 damage when undetected.
 		`);
-		const caveCreeper = parser.parseStatblock(`
+    const caveCreeper = parser.parseStatblock(`
 CAVE CREEPER
 Chittering, green centipedes the
 size of horses. Their grasping
@@ -230,7 +230,7 @@ I -3, W +1, Ch -3, AL N, LV 4
 Toxin. DC 12 CON or paralyzed
 1d4 rounds.
 		`);
-		const azer = parser.parseStatblock(`
+    const azer = parser.parseStatblock(`
 AZER
 Dwarves with bronze, metallic
 skin and flames in place of hair.
@@ -243,7 +243,76 @@ flammables) or 1 crossbow (far)
 Impervious. Fire immune
 		`);
     expect(bandit.alignment).toBe("Chaotic");
-		expect(caveCreeper.alignment).toBe("Neutral");
-		expect(azer.alignment).toBe("Lawful");
+    expect(caveCreeper.alignment).toBe("Neutral");
+    expect(azer.alignment).toBe("Lawful");
+  });
+});
+
+describe("parseRollTable", () => {
+  it("should parse a table with single keys", () => {
+    const table = parser.parseRollTable(`
+01 First Event
+02 Second Event
+		`);
+
+    expect(table).toEqual({
+      name: "Imported Table",
+      results: [
+        {
+          type: "text",
+          text: "First Event",
+          range: [1, 1],
+        },
+        {
+          type: "text",
+          text: "Second Event",
+          range: [2, 2],
+        },
+      ],
+    });
+  });
+  it("should parse a table with ranged keys", () => {
+    const table = parser.parseRollTable(`
+01-02 First Event
+03-04 Second Event
+    `);
+
+    expect(table).toEqual({
+      name: "Imported Table",
+      results: [
+        {
+          type: "text",
+          text: "First Event",
+          range: [1, 2],
+        },
+        {
+          type: "text",
+          text: "Second Event",
+          range: [3, 4],
+        },
+      ],
+    });
+  });
+  it("should parse a table with both single and ranged keys", () => {
+    const table = parser.parseRollTable(`
+01 First Event
+02-03 Second Event
+    `);
+
+    expect(table).toEqual({
+      name: "Imported Table",
+      results: [
+        {
+          type: "text",
+          text: "First Event",
+          range: [1, 1],
+        },
+        {
+          type: "text",
+          text: "Second Event",
+          range: [2, 3],
+        },
+      ],
+    });
 	});
 });

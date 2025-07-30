@@ -236,6 +236,41 @@ function parseStatblock(statblockText) {
   };
 }
 
+/**
+ * Parses an encounter table in the format of
+ * 01 First Encounter
+ * 02-03 Second Encounter
+ * @param {string} tableText The rows of the table
+ * @param {string} [tableName] The name of the table
+ * @returns a JSON object usable in Foundry
+ */
+function parseRollTable(tableText, tableName = "Imported Table") {
+  const rows = tableText
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => {
+      const matches = line.match(
+        /^(?<range>[0-9]+|[0-9]+-[0-9]+) (?<detail>.+)/,
+      );
+      const range = matches?.groups.range;
+      const detail = matches?.groups.detail;
+      const rangeParts = range.split("-").map(Number);
+      if (rangeParts.length === 1) {
+        rangeParts.push(rangeParts[0]);
+      }
+      return {
+        type: "text",
+        text: detail,
+        range: rangeParts,
+      };
+    });
+  return {
+    name: tableName,
+    results: rows,
+  };
+}
+
 module.exports = {
   splitBeforeSubstring,
   parseAttack,
@@ -243,4 +278,5 @@ module.exports = {
   isTraitStart,
   parseTraits,
   parseStatblock,
+  parseRollTable,
 };
