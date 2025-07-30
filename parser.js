@@ -18,12 +18,17 @@ function parseAttack(attack) {
   let matches = attack.match(
     /^(?<qty>\w+) (?<name>.+)( (?<bonus>(\+|-)(\d+)) \((?<damage>.+)\))$/,
   );
-	if (!matches) {
-		matches = attack.match(/^(?<qty>\w+) (?<name>.*)$/)
-	}
+  if (!matches) {
+    matches = attack.match(/^(?<qty>\w+) (?<name>.*)$/);
+  }
+
+  const weaponName = matches?.groups.name.match(/^[^(]+/)[0].trim();
+  const weaponRange = matches?.groups.name.match(/\((.+)\)/)?.[1].trim();
+
   return {
-		quantity: matches?.groups.qty,
-    name: matches?.groups.name,
+    quantity: matches?.groups.qty,
+    name: weaponName,
+    range: weaponRange,
     bonus: matches?.groups.bonus,
     damage: matches?.groups.damage,
   };

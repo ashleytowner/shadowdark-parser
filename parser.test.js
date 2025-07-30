@@ -17,6 +17,7 @@ describe("parseAttack", () => {
     expect(parser.parseAttack("1 sword +5 (1d6)")).toEqual({
       quantity: "1",
       name: "sword",
+      range: undefined,
       bonus: "+5",
       damage: "1d6",
     });
@@ -24,7 +25,8 @@ describe("parseAttack", () => {
   it("handles a ranged weapon attack", () => {
     expect(parser.parseAttack("1 bow (far) +5 (1d6)")).toEqual({
       quantity: "1",
-      name: "bow (far)",
+      name: "bow",
+      range: "far",
       bonus: "+5",
       damage: "1d6",
     });
@@ -32,7 +34,8 @@ describe("parseAttack", () => {
   it("handles a thrown weapon attack", () => {
     expect(parser.parseAttack("1 dagger (close/near) +5 (1d6)")).toEqual({
       quantity: "1",
-      name: "dagger (close/near)",
+      name: "dagger",
+      range: "close/near",
       bonus: "+5",
       damage: "1d6",
     });
@@ -43,12 +46,14 @@ describe("parseAttack", () => {
       name: "spell",
       bonus: undefined,
       damage: undefined,
+      range: undefined,
     });
     expect(parser.parseAttack("1 multi word spell")).toEqual({
       quantity: "1",
       name: "multi word spell",
       bonus: undefined,
       damage: undefined,
+      range: undefined,
     });
   });
 });
