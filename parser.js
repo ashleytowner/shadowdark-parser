@@ -119,6 +119,8 @@ function parseStatblock(statblockText) {
   stats = result[1];
   const movement = result[0].trim();
 
+  const movementParts = movement.match(/(?<dist>\w+)( \((?<type>.+)\))?/);
+
   result = splitBeforeSubstring(stats, ", D ");
   stats = result[1];
   const strength = Number(result[0]);
@@ -156,7 +158,8 @@ function parseStatblock(statblockText) {
     armor,
     hp,
     attacks,
-    movement,
+    movementDistance: movementParts.groups.dist,
+    movementType: movementParts.groups.type,
     strength,
     dexterity,
     constitution,
