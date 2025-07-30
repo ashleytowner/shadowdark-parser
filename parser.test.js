@@ -37,7 +37,7 @@ describe("parseAttack", () => {
       damage: "1d6",
     });
   });
-  it("handles a spell or named ability with no bonus", () => {
+  it("handles a spell or named trait with no bonus", () => {
     expect(parser.parseAttack("1 spell")).toEqual({
       quantity: "1",
       name: "spell",
@@ -66,23 +66,23 @@ describe("parseAttacks", () => {
   });
 });
 
-describe("isAbilityStart", () => {
+describe("isTraitStart", () => {
   it("rejects lines with no period", () => {
-    expect(parser.isAbilityStart("this line lacks a period altogether")).toBe(
+    expect(parser.isTraitStart("this line lacks a period altogether")).toBe(
       false,
     );
   });
   it("rejects lines which don't start with uppercase", () => {
     expect(
-      parser.isAbilityStart("this. line Doesn't start with uppercase"),
+      parser.isTraitStart("this. line Doesn't start with uppercase"),
     ).toBe(false);
   });
   it("rejects lines whose final word before the first period isn't uppercase", () => {
-    expect(parser.isAbilityStart("This is almost. An ability")).toBe(false);
+    expect(parser.isTraitStart("This is almost. A trait")).toBe(false);
   });
   it("accepts valid starts", () => {
-    expect(parser.isAbilityStart("Bound. A secret, mundane")).toBe(true);
-    expect(parser.isAbilityStart("Heads. Choose how many heads")).toBe(true);
+    expect(parser.isTraitStart("Bound. A secret, mundane")).toBe(true);
+    expect(parser.isTraitStart("Heads. Choose how many heads")).toBe(true);
   });
 });
 
@@ -122,7 +122,7 @@ hobgoblin.
       alignment: "C",
       level: 2,
       movement: "near",
-      abilities: [
+      traits: [
         {
           name: "Phalanx",
           description:
@@ -172,7 +172,7 @@ random direction.
     expect(airElemental.level).toEqual("6/9");
   });
 
-  it("parses a statblock with no abilities", () => {
+  it("parses a statblock with no traits", () => {
     const griffon = parser.parseStatblock(`
 GRIFFON
 Winged hunters with the head
@@ -183,7 +183,7 @@ AC 12, HP 19, ATK 2 rend +4
 D +2, C +1, I -3, W +1, Ch -1, AL N,
 LV 4
 		`);
-		expect(griffon.abilities).toEqual([]);
+		expect(griffon.traits).toEqual([]);
   });
   it("parses a statblock with no description", () => {
     const griffon = parser.parseStatblock(`

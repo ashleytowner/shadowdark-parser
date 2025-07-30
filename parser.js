@@ -43,7 +43,7 @@ function parseAttacks(attacks) {
 /**
  * @param {string} part
  */
-function isAbilityStart(part) {
+function isTraitStart(part) {
   if (part.indexOf(".") === -1) return false;
 	if (!/^[A-Z]$/.test(part[0])) return false
   const lastWordBeforePeriod = part.match(/\w+\./)[0];
@@ -52,14 +52,14 @@ function isAbilityStart(part) {
 }
 
 /**
- * @param {string[]} abilities
+ * @param {string[]} traits
  */
-function parseAbilities(abilities) {
+function parseTraits(traits) {
   const parsed = [];
   let current = "";
-  for (let i = 0; i < abilities.length; i++) {
-    const line = abilities[i];
-    if (isAbilityStart(line)) {
+  for (let i = 0; i < traits.length; i++) {
+    const line = traits[i];
+    if (isTraitStart(line)) {
       parsed.push(current.trim());
       current = line;
     } else {
@@ -67,10 +67,10 @@ function parseAbilities(abilities) {
     }
   }
   parsed.push(current.trim());
-  return parsed.filter(Boolean).map((ability) => {
-    const indexOfPeriod = ability.indexOf(". ");
-    const name = ability.slice(0, indexOfPeriod).trim();
-    const description = ability.slice(indexOfPeriod + 1, ability.length).trim();
+  return parsed.filter(Boolean).map((trait) => {
+    const indexOfPeriod = trait.indexOf(". ");
+    const name = trait.slice(0, indexOfPeriod).trim();
+    const description = trait.slice(indexOfPeriod + 1, trait.length).trim();
     return {
       name,
       description,
@@ -160,7 +160,7 @@ function parseStatblock(statblockText) {
     charisma,
     alignment,
     level,
-    abilities: parseAbilities(lines),
+    traits: parseTraits(lines),
   };
 }
 
@@ -168,7 +168,7 @@ module.exports = {
 	splitBeforeSubstring,
 	parseAttack,
 	parseAttacks,
-	isAbilityStart,
-	parseAbilities,
+	isTraitStart,
+	parseTraits,
 	parseStatblock
 }
