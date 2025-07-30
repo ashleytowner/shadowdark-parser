@@ -87,3 +87,6 @@ DC 9 STR on turn to remove.
 
 This repo is open to contributions, but given the complexity of the parser, please
 ensure that you run all jest tests before making your PR, and write new tests for your features & fixes
+
+## Legal Info
+Shadowdark Parser is an independent product published under the Shadowdark RPG Third-Party License and is not affiliated with The Arcane Library, LLC. Shadowdark RPG © 2023 The Arcane Library, LLC.
