@@ -50,9 +50,9 @@ function parseAttacks(attacks) {
  */
 function isTraitStart(part) {
   if (part.indexOf(".") === -1) return false;
-	if (!/^[A-Z]$/.test(part[0])) return false
+  if (!/^[A-Z]$/.test(part[0])) return false;
   const lastWordBeforePeriod = part.match(/\w+\./)[0];
-	if (!/^[A-Z]$/.test(lastWordBeforePeriod[0])) return false;
+  if (!/^[A-Z]$/.test(lastWordBeforePeriod[0])) return false;
   return true;
 }
 
@@ -173,10 +173,10 @@ function parseStatblock(statblockText) {
 }
 
 module.exports = {
-	splitBeforeSubstring,
-	parseAttack,
-	parseAttacks,
-	isTraitStart,
-	parseTraits,
-	parseStatblock
-}
+  splitBeforeSubstring,
+  parseAttack,
+  parseAttacks,
+  isTraitStart,
+  parseTraits,
+  parseStatblock,
+};
