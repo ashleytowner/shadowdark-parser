@@ -72,7 +72,7 @@ DC 9 STR on turn to remove.
   "intelligence": -2,
   "wisdom": 0,
   "charisma": -2,
-  "alignment": "N",
+  "alignment": "Neutral",
   "level": 1,
   "traits": [
     {
