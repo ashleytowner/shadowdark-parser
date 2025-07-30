@@ -1,4 +1,4 @@
-# Shadowdark Statblock Parser
+# Shadowdark Parser
 
 This tool takes the default shadowdark statblock format and converts the monster into JSON. It is pretty flexible in parsing, in that:
 
