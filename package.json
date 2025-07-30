@@ -16,7 +16,7 @@
   },
   "homepage": "https://github.com/ashleytowner/shadowdark-statblock-parser#readme",
   "description": "",
-  "dependencies": {
+  "devDependencies": {
     "jest": "^30.0.5"
   }
 }
