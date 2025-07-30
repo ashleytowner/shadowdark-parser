@@ -2,7 +2,7 @@
 
 This tool takes the default shadowdark statblock format and converts the monster into JSON. It is pretty flexible in parsing, in that:
 
-- It doesn't require blank lines between monster abilities
+- It doesn't require blank lines between monster traits
 - It can handle monsters with no descriptions
 - It can handle monsters with variable/multiple levels (like the hydra, or elementals)
 - It can handle monsters complex monsters like the ten-eyed oracle & the tarrasque
@@ -50,7 +50,7 @@ DC 9 STR on turn to remove.
   "charisma": -2,
   "alignment": "N",
   "level": 1,
-  "abilities": [
+  "traits": [
     {
       "name": "Blood Drain",
       "description": "Attach to bitten target; auto-hit the next round. DC 9 STR on turn to remove."
