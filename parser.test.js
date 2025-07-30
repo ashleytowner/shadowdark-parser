@@ -204,4 +204,46 @@ damage when undetected.
 		`);
     expect(bandit.armor).toBe("leather + shield");
   });
+
+	it('expands alignment to a full word', () => {
+    const bandit = parser.parseStatblock(`
+BANDIT
+Hard-bitten rogue in tattered
+leathers and a hooded cloak.
+AC 13 (leather + shield), HP 4,
+ATK 1 club +1 (1d4) or 1 shortbow
+(far) +0 (1d4), MV near, S +1, D +0,
+C +0, I -1, W +0, Ch -1, AL C, LV 1
+Ambush. Deal an extra die of
+damage when undetected.
+		`);
+		const caveCreeper = parser.parseStatblock(`
+CAVE CREEPER
+Chittering, green centipedes the
+size of horses. Their grasping
+tentacles are coated in a
+paralytic venom.
+AC 12, HP 18, ATK 1 bite +3 (1d6)
+and 1 tentacles +3 (1d8 + toxin),
+MV near (climb), S +2, D +2, C +0,
+I -3, W +1, Ch -3, AL N, LV 4
+Toxin. DC 12 CON or paralyzed
+1d4 rounds.
+		`);
+		const azer = parser.parseStatblock(`
+AZER
+Dwarves with bronze, metallic
+skin and flames in place of hair.
+Gifted blacksmiths.
+AC 15, HP 15, ATK 2 flaming
+warhammer +3 (1d10, ignites
+flammables) or 1 crossbow (far)
++0 (1d6), MV near, S +3, D +0, C
++2, I +0, W +0, Ch +0, AL L, LV 3
+Impervious. Fire immune
+		`);
+    expect(bandit.alignment).toBe("Chaotic");
+		expect(caveCreeper.alignment).toBe("Neutral");
+		expect(azer.alignment).toBe("Lawful");
+	});
 });

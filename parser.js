@@ -1,4 +1,5 @@
 /**
+ * Split a string into two parts, based on a substring
  * @param {string} str
  * @param {string} sub
  */
@@ -12,6 +13,7 @@ function splitBeforeSubstring(str, sub) {
 }
 
 /**
+ * Parse a single attack
  * @param {string} attack
  */
 function parseAttack(attack) {
@@ -22,19 +24,26 @@ function parseAttack(attack) {
     matches = attack.match(/^(?<qty>\w+) (?<name>.*)$/);
   }
 
-  const weaponName = matches?.groups.name.match(/^[^(]+/)[0].trim();
-  const weaponRange = matches?.groups.name.match(/\((.+)\)/)?.[1].trim();
+  const weaponName = matches.groups.name.match(/^[^(]+/)[0].trim();
+  const weaponRange = matches.groups.name.match(/\((.+)\)/)?.[1].trim();
 
   return {
-    quantity: matches?.groups.qty,
+    /** The number of this attack that can be made per turn */
+    quantity: matches.groups.qty,
+    /** The name of this attack */
     name: weaponName,
+    /** The range of this attack */
     range: weaponRange,
+    /** The to-hit bonus for this attack */
     bonus: matches?.groups.bonus,
+    /** The damage this attack does */
     damage: matches?.groups.damage,
   };
 }
 
 /**
+ * Parse the attack line of a statblock
+ * Group the attacks based on the "and" and "or" usage
  * @param {string} attacks
  */
 function parseAttacks(attacks) {
@@ -46,6 +55,7 @@ function parseAttacks(attacks) {
 }
 
 /**
+ * Determine whether a line is the beginning of a new trait
  * @param {string} part
  */
 function isTraitStart(part) {
@@ -57,6 +67,7 @@ function isTraitStart(part) {
 }
 
 /**
+ * Parse the traits section of a statblock
  * @param {string[]} traits
  */
 function parseTraits(traits) {
@@ -77,13 +88,16 @@ function parseTraits(traits) {
     const name = trait.slice(0, indexOfPeriod).trim();
     const description = trait.slice(indexOfPeriod + 1, trait.length).trim();
     return {
+      /** Trait name */
       name,
+      /** Trait description */
       description,
     };
   });
 }
 
 /**
+ * Parse a shadowdark statblock
  * @param {string} statblockText
  */
 function parseStatblock(statblockText) {
@@ -151,23 +165,73 @@ function parseStatblock(statblockText) {
 
   const level = Number(stats) || stats;
 
+  const alignmentMap = new Map([
+    ["L", "Lawful"],
+    ["N", "Neutral"],
+    ["C", "Chaotic"],
+  ]);
+
   return {
+    /** Name */
     name,
+    /** Description */
     description,
+    /**
+     * Armor Class
+     * Usually a number, but in some cases where the AC is variable, it will be a string
+     */
     ac,
+    /**
+     * The type of armor & shields used
+     * Will be undefined if not specified in the statblock
+     */
     armor,
+    /**
+     * Hit Points
+     * Usually a number, but in some cases where the HP is variable, it will be a string
+     */
     hp,
+    /**
+     * An array of arrays of attacks.
+     * Each top-level sub-array is a grouping of "and" attacks
+     *
+     * @example
+     * "1 attackA and 1 attackB or 1 attackC" would come out as `[[attackA, attackB], [attackC]]`
+     */
     attacks,
+    /**
+     * The distance that can be moved
+     */
     movementDistance: movementParts.groups.dist,
+    /**
+     * The type of movement, e.g. "fly"
+     */
     movementType: movementParts.groups.type,
+    /** Strength */
     strength,
+    /** Dexterity */
     dexterity,
+    /** Constitution */
     constitution,
+    /** Intelligence */
     intelligence,
+    /** Wisdom */
     wisdom,
+    /** Charisma */
     charisma,
-    alignment,
+    /**
+     * @type {'Lawful'|'Neutral'|'Chaotic'}
+     * Alignment
+     * */
+    alignment: alignmentMap.get(alignment),
+    /**
+     * Level
+     * Usually a number, but in some cases where the level is variable, it can be a string
+     */
     level,
+    /**
+     * An array of traits
+     */
     traits: parseTraits(lines),
   };
 }
