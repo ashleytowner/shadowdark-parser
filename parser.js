@@ -133,7 +133,8 @@ function parseStatblock(statblockText) {
   stats = result[1];
   const movement = result[0].trim();
 
-  const movementParts = movement.match(/(?<dist>\w+)( \((?<type>.+)\))?/);
+  const movementParts = movement.match(/(?<dist>[a-zA-Z ]+)(\((?<type>.+)\))?/);
+	console.log('###', movementParts);
 
   result = splitBeforeSubstring(stats, ", D ");
   stats = result[1];
@@ -202,7 +203,7 @@ function parseStatblock(statblockText) {
     /**
      * The distance that can be moved
      */
-    movementDistance: movementParts.groups.dist,
+    movementDistance: movementParts.groups.dist.trim(),
     /**
      * The type of movement, e.g. "fly"
      */

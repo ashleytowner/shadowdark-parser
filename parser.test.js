@@ -173,6 +173,18 @@ DC 9 STR on turn to remove.
     expect(stingbat.movementType).toBe("fly");
   });
 
+  it("Handles two-word movement like 'double near'", () => {
+    const hippogriff = parser.parseStatblock(`HIPPOGRIFF
+Fierce, winged creatures with
+the lower body of a horse and
+upper body of a giant eagle.
+AC 13, HP 14, ATK 2 rend +3 (1d8),
+MV double near (fly), S +3, D +3, C
++1, I -3, W +1, Ch -2, AL N, LV 3`);
+    expect(hippogriff.movementDistance).toBe("double near");
+    expect(hippogriff.movementType).toBe("fly");
+  });
+
   it("Excludes movement type when unspecified", () => {
     const basilisk = parser.parseStatblock(`
 BASILISK
