@@ -101,7 +101,7 @@ function parseTraits(traits) {
  * @param {string} statblockText
  */
 function parseStatblock(statblockText) {
-  const lines = statblockText.split("\n").filter(Boolean);
+  const lines = statblockText.split("\n").filter(Boolean).map(line => line.trim().replace(/  */g, ' '));
   const name = lines.shift();
   let description = "";
   while (!lines[0].startsWith("AC ")) {
@@ -109,11 +109,11 @@ function parseStatblock(statblockText) {
   }
   description = description.trim();
   let stats = "";
-  while (!/LV [0-9/*]+$/.test(lines[0])) {
+  while (!/LV [0-9/*]+\s?$/.test(lines[0])) {
     stats += ` ${lines.shift()}`;
   }
   stats += ` ${lines.shift()}`;
-  stats = stats.trim();
+  stats = stats.trim().replace(/  */g, " ");
 
   let result = splitBeforeSubstring(stats, ", ");
   stats = result[1];
@@ -134,7 +134,6 @@ function parseStatblock(statblockText) {
   const movement = result[0].trim();
 
   const movementParts = movement.match(/(?<dist>[a-zA-Z ]+)(\((?<type>.+)\))?/);
-	console.log('###', movementParts);
 
   result = splitBeforeSubstring(stats, ", D ");
   stats = result[1];
@@ -309,7 +308,9 @@ function parseSpell(spellText) {
     }
   }
   descriptionLines.push(current);
-  descriptionLines = descriptionLines.map((line) => line.trim()).filter(Boolean);
+  descriptionLines = descriptionLines
+    .map((line) => line.trim())
+    .filter(Boolean);
   return {
     name,
     tier,
@@ -331,8 +332,8 @@ const shadowdarkParser = {
   parseSpell,
 };
 
-if (typeof module !== 'undefined' && module.exports) {
-	module.exports = shadowdarkParser;
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = shadowdarkParser;
 } else {
-	window.shadowdarkParser = shadowdarkParser;
+  window.shadowdarkParser = shadowdarkParser;
 }
