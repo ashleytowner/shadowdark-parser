@@ -319,7 +319,7 @@ function parseSpell(spellText) {
   };
 }
 
-module.exports = {
+const shadowdarkParser = {
   splitBeforeSubstring,
   parseAttack,
   parseAttacks,
@@ -329,3 +329,9 @@ module.exports = {
   parseRollTable,
   parseSpell,
 };
+
+if (typeof module !== 'undefined' && module.exports) {
+	module.exports = shadowdarkParser;
+} else {
+	window.shadowdarkParser = shadowdarkParser;
+}
