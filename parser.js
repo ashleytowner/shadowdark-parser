@@ -61,7 +61,7 @@ function parseAttacks(attacks) {
 function isTraitStart(part) {
   if (part.indexOf(".") === -1) return false;
   if (!/^[A-Z]$/.test(part[0])) return false;
-  const lastWordBeforePeriod = part.match(/\w+\./)[0];
+  const lastWordBeforePeriod = part.match(/[a-zA-Z0-9_)-]+\./)[0];
   if (!/^[A-Z]$/.test(lastWordBeforePeriod[0])) return false;
   return true;
 }

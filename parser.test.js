@@ -92,7 +92,7 @@ describe("isTraitStart", () => {
 });
 
 describe("parseStatblock", () => {
-	it("handles trailing spaces in the statblock", () => {
+  it("handles trailing spaces in the statblock", () => {
     const hydra = parser.parseStatblock(`
 HYDRA 
 A towering, amphibious reptile 
@@ -111,8 +111,8 @@ hydra's turn unless cauterized
 beforehand. The hydra's LV is all 
 the heads combined. 
 	`);
-	expect(hydra.charisma).toBe(-2);
-	});
+    expect(hydra.charisma).toBe(-2);
+  });
   it("parses an any-levelled statblock", () => {
     const hydra = parser.parseStatblock(`
 HYDRA
@@ -175,6 +175,37 @@ D +2, C +1, I -3, W +1, Ch -1, AL N,
 LV 4
 		`);
     expect(griffon.description).toEqual("");
+  });
+
+  it("Correctly identifies spell traits", () => {
+    const drowPriestess = parser.parseStatblock(`Drow, Priestess
+
+A statuesque female drow with a crown of metal spider webs and an
+imperious gaze.
+
+AC 16 (mithral chainmail), HP 28, ATK 3 snake whip (near) +4 (1d8 +
+poison) or 1 spell +4, MV near, S +2, D +3, C +1, I +3, W +4, Ch +3, AL
+C, LV 6
+
+Poison. DC 15 CON or paralyzed 1d4 rounds.
+
+Sunblind. Blinded in bright light.
+
+Snuff (WIS Spell). DC 12. Extinguish all light sources (even magical)
+within near.
+
+Summon Spiders (WIS Spell). DC 14. Summon 2d4 loyal giant spiders that
+appear within near. They stay for 5 rounds.
+
+Web (WIS Spell). DC 13. A near- sized cube of webs within far
+immobilizes all inside it for 5 rounds. DC 15 STR on turn to break free.
+		`);
+
+    expect(drowPriestess.traits).toContainEqual({
+      name: "Web (WIS Spell)",
+      description:
+        "DC 13. A near- sized cube of webs within far immobilizes all inside it for 5 rounds. DC 15 STR on turn to break free.",
+    });
   });
 
   it("Correctly identifies movement speed & types", () => {
