@@ -9,6 +9,22 @@ This tool takes the default shadowdark statblock format and converts the monster
 
 ## Usage
 
+### In your terminal
+
+You can use shadowdark-parser via npx to parse a file
+
+```bash
+npx shadowdark-parser <file>
+```
+
+Or you can use it to parse from stdin
+
+```bash
+cat <file> | npx shadowdark-parser -
+```
+
+### In your code
+
 1. Run `npm install shadowdark-parser`
 2. Use it in your code:
 
