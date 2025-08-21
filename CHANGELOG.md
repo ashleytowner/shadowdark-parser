@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.11.0](https://github.com/ashleytowner/shadowdark-parser/compare/v1.10.1...v1.11.0) (2025-08-21)
+
+
+### Features
+
+* Handle wacky alternatives to Ch like X and Z ([ac7c31a](https://github.com/ashleytowner/shadowdark-parser/commit/ac7c31a4cdb26c26aad03ffd5a6e2cc1ae060326))
+
+
+### Bug Fixes
+
+* Spell bonus now gets separated from the name ([35ec612](https://github.com/ashleytowner/shadowdark-parser/commit/35ec6128edddb53e0072d822cb367afc21864660))
+
 ## [1.10.1](https://github.com/ashleytowner/shadowdark-parser/compare/v1.10.0...v1.10.1) (2025-08-21)
 
 
