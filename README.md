@@ -29,6 +29,28 @@ Options:
   -h, --help             display help for command
 ```
 
+#### Custom Handlebars Helpers
+
+Some custom helpers have been implemented to help format statblocks:
+
+- `signedNumber` which can take a number and ensure it always has a sign (`+` or `-`) in front of it
+- `firstChar` which returns the first character of a string
+
+#### Example Handlebars Template
+
+```hbs
+# {{ name }}
+
+*{{ description }}*
+
+**AC** {{ ac }}{{#if armor}} ({{ armor }}){{/if}}, **HP** {{hp}}, **ATK** {{#each attacks}}{{#each this}}{{quantity}} {{name}} {{bonus}}{{#if damage}} ({{damage}}){{/if}}{{#unless @last}} and {{/unless}}{{/each}}{{#unless @last}} or {{/unless}}{{/each}}, **MV** {{ movementDistance }}{{#if movementType}} ({{movementType}}){{/if}}, **S** {{signedNumber strength}}, **D** {{signedNumber dexterity}}, **C** {{signedNumber constitution}}, **I** {{signedNumber intelligence}}, **W** {{signedNumber wisdom}}, **Ch** {{signedNumber charisma}}, **AL** {{firstChar alignment}}, **LV** {{level}}
+
+{{#each traits}}
+**{{name}}.** {{description}}
+
+{{/each}}
+```
+
 ### In your code
 
 1. Run `npm install shadowdark-parser`
