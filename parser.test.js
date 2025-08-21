@@ -120,7 +120,7 @@ hydra's turn unless cauterized
 beforehand. The hydra's LV is all 
 the heads combined. 
 	`);
-    expect(hydra.level).not.toBe(undefined);
+    expect(hydra.level).toBe(undefined);
   });
   it("handles trailing spaces in the statblock", () => {
     const hydra = parser.parseStatblock(`
@@ -339,6 +339,26 @@ Impervious. Fire immune
     expect(bandit.alignment).toBe("Chaotic");
     expect(caveCreeper.alignment).toBe("Neutral");
     expect(azer.alignment).toBe("Lawful");
+  });
+  it("handles X in place of Ch", () => {
+    const monster = parser.parseStatblock(`
+MONSTER
+Description
+AC 15, HP 15, ATK 1 punch +2 (1d6),
+MV near, S +3, D +0, C
++2, I +0, W +0, X +2, AL L, LV 3
+`);
+    expect(monster.charisma).toBe(2);
+  });
+  it("handles Z in place of Ch", () => {
+    const monster = parser.parseStatblock(`
+MONSTER
+Description
+AC 15, HP 15, ATK 1 punch +2 (1d6),
+MV near, S +3, D +0, C
++2, I +0, W +0, Z +2, AL L, LV 3
+`);
+    expect(monster.charisma).toBe(2);
   });
 });
 

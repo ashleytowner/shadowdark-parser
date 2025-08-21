@@ -166,40 +166,24 @@ function parseStatblock(statblockText) {
   const attacks = parseAttacks(result[0]);
 
   result = splitBeforeSubstring(stats, ", S ");
-  stats = result[1];
+  stats = `S ${result[1]}`;
   const movement = result[0].trim();
 
   const movementParts = movement.match(/(?<dist>[a-zA-Z ]+)(\((?<type>.+)\))?/);
 
-  result = splitBeforeSubstring(stats, ", D ");
-  stats = result[1];
-  const strength = Number(result[0]);
+  const statPattern =
+    /S (?<str>(\+|-)\d+), D (?<dex>(\+|-)\d+), C (?<con>(\+|-)\d+), I (?<int>(\+|-)\d+), W (?<wis>(\+|-)\d+), (Ch|X|Z) (?<cha>(\+|-)\d+), AL (?<al>L|N|C), LV (?<lv>[0-9/*]+)/;
 
-  result = splitBeforeSubstring(stats, ", C ");
-  stats = result[1];
-  const dexterity = Number(result[0]);
+  const matches = stats.match(statPattern);
 
-  result = splitBeforeSubstring(stats, ", I ");
-  stats = result[1];
-  const constitution = Number(result[0]);
-
-  result = splitBeforeSubstring(stats, ", W ");
-  stats = result[1];
-  const intelligence = Number(result[0]);
-
-  result = splitBeforeSubstring(stats, ", Ch ");
-  stats = result[1];
-  const wisdom = Number(result[0]);
-
-  result = splitBeforeSubstring(stats, ", AL ");
-  stats = result[1];
-  const charisma = Number(result[0]);
-
-  result = splitBeforeSubstring(stats, ", LV ");
-  stats = result[1];
-  const alignment = result[0].trim();
-
-  const level = Number(stats) || stats;
+  const strength = Number(matches?.groups?.str);
+  const dexterity = Number(matches?.groups?.dex);
+  const constitution = Number(matches?.groups?.con);
+  const intelligence = Number(matches?.groups?.int);
+  const wisdom = Number(matches?.groups?.wis);
+  const charisma = Number(matches?.groups?.cha);
+  const alignment = matches?.groups?.al;
+  const level = Number(matches?.groups?.lv) || matches?.groups?.lv;
 
   const alignmentMap = new Map([
     ["L", "Lawful"],
