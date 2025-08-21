@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.2](https://github.com/ashleytowner/shadowdark-parser/compare/v1.11.1...v1.11.2) (2025-08-21)
+
+
+### Bug Fixes
+
+* Correctly parse stats where the number & sign have been split ([38f933f](https://github.com/ashleytowner/shadowdark-parser/commit/38f933fe86232849e4ce3d2f91846338b23193f1))
+
 ## [1.11.1](https://github.com/ashleytowner/shadowdark-parser/compare/v1.11.0...v1.11.1) (2025-08-21)
 
 
