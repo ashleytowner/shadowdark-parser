@@ -264,7 +264,6 @@ function parseRollTable(tableText, tableName = "Imported Table") {
       const matches = line.match(
         /^(?<range>[0-9]+|[0-9]+-[0-9]+) (?<detail>.+)/,
       );
-      console.log("###", matches);
       const range = matches?.groups.range;
       const detail = matches?.groups.detail;
       const rangeParts = range.split("-").map(Number);
