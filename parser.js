@@ -34,7 +34,7 @@ function getName(lines) {
   const allCapsPattern = /^[A-Z -']+$/;
   const nameLines = [];
 
-  while (allCapsPattern.test(lines[0])) {
+  while (allCapsPattern.test(lines[0]) && lines.length > 0) {
     nameLines.push(lines.shift());
   }
 
@@ -137,12 +137,12 @@ function parseStatblock(statblockText) {
   const lines = getLines(statblockText);
   const name = getName(lines);
   let description = "";
-  while (!lines[0].startsWith("AC ")) {
+  while (!lines[0].startsWith("AC ") && lines.length > 0) {
     description += ` ${lines.shift()}`;
   }
   description = description.trim();
   let stats = "";
-  while (!/LV [0-9/*]+\s?$/.test(lines[0])) {
+  while (!/LV [0-9/*]+\s?$/.test(lines[0]) && lines.length > 0) {
     stats += ` ${lines.shift()}`;
   }
   stats += ` ${lines.shift()}`;
@@ -364,7 +364,7 @@ function parseMagicItem(itemText) {
   const lines = getLines(itemText);
   const name = getName(lines);
   const description = [];
-  while (!isTraitStart(lines[0])) {
+  while (!isTraitStart(lines[0]) && lines.length > 0) {
     description.push(lines.shift());
   }
   const traits = parseTraits(lines);
@@ -412,7 +412,7 @@ function parse(entry) {
     case "MAGICITEM":
       return parseMagicItem(entry);
     default:
-      console.error(
+      throw new Error(
         "Could not identify the type of entry. This parser only supports monsters, spells, magic items & roll tables currently",
       );
   }
