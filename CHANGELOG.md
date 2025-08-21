@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.1](https://github.com/ashleytowner/shadowdark-parser/compare/v1.11.0...v1.11.1) (2025-08-21)
+
+
+### Bug Fixes
+
+* Parse attacks with no quantity ([faa0e65](https://github.com/ashleytowner/shadowdark-parser/commit/faa0e650419403c0cfdd22e7a39907a65014732b))
+
 ## [1.11.0](https://github.com/ashleytowner/shadowdark-parser/compare/v1.10.1...v1.11.0) (2025-08-21)
 
 
