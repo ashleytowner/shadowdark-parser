@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.10.0](https://github.com/ashleytowner/shadowdark-parser/compare/v1.9.0...v1.10.0) (2025-08-21)
+
+
+### Features
+
+* Add magic item parsing & update readme ([078690f](https://github.com/ashleytowner/shadowdark-parser/commit/078690f0133f2d1fba6a20f76bb2cfa6a7483f85))
+* Parse multi-line entity names (when in all caps) ([eec0c79](https://github.com/ashleytowner/shadowdark-parser/commit/eec0c79b1b77b28a11571bfb3c1c69dc71a5e97a))
+
 ## [1.9.0](https://github.com/ashleytowner/shadowdark-parser/compare/v1.8.4...v1.9.0) (2025-08-21)
 
 
