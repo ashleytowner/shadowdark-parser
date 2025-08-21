@@ -44,6 +44,23 @@ describe("parseAttack", () => {
       range: undefined,
     });
   });
+	it("handles a trait with no quantity or bonus", () => {
+		expect(parser.parseAttack("bone")).toEqual({
+			quantity: undefined,
+			name: "bone",
+			bonus: undefined,
+			damage: undefined,
+			range: undefined
+		});
+
+		expect(parser.parseAttack("blood whip")).toEqual({
+			quantity: undefined,
+			name: "blood whip",
+			bonus: undefined,
+			damage: undefined,
+			range: undefined
+		});
+	});
   it("separates the bonus for spells with a bonus", () => {
     expect(parser.parseAttack("1 spell +3")).toEqual({
       quantity: "1",

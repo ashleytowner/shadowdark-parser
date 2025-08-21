@@ -37,21 +37,24 @@ function getName(lines) {
  */
 function parseAttack(attack) {
   let matches = attack.match(
-    /^(?<qty>\w+) (?<name>.+)( (?<bonus>(\+|-)(\d+)) \((?<damage>.+)\))$/,
+    /^(?<qty>\d+) (?<name>.+)( (?<bonus>(\+|-)(\d+)) \((?<damage>.+)\))$/,
   );
   if (!matches) {
-    matches = attack.match(/^(?<qty>\w+) (?<name>.*)( (?<bonus>(\+|-)(\d+)))$/);
+    matches = attack.match(/^(?<qty>\d+) (?<name>.*)( (?<bonus>(\+|-)(\d+)))$/);
   }
   if (!matches) {
-    matches = attack.match(/^(?<qty>\w+) (?<name>.*)$/);
+    matches = attack.match(/^(?<qty>\d+) (?<name>.*)$/);
   }
+	if (!matches) {
+		matches = attack.match(/^(?<name>.*)$/);
+	}
 
   const weaponName = matches.groups.name.match(/^[^(]+/)[0].trim();
   const weaponRange = matches.groups.name.match(/\((.+)\)/)?.[1].trim();
 
   return {
     /** The number of this attack that can be made per turn */
-    quantity: matches.groups.qty,
+    quantity: matches?.groups.qty,
     /** The name of this attack */
     name: weaponName,
     /** The range of this attack */
