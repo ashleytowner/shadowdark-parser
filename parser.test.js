@@ -381,6 +381,27 @@ and becomes a shadow.`);
 
     expect(shadow.strength).toBe(-4);
     expect(shadow.dexterity).toBe(2);
+
+		const test = parser.parseStatblock(`
+MONSTER
+xxxxxx xxxxxx xxxx xxxxxxxxx
+xxxx xxxx-xxxxx xxxxxx xxxx
+xxxx. xxxxxx xxxxxxx xxxx
+xxxxx xx xxxxxxxxx xxxxxxxxx.
+AC 13, HP 57, ATK 2 bite +10
+(2d8), MV double near (swim),
+S +4, D +1, C +3, I -3, W +1, Ch -
+2, AL N, LV 12
+xxxxxxxx xxxxx. xxxxxxx-xxxxx
+xxxxxxxx xxxxxxx xxxx xxxxxx
+xx xxx xxxxx. xxxxxx xx xxxxxx
+xx xxxx xxx xxx.
+xxxxxxxxxxx. xx xxx xxxxx,
+xxxxxxxxx xxxxxx xxxx xx xxxx.
+xx xxxx, xxxxxxxxx xxxxxx xxxx
+xx xxxx-xxxxx xxxxx xxxx.`);
+
+		expect(test.charisma).toBe(-2)
   });
 });
 

@@ -141,7 +141,7 @@ function parseStatblock(statblockText) {
   stats = stats.trim().replace(/  */g, " ");
 
   const statPattern =
-    /AC (?<ac>.+), HP (?<hp>[0-9/*]+), ATK (?<atks>.+), MV (?<mv>.+), S (?<str>(\+|-) *\d+), D (?<dex>(\+|-) *\d+), C (?<con>(\+|-) *\d+), I (?<int>(\+|-) *\d+), W (?<wis>(\+|-) *\d+), (Ch|X|Z) (?<cha>(\+|-)\d+), AL (?<al>L|N|C), LV (?<lv>[0-9/*]+)/;
+    /AC (?<ac>.+), HP (?<hp>[0-9/*]+), ATK (?<atks>.+), MV (?<mv>.+), S (?<str>(\+|-) *\d+), D (?<dex>(\+|-) *\d+), C (?<con>(\+|-) *\d+), I (?<int>(\+|-) *\d+), W (?<wis>(\+|-) *\d+), (Ch|X|Z) (?<cha>(\+|-) *\d+), AL (?<al>L|N|C), LV (?<lv>[0-9/*]+)/;
 
   const matches = stats.match(statPattern);
 
