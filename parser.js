@@ -13,6 +13,17 @@ function splitBeforeSubstring(str, sub) {
 }
 
 /**
+ * Break a single string into an array of lines
+ * @param {string} str
+ */
+function getLines(str) {
+  return str
+    .split("\n")
+    .map((line) => line.trim().replace(/  */g, " "))
+    .filter(Boolean);
+}
+
+/**
  * Parse a single attack
  * @param {string} attack
  */
@@ -101,10 +112,7 @@ function parseTraits(traits) {
  * @param {string} statblockText
  */
 function parseStatblock(statblockText) {
-  const lines = statblockText
-    .split("\n")
-    .filter(Boolean)
-    .map((line) => line.trim().replace(/  */g, " "));
+  const lines = getLines(statblockText);
   const name = lines.shift();
   let description = "";
   while (!lines[0].startsWith("AC ")) {
@@ -248,10 +256,7 @@ function parseStatblock(statblockText) {
  * @returns a JSON object usable in Foundry
  */
 function parseRollTable(tableText, tableName = "Imported Table") {
-  const rows = tableText
-    .split("\n")
-    .map((line) => line.trim())
-    .filter(Boolean)
+  const rows = getLines(tableText)
     .reduce((arr, line) => {
       if (/^[0-9]/.test(line)) {
         return [...arr, line];
@@ -286,10 +291,7 @@ function parseRollTable(tableText, tableName = "Imported Table") {
  * @param {string} spellText
  */
 function parseSpell(spellText) {
-  const lines = spellText
-    .split("\n")
-    .map((line) => line.trim())
-    .filter(Boolean);
+  const lines = getLines(spellText);
   const name = lines.shift();
   const tierAndClasses = lines.shift();
   const [tierPart, ...classes] = tierAndClasses
@@ -333,6 +335,25 @@ function parseSpell(spellText) {
 }
 
 /**
+ * Parse a magic item
+ * @param {string} itemText
+ */
+function parseMagicItem(itemText) {
+  const lines = getLines(itemText);
+  const name = lines.shift();
+  const description = [];
+  while (!isTraitStart(lines[0])) {
+    description.push(lines.shift());
+  }
+  const traits = parseTraits(lines);
+  return {
+    name,
+    description: description.join(" "),
+    traits,
+  };
+}
+
+/**
  * Identify what type of entry is being processed
  * @param {string} entry
  * @returns {'MONSTER' | 'TABLE' | 'SPELL' | undefined}
@@ -343,6 +364,9 @@ function identify(entry) {
   }
   if (/Duration:/.test(entry) && /Range:/.test(entry)) {
     return "SPELL";
+  }
+  if (/\n(Benefit|Bonus|Personality|Curse)\./.test(entry)) {
+    return "MAGICITEM";
   }
   if (/^\d+/.test(entry.trim())) {
     return "TABLE";
@@ -363,9 +387,11 @@ function parse(entry) {
       return parseSpell(entry);
     case "TABLE":
       return parseRollTable(entry);
+    case "MAGICITEM":
+      return parseMagicItem(entry);
     default:
       console.error(
-        "Could not identify the type of entry. This parser only supports monsters, spells & roll tables currently",
+        "Could not identify the type of entry. This parser only supports monsters, spells, magic items & roll tables currently",
       );
   }
 }
@@ -376,6 +402,7 @@ const shadowdarkParser = {
   parse,
   parseAttack,
   parseAttacks,
+  parseMagicItem,
   parseRollTable,
   parseSpell,
   parseStatblock,

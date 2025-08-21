@@ -1,15 +1,31 @@
 # Shadowdark Parser
 
-This tool takes the default shadowdark statblock format and converts the monster into JSON. It is pretty flexible in parsing, in that:
+This tool takes statblocks, spell descriptions, rolltables and more copied from shadowdark PDFs and converts them into JSON.
 
-- It doesn't require blank lines between monster traits
-- It can handle monsters with no descriptions
-- It can handle monsters with variable/multiple levels (like the hydra, or elementals)
-- It can handle monsters complex monsters like the ten-eyed oracle & the tarrasque
+It comes in two forms: 
+
+- A library that you can use in your own code to convert plaintext into structured JSON
+- A CLI that takes in plaintext from files or stdin, and outputs it to JSON, or another file controlled by a [Handlebars](https://handlebarsjs.com/) template file.
+
+Currently, this tool supports:
+
+- Monsters
+- Spells
+- Magic Items
+- Roll Tables
+
+This parser has several advantages over a lot of other parsers or pre-generated JSON from the core rulebooks:
+
+- The JSON it outputs is very granular, allowing you to drill down into exactly the parts of the data you want
+- It can take text from Cursed Scrolls and even some third-party products, so you aren't limited to things covered under SD's third-party license (although it goes without saying that the resulting JSON should only be used for personal use)
+- The CLI can output into any format, as defined by a Handlebar template file (example below)
+- The Library has a generic `parse` function which automatically works out what type of entity it is dealing with (monster, spell, table, etc) and will apply the correct parsing function. The CLI tool uses this too.
+- It is very good at identifying where traits on monsters & items begin & end, even when there's no linebreak between them.
+
 
 ## Usage
 
-### In your terminal
+### In your terminal (CLI)
 
 You can use shadowdark-parser via npx to parse a file
 
@@ -54,7 +70,7 @@ Some custom helpers have been implemented to help format statblocks:
 {{/each}}
 ```
 
-### In your code
+### In your code (Library)
 
 1. Run `npm install shadowdark-parser`
 2. Use it in your code:
@@ -77,13 +93,7 @@ DC 9 STR on turn to remove.
 // ...
 ```
 
-## Functions
-
-- `parse` - Identifies the "type" of the entry, and runs the correct parse function for that type
-- `parseStatblock` - Parses monster statblocks & outputs JSON
-- `parseRollTable` - Parses a rolltable into a JSON format readable by Foundry
-- `parseSpell` - Parses spells & outputs in JSON
-
+This will work in both node and in a web browser.
 
 ## Contributions
 
