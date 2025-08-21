@@ -101,7 +101,10 @@ function parseTraits(traits) {
  * @param {string} statblockText
  */
 function parseStatblock(statblockText) {
-  const lines = statblockText.split("\n").filter(Boolean).map(line => line.trim().replace(/  */g, ' '));
+  const lines = statblockText
+    .split("\n")
+    .filter(Boolean)
+    .map((line) => line.trim().replace(/  */g, " "));
   const name = lines.shift();
   let description = "";
   while (!lines[0].startsWith("AC ")) {
@@ -321,15 +324,55 @@ function parseSpell(spellText) {
   };
 }
 
+/**
+ * Identify what type of entry is being processed
+ * @param {string} entry
+ * @returns {'MONSTER' | 'TABLE' | 'SPELL' | undefined}
+ */
+function identify(entry) {
+  if (/AC \d+/.test(entry) && /ATK/.test(entry)) {
+    return "MONSTER";
+  }
+  if (/Duration:/.test(entry) && /Range:/.test(entry)) {
+    return "SPELL";
+  }
+  if (/^\d+/.test(entry.trim())) {
+    return "TABLE";
+  }
+  return undefined;
+}
+
+/**
+ * Parse a generic entry, it will decide what kind of entry it is and return the appropriate JSON
+ * @param {string} entry
+ */
+function parse(entry) {
+  const identity = identify(entry);
+  switch (identity) {
+    case "MONSTER":
+      return parseStatblock(entry);
+    case "SPELL":
+      return parseSpell(entry);
+    case "TABLE":
+      return parseRollTable(entry);
+    default:
+      console.error(
+        "Could not identify the type of entry. This parser only supports monsters, spells & roll tables currently",
+      );
+  }
+}
+
 const shadowdarkParser = {
-  splitBeforeSubstring,
+  identify,
+  isTraitStart,
+  parse,
   parseAttack,
   parseAttacks,
-  isTraitStart,
-  parseTraits,
-  parseStatblock,
   parseRollTable,
   parseSpell,
+  parseStatblock,
+  parseTraits,
+  splitBeforeSubstring,
 };
 
 if (typeof module !== "undefined" && module.exports) {

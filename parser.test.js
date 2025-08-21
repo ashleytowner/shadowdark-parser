@@ -419,3 +419,48 @@ Very good.
     );
   });
 });
+
+describe("identify", () => {
+  it("should correctly identify a monster statblock", () => {
+    const identity = parser.identify(`
+       ELEMENTAL, AIR
+       A howling tornado of wind.
+       AC 16, HP 29/42, ATK 3 slam +7
+       (2d6/3d6) or 1 whirlwind, MV
+       double near (fly), S +3, D +5, C +2,
+       I -2, W +1, Ch -2, AL N, LV 6/9
+       Impervious. Only damaged by
+       magical sources.
+       Whirlwind. All within close DC
+       15 DEX or flung 2d20 feet in
+       random direction.
+   `);
+    expect(identity).toBe("MONSTER");
+  });
+
+  it("should correctly identify a roll table", () => {
+    const identity = parser.identify(`
+01 First Event
+02 Second Event`);
+    expect(identity).toBe("TABLE");
+  });
+
+  it("should correctly identify a spell", () => {
+    const identity = parser.identify(`
+INVISIBILITY
+Tier 2, wizard
+
+Duration: 10 rounds
+Range: Close
+
+A creature you touch becomes invisible for the spell’s duration.
+
+The spell ends if the target attacks or casts a spell.`);
+    expect(identity).toBe("SPELL");
+  });
+
+  it("should return undefined when it cannot identify something", () => {
+    const identity = parser.identify("foobar");
+    expect(identity).toBe(undefined);
+  });
+});

@@ -14,7 +14,7 @@ This tool takes the default shadowdark statblock format and converts the monster
 
 ```js
 const shadowdarkParser = require('shadowdark-parser');
-const stingbat = shadowdarkParser.parseStatblock(`
+const stingbat = shadowdarkParser.parse(`
 STINGBAT
 Darting, orange insect-bat with
 four wings and needlelike beak.
@@ -32,6 +32,7 @@ DC 9 STR on turn to remove.
 
 ## Functions
 
+- `parse` - Identifies the "type" of the entry, and runs the correct parse function for that type
 - `parseStatblock` - Parses monster statblocks & outputs JSON
 - `parseRollTable` - Parses a rolltable into a JSON format readable by Foundry
 - `parseSpell` - Parses spells & outputs in JSON
