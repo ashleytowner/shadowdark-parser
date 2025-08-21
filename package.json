@@ -1,6 +1,6 @@
 {
   "name": "shadowdark-parser",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "main": "parser.js",
   "scripts": {
     "test": "jest"

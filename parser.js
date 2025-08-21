@@ -252,10 +252,19 @@ function parseRollTable(tableText, tableName = "Imported Table") {
     .split("\n")
     .map((line) => line.trim())
     .filter(Boolean)
+    .reduce((arr, line) => {
+      if (/^[0-9]/.test(line)) {
+        return [...arr, line];
+      } else {
+        arr[arr.length - 1] += ` ${line}`;
+        return arr;
+      }
+    }, [])
     .map((line) => {
       const matches = line.match(
         /^(?<range>[0-9]+|[0-9]+-[0-9]+) (?<detail>.+)/,
       );
+      console.log("###", matches);
       const range = matches?.groups.range;
       const detail = matches?.groups.detail;
       const rangeParts = range.split("-").map(Number);
