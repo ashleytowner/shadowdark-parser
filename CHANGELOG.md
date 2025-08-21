@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.1](https://github.com/ashleytowner/shadowdark-parser/compare/v1.10.0...v1.10.1) (2025-08-21)
+
+
+### Bug Fixes
+
+* Infinite loops & erroneous outputs ([741df0e](https://github.com/ashleytowner/shadowdark-parser/commit/741df0eca4785337ddf490e6f304d9012ad9bcb1))
+
 ## [1.10.0](https://github.com/ashleytowner/shadowdark-parser/compare/v1.9.0...v1.10.0) (2025-08-21)
 
 
