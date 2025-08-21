@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.3](https://github.com/ashleytowner/shadowdark-parser/compare/v1.11.2...v1.11.3) (2025-08-21)
+
+
+### Bug Fixes
+
+* Fix split charisma breaking ([d399f8a](https://github.com/ashleytowner/shadowdark-parser/commit/d399f8af8699ef4b547417b854fff35ace5346d1))
+
 ## [1.11.2](https://github.com/ashleytowner/shadowdark-parser/compare/v1.11.1...v1.11.2) (2025-08-21)
 
 
