@@ -54,6 +54,9 @@ function parseAttack(attack) {
     /^(?<qty>\w+) (?<name>.+)( (?<bonus>(\+|-)(\d+)) \((?<damage>.+)\))$/,
   );
   if (!matches) {
+    matches = attack.match(/^(?<qty>\w+) (?<name>.*)( (?<bonus>(\+|-)(\d+)))$/);
+  }
+  if (!matches) {
     matches = attack.match(/^(?<qty>\w+) (?<name>.*)$/);
   }
 

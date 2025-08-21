@@ -56,6 +56,15 @@ describe("parseAttack", () => {
       range: undefined,
     });
   });
+  it("separates the bonus for spells with a bonus", () => {
+    expect(parser.parseAttack("1 spell +3")).toEqual({
+      quantity: "1",
+      name: "spell",
+      bonus: "+3",
+      damage: undefined,
+      range: undefined,
+    });
+  });
 });
 
 describe("parseAttacks", () => {
