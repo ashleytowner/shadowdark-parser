@@ -21,11 +21,14 @@ npx shadowdark-parser [filename]
 Usage: shadowdark-parser [options] [filename]
 
 Arguments:
-  filename               The filename to parse. If set to - or left blank, will read from stdin (default: "-")
+  filename               The filename to parse. If set to - or left blank, will
+                         read from stdin (default: "-")
 
 Options:
   -t, --template <file>  A handlebars template file
   -o, --output <file>    The file to output to
+  -n, --name-from-file   Use the name of the file as the name of the entity.
+                         This option will do nothing if the file is stdin
   -h, --help             display help for command
 ```
 
