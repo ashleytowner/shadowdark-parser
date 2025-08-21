@@ -1,9 +1,12 @@
 {
   "name": "shadowdark-parser",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "main": "parser.js",
   "scripts": {
     "test": "jest"
+  },
+  "bin": {
+    "shadowdark-parser": "bin/shadowdark-parser.js"
   },
   "repository": {
     "type": "git",
