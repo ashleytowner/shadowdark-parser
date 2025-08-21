@@ -303,6 +303,20 @@ damage when undetected.
 		`);
     expect(bandit.armor).toBe("leather + shield");
   });
+  it("handles variable alignment", () => {
+    const bandit = parser.parseStatblock(`
+BANDIT
+Hard-bitten rogue in tattered
+leathers and a hooded cloak.
+AC 13 (leather + shield), HP 4,
+ATK 1 club +1 (1d4) or 1 shortbow
+(far) +0 (1d4), MV near, S +1, D +0,
+C +0, I -1, W +0, Ch -1, AL *, LV 1
+Ambush. Deal an extra die of
+damage when undetected.`);
+
+    expect(bandit.alignment).toBe("*");
+  });
 
   it("expands alignment to a full word", () => {
     const bandit = parser.parseStatblock(`
@@ -382,7 +396,7 @@ and becomes a shadow.`);
     expect(shadow.strength).toBe(-4);
     expect(shadow.dexterity).toBe(2);
 
-		const test = parser.parseStatblock(`
+    const test = parser.parseStatblock(`
 MONSTER
 xxxxxx xxxxxx xxxx xxxxxxxxx
 xxxx xxxx-xxxxx xxxxxx xxxx
@@ -401,7 +415,7 @@ xxxxxxxxx xxxxxx xxxx xx xxxx.
 xx xxxx, xxxxxxxxx xxxxxx xxxx
 xx xxxx-xxxxx xxxxx xxxx.`);
 
-		expect(test.charisma).toBe(-2)
+    expect(test.charisma).toBe(-2);
   });
 });
 

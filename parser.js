@@ -45,9 +45,9 @@ function parseAttack(attack) {
   if (!matches) {
     matches = attack.match(/^(?<qty>\d+) (?<name>.*)$/);
   }
-	if (!matches) {
-		matches = attack.match(/^(?<name>.*)$/);
-	}
+  if (!matches) {
+    matches = attack.match(/^(?<name>.*)$/);
+  }
 
   const weaponName = matches.groups.name.match(/^[^(]+/)[0].trim();
   const weaponRange = matches.groups.name.match(/\((.+)\)/)?.[1].trim();
@@ -141,23 +141,29 @@ function parseStatblock(statblockText) {
   stats = stats.trim().replace(/  */g, " ");
 
   const statPattern =
-    /AC (?<ac>.+), HP (?<hp>[0-9/*]+), ATK (?<atks>.+), MV (?<mv>.+), S (?<str>(\+|-) *\d+), D (?<dex>(\+|-) *\d+), C (?<con>(\+|-) *\d+), I (?<int>(\+|-) *\d+), W (?<wis>(\+|-) *\d+), (Ch|X|Z) (?<cha>(\+|-) *\d+), AL (?<al>L|N|C), LV (?<lv>[0-9/*]+)/;
+    /AC (?<ac>.+), HP (?<hp>[0-9/*]+), ATK (?<atks>.+), MV (?<mv>.+), S (?<str>(\+|-) *\d+), D (?<dex>(\+|-) *\d+), C (?<con>(\+|-) *\d+), I (?<int>(\+|-) *\d+), W (?<wis>(\+|-) *\d+), (Ch|X|Z) (?<cha>(\+|-) *\d+), AL (?<al>L|N|C|\*), LV (?<lv>[0-9/*]+)/;
 
   const matches = stats.match(statPattern);
 
   const armor = matches?.groups?.ac?.match(/\((.+)\)$/)?.[1];
-	const movementType = matches?.groups?.mv?.match(/\((.+)\)$/)?.[1];
+  const movementType = matches?.groups?.mv?.match(/\((.+)\)$/)?.[1];
 
-	const ac = Number(matches?.groups?.ac?.replace(armor, '')) || matches?.groups?.ac?.replace(armor, '').trim();
-	const hp = Number(matches?.groups?.hp) || matches?.groups?.hp;
-	const attacks = matches?.groups?.atks ? parseAttacks(matches.groups.atks) : '';
-	const movementDistance = matches?.groups?.mv?.replace(`(${movementType})`, '').trim();
-  const strength = Number(matches?.groups?.str.replace(/ /g, ''));
-  const dexterity = Number(matches?.groups?.dex.replace(/ /g, ''));
-  const constitution = Number(matches?.groups?.con.replace(/ /g, ''));
-  const intelligence = Number(matches?.groups?.int.replace(/ /g, ''));
-  const wisdom = Number(matches?.groups?.wis.replace(/ /g, ''));
-  const charisma = Number(matches?.groups?.cha.replace(/ /g, ''));
+  const ac =
+    Number(matches?.groups?.ac?.replace(armor, "")) ||
+    matches?.groups?.ac?.replace(armor, "").trim();
+  const hp = Number(matches?.groups?.hp) || matches?.groups?.hp;
+  const attacks = matches?.groups?.atks
+    ? parseAttacks(matches.groups.atks)
+    : "";
+  const movementDistance = matches?.groups?.mv
+    ?.replace(`(${movementType})`, "")
+    .trim();
+  const strength = Number(matches?.groups?.str.replace(/ /g, ""));
+  const dexterity = Number(matches?.groups?.dex.replace(/ /g, ""));
+  const constitution = Number(matches?.groups?.con.replace(/ /g, ""));
+  const intelligence = Number(matches?.groups?.int.replace(/ /g, ""));
+  const wisdom = Number(matches?.groups?.wis.replace(/ /g, ""));
+  const charisma = Number(matches?.groups?.cha.replace(/ /g, ""));
   const alignment = matches?.groups?.al;
   const level = Number(matches?.groups?.lv) || matches?.groups?.lv;
 
@@ -165,6 +171,7 @@ function parseStatblock(statblockText) {
     ["L", "Lawful"],
     ["N", "Neutral"],
     ["C", "Chaotic"],
+    ["*", "*"],
   ]);
 
   return {
@@ -216,7 +223,7 @@ function parseStatblock(statblockText) {
     /** Charisma */
     charisma,
     /**
-     * @type {'Lawful'|'Neutral'|'Chaotic'}
+     * @type {'Lawful'|'Neutral'|'Chaotic'|'*'}
      * Alignment
      * */
     alignment: alignmentMap.get(alignment),
