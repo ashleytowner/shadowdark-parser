@@ -1,18 +1,4 @@
 /**
- * Split a string into two parts, based on a substring
- * @param {string} str
- * @param {string} sub
- */
-function splitBeforeSubstring(str, sub) {
-  const index = str.indexOf(sub);
-  if (index === -1) {
-    return ["", str];
-  } else {
-    return [str.slice(0, index), str.slice(index, str.length).replace(sub, "")];
-  }
-}
-
-/**
  * Break a single string into an array of lines
  * @param {string} str
  */
@@ -151,31 +137,18 @@ function parseStatblock(statblockText) {
   stats += ` ${lines.shift()}`;
   stats = stats.trim().replace(/  */g, " ");
 
-  let result = splitBeforeSubstring(stats, ", ");
-  stats = result[1];
-  const ac = Number(result[0].split(" ")[1]);
-
-  const armor = result[0].match(/\((.+)\)$/)?.[1];
-
-  result = splitBeforeSubstring(stats, ", ATK ");
-  stats = result[1];
-  const hp = Number(result[0].split(" ")[1]) || result[0].split(" ")[1];
-
-  result = splitBeforeSubstring(stats, ", MV");
-  stats = result[1];
-  const attacks = parseAttacks(result[0]);
-
-  result = splitBeforeSubstring(stats, ", S ");
-  stats = `S ${result[1]}`;
-  const movement = result[0].trim();
-
-  const movementParts = movement.match(/(?<dist>[a-zA-Z ]+)(\((?<type>.+)\))?/);
-
   const statPattern =
-    /S (?<str>(\+|-)\d+), D (?<dex>(\+|-)\d+), C (?<con>(\+|-)\d+), I (?<int>(\+|-)\d+), W (?<wis>(\+|-)\d+), (Ch|X|Z) (?<cha>(\+|-)\d+), AL (?<al>L|N|C), LV (?<lv>[0-9/*]+)/;
+    /AC (?<ac>.+), HP (?<hp>[0-9/*]+), ATK (?<atks>.+), MV (?<mv>.+), S (?<str>(\+|-)\d+), D (?<dex>(\+|-)\d+), C (?<con>(\+|-)\d+), I (?<int>(\+|-)\d+), W (?<wis>(\+|-)\d+), (Ch|X|Z) (?<cha>(\+|-)\d+), AL (?<al>L|N|C), LV (?<lv>[0-9/*]+)/;
 
   const matches = stats.match(statPattern);
 
+  const armor = matches?.groups?.ac?.match(/\((.+)\)$/)?.[1];
+	const movementType = matches?.groups?.mv?.match(/\((.+)\)$/)?.[1];
+
+	const ac = Number(matches?.groups?.ac?.replace(armor, '')) || matches?.groups?.ac?.replace(armor, '').trim();
+	const hp = Number(matches?.groups?.hp) || matches?.groups?.hp;
+	const attacks = matches?.groups?.atks ? parseAttacks(matches.groups.atks) : '';
+	const movementDistance = matches?.groups?.mv?.replace(`(${movementType})`, '').trim();
   const strength = Number(matches?.groups?.str);
   const dexterity = Number(matches?.groups?.dex);
   const constitution = Number(matches?.groups?.con);
@@ -222,11 +195,11 @@ function parseStatblock(statblockText) {
     /**
      * The distance that can be moved
      */
-    movementDistance: movementParts.groups.dist.trim(),
+    movementDistance,
     /**
      * The type of movement, e.g. "fly"
      */
-    movementType: movementParts.groups.type,
+    movementType,
     /** Strength */
     strength,
     /** Dexterity */
@@ -416,7 +389,6 @@ const shadowdarkParser = {
   parseSpell,
   parseStatblock,
   parseTraits,
-  splitBeforeSubstring,
 };
 
 if (typeof module !== "undefined" && module.exports) {

@@ -1,17 +1,5 @@
 const parser = require("./parser.js");
 
-describe("splitBeforeSubstring", () => {
-  it("returns the part before the substring first", () => {
-    expect(parser.splitBeforeSubstring("foo, bar.baz", ", ")[0]).toBe("foo");
-  });
-
-  it("returns the remainder of the string second", () => {
-    expect(parser.splitBeforeSubstring("foo, bar.baz", ", ")[1]).toBe(
-      "bar.baz",
-    );
-  });
-});
-
 describe("parseAttack", () => {
   it("handles a melee weapon attack", () => {
     expect(parser.parseAttack("1 sword +5 (1d6)")).toEqual({
