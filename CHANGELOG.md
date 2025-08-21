@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0](https://github.com/ashleytowner/shadowdark-parser/compare/v1.8.4...v1.9.0) (2025-08-21)
+
+
+### Features
+
+* Add option to get entity name from file name ([95d7d41](https://github.com/ashleytowner/shadowdark-parser/commit/95d7d41621100f24742a34624a07f45bf80a3129))
+
 ## [1.8.4](https://github.com/ashleytowner/shadowdark-parser/compare/v1.8.3...v1.8.4) (2025-08-21)
 
 
