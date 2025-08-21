@@ -24,6 +24,28 @@ function getLines(str) {
 }
 
 /**
+ * Get the name of an entity.
+ * In most cases, this identifies the first line as the name,
+ * but in cases where there are 2+ lines in all caps at the start,
+ * it will assume they are all part of the name.
+ * @param {string[]} lines
+ */
+function getName(lines) {
+  const allCapsPattern = /^[A-Z -']+$/;
+  const nameLines = [];
+
+  while (allCapsPattern.test(lines[0])) {
+    nameLines.push(lines.shift());
+  }
+
+  if (nameLines.length === 0) {
+    return lines.shift();
+  } else {
+    return nameLines.join(" ").trim();
+  }
+}
+
+/**
  * Parse a single attack
  * @param {string} attack
  */
@@ -113,7 +135,7 @@ function parseTraits(traits) {
  */
 function parseStatblock(statblockText) {
   const lines = getLines(statblockText);
-  const name = lines.shift();
+  const name = getName(lines);
   let description = "";
   while (!lines[0].startsWith("AC ")) {
     description += ` ${lines.shift()}`;
@@ -292,7 +314,7 @@ function parseRollTable(tableText, tableName = "Imported Table") {
  */
 function parseSpell(spellText) {
   const lines = getLines(spellText);
-  const name = lines.shift();
+  const name = getName(lines);
   const tierAndClasses = lines.shift();
   const [tierPart, ...classes] = tierAndClasses
     .split(",")
@@ -340,7 +362,7 @@ function parseSpell(spellText) {
  */
 function parseMagicItem(itemText) {
   const lines = getLines(itemText);
-  const name = lines.shift();
+  const name = getName(lines);
   const description = [];
   while (!isTraitStart(lines[0])) {
     description.push(lines.shift());

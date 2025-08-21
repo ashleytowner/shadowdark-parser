@@ -466,6 +466,19 @@ through the spyglass.`);
       },
     ]);
   });
+
+  it("should parse the name of a multi-line name magic item", () => {
+    const item = parser.parseMagicItem(`
+		POTION OF
+GIANT STRENGTH
+A clay jar holding a stew of
+green, leafy sludge.
+Benefit. Your Strength becomes
+18 (+4) and you deal x2 damage
+on melee attacks for 10 rounds.`);
+
+    expect(item.name).toBe("POTION OF GIANT STRENGTH");
+  });
 });
 
 describe("identify", () => {
