@@ -92,6 +92,27 @@ describe("isTraitStart", () => {
 });
 
 describe("parseStatblock", () => {
+  it("Does not infinitely loop when it can't find the end of the statblock", () => {
+    const hydra = parser.parseStatblock(`
+HYDRA 
+A towering, amphibious reptile 
+with a bouquet of snake heads 
+writhing on long necks. 
+AC 15, HP *, ATK 1 bite (near) +6 
+(1d8), MV near (swim), S +5, D +1, 
+C +2, I -2, W +1, 
+ Ch -2, AL N, LV
+Heads. Choose how many heads 
+the hydra has. Each is LV 2, AC 
+15, HP 11, and can make 1 bite 
+attack. A killed head sprouts into 
+two new heads at the start of the 
+hydra's turn unless cauterized 
+beforehand. The hydra's LV is all 
+the heads combined. 
+	`);
+    expect(hydra.level).not.toBe(undefined);
+  });
   it("handles trailing spaces in the statblock", () => {
     const hydra = parser.parseStatblock(`
 HYDRA 
