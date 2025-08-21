@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.4](https://github.com/ashleytowner/shadowdark-parser/compare/v1.8.3...v1.8.4) (2025-08-21)
+
+
+### Continuous Integration
+
+* Use PAT for release-please ([1d42b91](https://github.com/ashleytowner/shadowdark-parser/commit/1d42b91bcc3b441e24371dc8f9e741297fd0367a))
+
 ## [1.8.3](https://github.com/ashleytowner/shadowdark-parser/compare/v1.1.1...v1.8.3) (2025-08-21)
 
 
