@@ -14,13 +14,19 @@ This tool takes the default shadowdark statblock format and converts the monster
 You can use shadowdark-parser via npx to parse a file
 
 ```bash
-npx shadowdark-parser <file>
+npx shadowdark-parser [filename]
 ```
 
-Or you can use it to parse from stdin
+```
+Usage: shadowdark-parser [options] [filename]
 
-```bash
-cat <file> | npx shadowdark-parser -
+Arguments:
+  filename               The filename to parse. If set to - or left blank, will read from stdin (default: "-")
+
+Options:
+  -t, --template <file>  A handlebars template file
+  -o, --output <file>    The file to output to
+  -h, --help             display help for command
 ```
 
 ### In your code
