@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.4](https://github.com/ashleytowner/shadowdark-parser/compare/v1.11.3...v1.11.4) (2025-08-21)
+
+
+### Bug Fixes
+
+* Handle variable alignment ([5ccb736](https://github.com/ashleytowner/shadowdark-parser/commit/5ccb7369d18770ed8b1911c413f5b6cf57720106))
+
 ## [1.11.3](https://github.com/ashleytowner/shadowdark-parser/compare/v1.11.2...v1.11.3) (2025-08-21)
 
 
