@@ -440,7 +440,9 @@ function parseMagicItem(itemText: string) {
  * Identify what type of entry is being processed
  * @param entity The entity to identify
  */
-function identify(entity: string): 'MONSTER' | 'TABLE' | 'SPELL' | 'MAGICITEM' | undefined {
+function identify(
+  entity: string,
+): "MONSTER" | "TABLE" | "SPELL" | "MAGICITEM" | undefined {
   if (/AC \d+/.test(entity) && /ATK/.test(entity)) {
     return "MONSTER";
   }
@@ -491,8 +493,4 @@ const shadowdarkParser = {
   parseTraits,
 };
 
-if (typeof module !== "undefined" && module.exports) {
-  module.exports = shadowdarkParser;
-} else {
-  (window as any).shadowdarkParser = shadowdarkParser;
-}
+module.exports = shadowdarkParser;

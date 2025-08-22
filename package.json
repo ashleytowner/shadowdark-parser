@@ -21,6 +21,8 @@
   "homepage": "https://github.com/ashleytowner/shadowdark-statblock-parser#readme",
   "description": "",
   "devDependencies": {
+    "@babel/preset-env": "^7.28.3",
+    "@babel/preset-typescript": "^7.27.1",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.3.0",
     "jest": "^30.0.5",
