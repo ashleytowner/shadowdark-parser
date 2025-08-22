@@ -1,37 +1,6 @@
-/**
- * Break a single string into an array of lines
- * @param str
- */
-function getLines(str: string) {
-  return str
-    .split("\n")
-    .map((line) => line.trim().replace(/  */g, " "))
-    .filter(Boolean);
-}
+import { getLines, getName } from './util.js';
 
-/**
- * Get the name of an entity.
- * In most cases, this identifies the first line as the name,
- * but in cases where there are 2+ lines in all caps at the start,
- * it will assume they are all part of the name.
- * @param lines
- */
-function getName(lines: string[]) {
-  const allCapsPattern = /^[A-Z -']+$/;
-  const nameLines = [];
-
-  while (lines[0] && allCapsPattern.test(lines[0])) {
-    nameLines.push(lines.shift());
-  }
-
-  if (nameLines.length === 0) {
-    return lines.shift();
-  } else {
-    return nameLines.join(" ").trim();
-  }
-}
-
-type Attack = {
+export type Attack = {
   /** The number of this attack that can be made per turn */
   quantity?: string;
   /** The name of this attack */
@@ -48,7 +17,7 @@ type Attack = {
  * Parse a single attack
  * @param attack a string describing a single attack
  */
-function parseAttack(attack: string): Attack {
+export function parseAttack(attack: string): Attack {
   let matches = attack.match(
     /^(?<qty>\d+) (?<name>.+)( (?<bonus>(\+|-)(\d+)) \((?<damage>.+)\))$/,
   );
@@ -85,7 +54,7 @@ function parseAttack(attack: string): Attack {
  * @returns a 2D array of attacks. Each sub-array is a set of attacks
  * that can all happen on the same turn
  */
-function parseAttacks(attacks: string): Attack[][] {
+export function parseAttacks(attacks: string): Attack[][] {
   return attacks
     .split(" or ")
     .map((group) => group.split(" and ").map((atk) => parseAttack(atk)));
@@ -95,7 +64,7 @@ function parseAttacks(attacks: string): Attack[][] {
  * Determine whether a line is the beginning of a new trait
  * @param line The line of the statblock
  */
-function isTraitStart(line: string): boolean {
+export function isTraitStart(line: string): boolean {
   if (line.indexOf(".") === -1) return false;
   if (!/^[A-Z]$/.test(line.charAt(0))) return false;
   const lastWordBeforePeriod = line.match(/[a-zA-Z0-9_)-]+\./)?.[0];
@@ -109,7 +78,7 @@ function isTraitStart(line: string): boolean {
 /**
  * A trait is an aspect of some kind on items, monsters, etc
  */
-type Trait = {
+export type Trait = {
   /** The name of the trait */
   name: string;
   /** The description of the trait */
@@ -120,7 +89,7 @@ type Trait = {
  * Parse the traits section of a statblock
  * @param lines the statblock lines containing traits
  */
-function parseTraits(lines: string[]): Trait[] {
+export function parseTraits(lines: string[]): Trait[] {
   const parsed = [];
   let current = "";
   for (let i = 0; i < lines.length; i++) {
@@ -211,7 +180,7 @@ type Monster = {
  * Parse a shadowdark statblock
  * @param statblockText The text which makes up the statblock
  */
-function parseStatblock(statblockText: string) {
+export function parseStatblock(statblockText: string) {
   const lines = getLines(statblockText);
   const name = getName(lines);
   let description = "";
@@ -285,7 +254,7 @@ function parseStatblock(statblockText: string) {
   };
 }
 
-type Table = {
+export type Table = {
   /** The name of the table */
   name: string;
   /** The table rows */
@@ -306,7 +275,7 @@ type Table = {
  * @param [tableName] The name of the table
  * @returns a JSON object usable in Foundry
  */
-function parseRollTable(
+export function parseRollTable(
   tableText: string,
   tableName = "Imported Table",
 ): Table {
@@ -351,7 +320,7 @@ function parseRollTable(
  * Parse a spell
  * @param spellText The text of the spell body
  */
-function parseSpell(spellText: string) {
+export function parseSpell(spellText: string) {
   const lines = getLines(spellText);
   if (lines.length === 0) {
     throw new Error(`Not enough lines in spell:\n\n${spellText}`);
@@ -402,7 +371,7 @@ function parseSpell(spellText: string) {
  * Parse a magic item
  * @param itemText The body text of the magic item
  */
-function parseMagicItem(itemText: string) {
+export function parseMagicItem(itemText: string) {
   const lines = getLines(itemText);
   if (lines.length === 0) {
     throw new Error(`Not enough lines in spell:\n\n${itemText}`);
@@ -424,7 +393,7 @@ function parseMagicItem(itemText: string) {
  * Identify what type of entry is being processed
  * @param entity The entity to identify
  */
-function identify(
+export function identify(
   entity: string,
 ): "MONSTER" | "TABLE" | "SPELL" | "MAGICITEM" | undefined {
   if (/AC \d+/.test(entity) && /ATK/.test(entity)) {
@@ -446,7 +415,7 @@ function identify(
  * Parse a generic entry, it will decide what kind of entry it is and return the appropriate JSON
  * @param entity The body text of the entity to parse
  */
-function parse(entity: string) {
+export function parse(entity: string) {
   const identity = identify(entity);
   switch (identity) {
     case "MONSTER":
@@ -463,18 +432,3 @@ function parse(entity: string) {
       );
   }
 }
-
-const shadowdarkParser = {
-  identify,
-  isTraitStart,
-  parse,
-  parseAttack,
-  parseAttacks,
-  parseMagicItem,
-  parseRollTable,
-  parseSpell,
-  parseStatblock,
-  parseTraits,
-};
-
-module.exports = shadowdarkParser;

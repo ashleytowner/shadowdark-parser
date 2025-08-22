@@ -1,13 +1,14 @@
 {
   "name": "shadowdark-parser",
   "version": "1.11.4",
-  "main": "parser.js",
+  "type": "module",
+  "main": "dist/src/parser.js",
   "scripts": {
     "test": "jest",
     "build": "tsc"
   },
   "bin": {
-    "shadowdark-parser": "bin/shadowdark-parser.js"
+    "shadowdark-parser": "dist/bin/shadowdark-parser.js"
   },
   "repository": {
     "type": "git",

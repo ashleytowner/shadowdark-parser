@@ -1,4 +1,4 @@
-const parser = require('./parser');
+import * as parser from './parser.js'
 
 describe("parseAttack", () => {
   it("handles a melee weapon attack", () => {
