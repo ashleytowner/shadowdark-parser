@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/ashleytowner/shadowdark-parser/compare/v2.0.0...v2.0.1) (2025-08-22)
+
+
+### Bug Fixes
+
+* Handle unsigned stats ([ca32b8f](https://github.com/ashleytowner/shadowdark-parser/commit/ca32b8fc2674df90540d1b8e7453d96ab5ceebf6))
+
 ## [2.0.0](https://github.com/ashleytowner/shadowdark-parser/compare/v1.11.4...v2.0.0) (2025-08-22)
 
 
