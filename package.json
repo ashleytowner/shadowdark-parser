@@ -2,7 +2,7 @@
   "name": "shadowdark-parser",
   "version": "1.11.4",
   "type": "module",
-  "main": "dist/src/parser.js",
+  "main": "dist/parser.js",
   "scripts": {
     "test": "jest",
     "build": "tsc"

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-const parser = require("../parser.js");
-const readline = require("readline");
-const fs = require("fs");
-const { program } = require("commander");
-const Handlebars = require("handlebars");
+import * as parser from '../parser.js';
+import readline from 'readline';
+import fs from 'fs';
+import { program } from 'commander';
+import * as Handlebars from 'handlebars';
 
 Handlebars.registerHelper("signedNumber", function (value) {
   if (typeof value === "string") {
@@ -74,7 +74,7 @@ const filename = program.args[0];
     }
   }
 
-  let data = parser.parse(entry);
+  let data: any = parser.parse(entry);
 
   if (options.template) {
     const templateSource = fs.readFileSync(options.template, "utf8");
