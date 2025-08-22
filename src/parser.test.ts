@@ -1,9 +1,15 @@
-import * as parser from './parser.js'
-
+import {
+  identify,
+  parseMagicItem,
+  parseRollTable,
+  parseSpell,
+  parseStatblock,
+} from "./parser.js";
 
 describe("parseStatblock", () => {
   it("Does not infinitely loop when it can't find the end of the statblock", () => {
-    const parseHydra = () => parser.parseStatblock(`
+    const parseHydra = () =>
+      parseStatblock(`
 HYDRA 
 A towering, amphibious reptile 
 with a bouquet of snake heads 
@@ -24,7 +30,7 @@ the heads combined.
     expect(parseHydra).toThrow();
   });
   it("handles trailing spaces in the statblock", () => {
-    const hydra = parser.parseStatblock(`
+    const hydra = parseStatblock(`
 HYDRA 
 A towering, amphibious reptile 
 with a bouquet of snake heads 
@@ -45,7 +51,7 @@ the heads combined.
     expect(hydra.charisma).toBe(-2);
   });
   it("parses an any-levelled statblock", () => {
-    const hydra = parser.parseStatblock(`
+    const hydra = parseStatblock(`
 HYDRA
 A towering, amphibious reptile
 with a bouquet of snake heads
@@ -67,7 +73,7 @@ the heads combined.
   });
 
   it("parses a multi-level statblock", () => {
-    const airElemental = parser.parseStatblock(`
+    const airElemental = parseStatblock(`
 ELEMENTAL, AIR
 A howling tornado of wind.
 AC 16, HP 29/42, ATK 3 slam +7
@@ -85,7 +91,7 @@ random direction.
   });
 
   it("parses a statblock with no traits", () => {
-    const griffon = parser.parseStatblock(`
+    const griffon = parseStatblock(`
 GRIFFON
 Winged hunters with the head
 of an eagle and body of a lion.
@@ -98,7 +104,7 @@ LV 4
     expect(griffon.traits).toEqual([]);
   });
   it("parses a statblock with no description", () => {
-    const griffon = parser.parseStatblock(`
+    const griffon = parseStatblock(`
 GRIFFON
 AC 12, HP 19, ATK 2 rend +4
 (1d10), MV double near (fly), S +4,
@@ -109,7 +115,7 @@ LV 4
   });
 
   it("Correctly identifies spell traits", () => {
-    const drowPriestess = parser.parseStatblock(`Drow, Priestess
+    const drowPriestess = parseStatblock(`Drow, Priestess
 
 A statuesque female drow with a crown of metal spider webs and an
 imperious gaze.
@@ -140,7 +146,7 @@ immobilizes all inside it for 5 rounds. DC 15 STR on turn to break free.
   });
 
   it("Correctly identifies movement speed & types", () => {
-    const stingbat = parser.parseStatblock(`
+    const stingbat = parseStatblock(`
 STINGBAT
 Darting, orange insect-bat with
 four wings and needlelike beak.
@@ -157,7 +163,7 @@ DC 9 STR on turn to remove.
   });
 
   it("Handles two-word movement like 'double near'", () => {
-    const hippogriff = parser.parseStatblock(`HIPPOGRIFF
+    const hippogriff = parseStatblock(`HIPPOGRIFF
 Fierce, winged creatures with
 the lower body of a horse and
 upper body of a giant eagle.
@@ -169,7 +175,7 @@ MV double near (fly), S +3, D +3, C
   });
 
   it("Excludes movement type when unspecified", () => {
-    const basilisk = parser.parseStatblock(`
+    const basilisk = parseStatblock(`
 BASILISK
 Massive, muscled lizards with six
 legs and gray, tough hide.
@@ -186,7 +192,7 @@ gaze, DC 15 CON or petrified.
   });
 
   it("Identifies armor types", () => {
-    const bandit = parser.parseStatblock(`
+    const bandit = parseStatblock(`
 BANDIT
 Hard-bitten rogue in tattered
 leathers and a hooded cloak.
@@ -200,7 +206,7 @@ damage when undetected.
     expect(bandit.armor).toBe("leather + shield");
   });
   it("handles variable alignment", () => {
-    const bandit = parser.parseStatblock(`
+    const bandit = parseStatblock(`
 BANDIT
 Hard-bitten rogue in tattered
 leathers and a hooded cloak.
@@ -215,7 +221,7 @@ damage when undetected.`);
   });
 
   it("expands alignment to a full word", () => {
-    const bandit = parser.parseStatblock(`
+    const bandit = parseStatblock(`
 BANDIT
 Hard-bitten rogue in tattered
 leathers and a hooded cloak.
@@ -226,7 +232,7 @@ C +0, I -1, W +0, Ch -1, AL C, LV 1
 Ambush. Deal an extra die of
 damage when undetected.
 		`);
-    const caveCreeper = parser.parseStatblock(`
+    const caveCreeper = parseStatblock(`
 CAVE CREEPER
 Chittering, green centipedes the
 size of horses. Their grasping
@@ -239,7 +245,7 @@ I -3, W +1, Ch -3, AL N, LV 4
 Toxin. DC 12 CON or paralyzed
 1d4 rounds.
 		`);
-    const azer = parser.parseStatblock(`
+    const azer = parseStatblock(`
 AZER
 Dwarves with bronze, metallic
 skin and flames in place of hair.
@@ -256,7 +262,7 @@ Impervious. Fire immune
     expect(azer.alignment).toBe("Lawful");
   });
   it("handles X in place of Ch", () => {
-    const monster = parser.parseStatblock(`
+    const monster = parseStatblock(`
 MONSTER
 Description
 AC 15, HP 15, ATK 1 punch +2 (1d6),
@@ -266,7 +272,7 @@ MV near, S +3, D +0, C
     expect(monster.charisma).toBe(2);
   });
   it("handles Z in place of Ch", () => {
-    const monster = parser.parseStatblock(`
+    const monster = parseStatblock(`
 MONSTER
 Description
 AC 15, HP 15, ATK 1 punch +2 (1d6),
@@ -277,7 +283,7 @@ MV near, S +3, D +0, C
   });
 
   it("handles stats where the sign & number are split across lines", () => {
-    const shadow = parser.parseStatblock(`
+    const shadow = parseStatblock(`
 SHADOW
 Flitting, sentient shadows in
 the vague shape of a human.
@@ -292,7 +298,7 @@ and becomes a shadow.`);
     expect(shadow.strength).toBe(-4);
     expect(shadow.dexterity).toBe(2);
 
-    const test = parser.parseStatblock(`
+    const test = parseStatblock(`
 MONSTER
 xxxxxx xxxxxx xxxx xxxxxxxxx
 xxxx xxxx-xxxxx xxxxxx xxxx
@@ -317,7 +323,7 @@ xx xxxx-xxxxx xxxxx xxxx.`);
 
 describe("parseRollTable", () => {
   it("should parse a table with single keys & multiline rows", () => {
-    const table = parser.parseRollTable(`
+    const table = parseRollTable(`
 1 Blah blah blah some stuff
 and some more stuff
 2 Some extra stuff roll 1d4
@@ -355,7 +361,7 @@ with a bit of text
     });
   });
   it("should parse a table with ranged keys", () => {
-    const table = parser.parseRollTable(`
+    const table = parseRollTable(`
 01-02 First Event
 03-04 Second Event
     `);
@@ -377,7 +383,7 @@ with a bit of text
     });
   });
   it("should parse a table with both single and ranged keys", () => {
-    const table = parser.parseRollTable(`
+    const table = parseRollTable(`
 01 First Event
 02-03 Second Event
     `);
@@ -412,27 +418,27 @@ description stuff.
 Very good.
 `;
   it("should get the spell name", () => {
-    const spell = parser.parseSpell(demoSpell);
+    const spell = parseSpell(demoSpell);
     expect(spell.name).toBe("SPELL NAME");
   });
   it("should get the spell tier", () => {
-    const spell = parser.parseSpell(demoSpell);
+    const spell = parseSpell(demoSpell);
     expect(spell.tier).toBe(1);
   });
   it("should get the spell classes", () => {
-    const spell = parser.parseSpell(demoSpell);
+    const spell = parseSpell(demoSpell);
     expect(spell.classes).toEqual(["priest", "wizard"]);
   });
   it("should get the spell duration", () => {
-    const spell = parser.parseSpell(demoSpell);
+    const spell = parseSpell(demoSpell);
     expect(spell.duration).toBe("1 round");
   });
   it("should get the spell range", () => {
-    const spell = parser.parseSpell(demoSpell);
+    const spell = parseSpell(demoSpell);
     expect(spell.range).toBe("near");
   });
   it("should split up description lines", () => {
-    const spell = parser.parseSpell(demoSpell);
+    const spell = parseSpell(demoSpell);
     expect(spell.description).toBe(
       "This is some spell description.\nThis is a bit more spell description stuff.\nVery good.",
     );
@@ -441,7 +447,7 @@ Very good.
 
 describe("parseMagicItem", () => {
   it("should parse a magic item with a benefit & curse", () => {
-    const item = parser.parseMagicItem(`
+    const item = parseMagicItem(`
 SPYGLASS OF TRUE SIGHT
 A brass, telescoping lens with
 magical runes carved on it.
@@ -471,7 +477,7 @@ through the spyglass.`);
   });
 
   it("should parse the name of a multi-line name magic item", () => {
-    const item = parser.parseMagicItem(`
+    const item = parseMagicItem(`
 		POTION OF
 GIANT STRENGTH
 A clay jar holding a stew of
@@ -486,7 +492,7 @@ on melee attacks for 10 rounds.`);
 
 describe("identify", () => {
   it("should correctly identify a monster statblock", () => {
-    const identity = parser.identify(`
+    const identity = identify(`
        ELEMENTAL, AIR
        A howling tornado of wind.
        AC 16, HP 29/42, ATK 3 slam +7
@@ -503,14 +509,14 @@ describe("identify", () => {
   });
 
   it("should correctly identify a roll table", () => {
-    const identity = parser.identify(`
+    const identity = identify(`
 01 First Event
 02 Second Event`);
     expect(identity).toBe("TABLE");
   });
 
   it("should correctly identify a spell", () => {
-    const identity = parser.identify(`
+    const identity = identify(`
 INVISIBILITY
 Tier 2, wizard
 
@@ -524,7 +530,7 @@ The spell ends if the target attacks or casts a spell.`);
   });
 
   it("should correctly identify a magic item with a benefit & curse", () => {
-    const identity = parser.identify(`
+    const identity = identify(`
 SPYGLASS OF TRUE SIGHT
 A brass, telescoping lens with
 magical runes carved on it.
@@ -539,7 +545,7 @@ through the spyglass.`);
   });
 
   it("should correctly identify a magic item with a personality & bonus", () => {
-    const identity = parser.identify(`
+    const identity = identify(`
 SHIELD OF THE WITCH-KING
 A jagged triangle of black steel
 with spiny, armored plates.
@@ -563,7 +569,7 @@ their body and return to unlife.`);
   });
 
   it("should return undefined when it cannot identify something", () => {
-    const identity = parser.identify("foobar");
+    const identity = identify("foobar");
     expect(identity).toBe(undefined);
   });
 });

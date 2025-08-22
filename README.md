@@ -62,7 +62,7 @@ Some custom helpers have been implemented to help format statblocks:
 
 *{{ description }}*
 
-**AC** {{ ac }}{{#if armor}} ({{ armor }}){{/if}}, **HP** {{hp}}, **ATK** {{#each attacks}}{{#each this}}{{quantity}} {{name}} {{bonus}}{{#if damage}} ({{damage}}){{/if}}{{#unless @last}} and {{/unless}}{{/each}}{{#unless @last}} or {{/unless}}{{/each}}, **MV** {{ movementDistance }}{{#if movementType}} ({{movementType}}){{/if}}, **S** {{signedNumber strength}}, **D** {{signedNumber dexterity}}, **C** {{signedNumber constitution}}, **I** {{signedNumber intelligence}}, **W** {{signedNumber wisdom}}, **Ch** {{signedNumber charisma}}, **AL** {{firstChar alignment}}, **LV** {{level}}
+**AC** {{ ac }}{{#if armor}} ({{ armor }}){{/if}}, **HP** {{hp}}, **ATK** {{#each attacks}}{{#each this}}{{#if quantity}}{{quantity}} {{/if}}{{name}} {{bonus}}{{#if damage}} ({{damage}}){{/if}}{{#unless @last}} and {{/unless}}{{/each}}{{#unless @last}} or {{/unless}}{{/each}}, **MV** {{ movementDistance }}{{#if movementType}} ({{movementType}}){{/if}}, **S** {{signedNumber strength}}, **D** {{signedNumber dexterity}}, **C** {{signedNumber constitution}}, **I** {{signedNumber intelligence}}, **W** {{signedNumber wisdom}}, **Ch** {{signedNumber charisma}}, **AL** {{firstChar alignment}}, **LV** {{level}}
 
 {{#each traits}}
 **{{name}}.** {{description}}
@@ -76,8 +76,8 @@ Some custom helpers have been implemented to help format statblocks:
 2. Use it in your code:
 
 ```js
-const shadowdarkParser = require('shadowdark-parser');
-const stingbat = shadowdarkParser.parse(`
+import { parse } from 'shadowdark-parser';
+const stingbat = parse(`
 STINGBAT
 Darting, orange insect-bat with
 four wings and needlelike beak.
@@ -92,8 +92,6 @@ DC 9 STR on turn to remove.
 
 // ...
 ```
-
-This will work in both node and in a web browser.
 
 ## Contributions
 
