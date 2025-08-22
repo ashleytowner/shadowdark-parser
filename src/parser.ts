@@ -232,14 +232,11 @@ function parseStatblock(statblockText: string) {
   const matches = stats.match(statPattern);
 
   const armor = matches?.groups?.ac?.match(/\((.+)\)$/)?.[1];
-  if (!armor) {
-    throw new Error(`Failed to parse armor in statblock:\n\n${statblockText}`);
-  }
   const movementType = matches?.groups?.mv?.match(/\((.+)\)$/)?.[1];
 
   const ac =
-    Number(matches?.groups?.ac?.replace(armor, "")) ||
-    matches?.groups?.ac?.replace(armor, "").trim();
+    Number(matches?.groups?.ac?.replace(armor || '', "")) ||
+    matches?.groups?.ac?.replace(armor || '', "").trim();
   const hp = Number(matches?.groups?.hp) || matches?.groups?.hp;
   const attacks = matches?.groups?.atks
     ? parseAttacks(matches.groups.atks)
@@ -256,22 +253,9 @@ function parseStatblock(statblockText: string) {
   const alignment = matches?.groups?.al;
   const level = Number(matches?.groups?.lv) || matches?.groups?.lv;
 
-  if (
-    !ac ||
-    !hp ||
-    !attacks ||
-    !movementDistance ||
-    !strength ||
-    !dexterity ||
-    !constitution ||
-    !intelligence ||
-    !wisdom ||
-    !charisma ||
-    !alignment ||
-    !level
-  ) {
-    throw new Error(`Could not parse monster stats:\n\n${statblockText}`);
-  }
+	if (!alignment) {
+		throw new Error(`Could not get alignment from statblock:\n\n${statblockText}`);
+	}
 
   const alignmentMap = new Map([
     ["L", "Lawful"],

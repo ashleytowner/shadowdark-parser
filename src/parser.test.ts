@@ -107,7 +107,7 @@ describe("isTraitStart", () => {
 
 describe("parseStatblock", () => {
   it("Does not infinitely loop when it can't find the end of the statblock", () => {
-    const hydra = parser.parseStatblock(`
+    const parseHydra = () => parser.parseStatblock(`
 HYDRA 
 A towering, amphibious reptile 
 with a bouquet of snake heads 
@@ -125,7 +125,7 @@ hydra's turn unless cauterized
 beforehand. The hydra's LV is all 
 the heads combined. 
 	`);
-    expect(hydra.level).toBe(undefined);
+    expect(parseHydra).toThrow();
   });
   it("handles trailing spaces in the statblock", () => {
     const hydra = parser.parseStatblock(`
