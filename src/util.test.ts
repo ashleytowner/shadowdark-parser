@@ -19,6 +19,9 @@ describe("getName", () => {
 	it("includes names with commas", () => {
 		expect(getName(["HELLO,","WORLD","not caps"])).toBe("HELLO, WORLD");
 	});
+	it("includes names with apostrophes", () => {
+		expect(getName(["HELLO'S","WORLD","not caps"])).toBe("HELLO'S WORLD");
+	});
 	it("does not add spaces after hyphens", () => {
 		expect(getName(["DEMON SCARY-", "MAN", "some demon stuff"])).toBe("DEMON SCARY-MAN");
 	});

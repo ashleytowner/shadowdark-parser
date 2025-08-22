@@ -17,16 +17,20 @@ export function getLines(str: string) {
  * @param lines
  */
 export function getName(lines: string[]) {
-  const allCapsPattern = /^[A-Z -']+$/;
+  const allCapsPattern = /^[A-Z \-',]+$/;
   const nameLines = [];
 
   while (lines[0] && allCapsPattern.test(lines[0])) {
     nameLines.push(lines.shift());
   }
 
+  let name: string;
+
   if (nameLines.length === 0) {
-    return lines.shift();
+    name = lines.shift()!;
   } else {
-    return nameLines.join(" ").trim();
+    name = nameLines.join(" ").trim();
   }
+
+  return name.replace(/- /g, "-").replace(/ -/g, "-");
 }
