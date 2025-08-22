@@ -1,11 +1,11 @@
 #!/usr/bin/env node
-import * as parser from '../parser.js';
 import readline from 'readline';
 import fs from 'fs';
 import { program } from 'commander';
-import * as Handlebars from 'handlebars';
+import { parse } from '../parser.js';
+import handlebars from 'handlebars';
 
-Handlebars.registerHelper("signedNumber", function (value) {
+handlebars.registerHelper("signedNumber", function (value) {
   if (typeof value === "string") {
     value = Number(value);
   }
@@ -17,7 +17,7 @@ Handlebars.registerHelper("signedNumber", function (value) {
   }
 });
 
-Handlebars.registerHelper("firstChar", function (value) {
+handlebars.registerHelper("firstChar", function (value) {
   if (typeof value === "string" && value.length > 0) {
     return value.charAt(0);
   } else {
@@ -74,11 +74,11 @@ const filename = program.args[0];
     }
   }
 
-  let data: any = parser.parse(entry);
+  let data: any = parse(entry);
 
   if (options.template) {
     const templateSource = fs.readFileSync(options.template, "utf8");
-    const template = Handlebars.compile(templateSource);
+    const template = handlebars.compile(templateSource);
 
     const rendered = template(data);
 
