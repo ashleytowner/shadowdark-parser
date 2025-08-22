@@ -3,7 +3,8 @@
   "version": "1.11.4",
   "main": "parser.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc"
   },
   "bin": {
     "shadowdark-parser": "bin/shadowdark-parser.js"
@@ -20,7 +21,10 @@
   "homepage": "https://github.com/ashleytowner/shadowdark-statblock-parser#readme",
   "description": "",
   "devDependencies": {
-    "jest": "^30.0.5"
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.3.0",
+    "jest": "^30.0.5",
+    "typescript": "^5.9.2"
   },
   "dependencies": {
     "commander": "^14.0.0",

@@ -1,408 +1,379 @@
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 /**
  * Break a single string into an array of lines
- * @param {string} str
+ * @param str
  */
 function getLines(str) {
-  return str
-    .split("\n")
-    .map((line) => line.trim().replace(/  */g, " "))
-    .filter(Boolean);
+    return str
+        .split("\n")
+        .map(function (line) { return line.trim().replace(/  */g, " "); })
+        .filter(Boolean);
 }
-
 /**
  * Get the name of an entity.
  * In most cases, this identifies the first line as the name,
  * but in cases where there are 2+ lines in all caps at the start,
  * it will assume they are all part of the name.
- * @param {string[]} lines
+ * @param lines
  */
 function getName(lines) {
-  const allCapsPattern = /^[A-Z -']+$/;
-  const nameLines = [];
-
-  while (allCapsPattern.test(lines[0]) && lines.length > 0) {
-    nameLines.push(lines.shift());
-  }
-
-  if (nameLines.length === 0) {
-    return lines.shift();
-  } else {
-    return nameLines.join(" ").trim();
-  }
+    var allCapsPattern = /^[A-Z -']+$/;
+    var nameLines = [];
+    while (lines[0] && allCapsPattern.test(lines[0])) {
+        nameLines.push(lines.shift());
+    }
+    if (nameLines.length === 0) {
+        return lines.shift();
+    }
+    else {
+        return nameLines.join(" ").trim();
+    }
 }
-
 /**
  * Parse a single attack
- * @param {string} attack
+ * @param attack a string describing a single attack
  */
 function parseAttack(attack) {
-  let matches = attack.match(
-    /^(?<qty>\d+) (?<name>.+)( (?<bonus>(\+|-)(\d+)) \((?<damage>.+)\))$/,
-  );
-  if (!matches) {
-    matches = attack.match(/^(?<qty>\d+) (?<name>.*)( (?<bonus>(\+|-)(\d+)))$/);
-  }
-  if (!matches) {
-    matches = attack.match(/^(?<qty>\d+) (?<name>.*)$/);
-  }
-  if (!matches) {
-    matches = attack.match(/^(?<name>.*)$/);
-  }
-
-  const weaponName = matches.groups.name.match(/^[^(]+/)[0].trim();
-  const weaponRange = matches.groups.name.match(/\((.+)\)/)?.[1].trim();
-
-  return {
-    /** The number of this attack that can be made per turn */
-    quantity: matches?.groups.qty,
-    /** The name of this attack */
-    name: weaponName,
-    /** The range of this attack */
-    range: weaponRange,
-    /** The to-hit bonus for this attack */
-    bonus: matches?.groups.bonus,
-    /** The damage this attack does */
-    damage: matches?.groups.damage,
-  };
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
+    var matches = attack.match(/^(?<qty>\d+) (?<name>.+)( (?<bonus>(\+|-)(\d+)) \((?<damage>.+)\))$/);
+    if (!matches) {
+        matches = attack.match(/^(?<qty>\d+) (?<name>.*)( (?<bonus>(\+|-)(\d+)))$/);
+    }
+    if (!matches) {
+        matches = attack.match(/^(?<qty>\d+) (?<name>.*)$/);
+    }
+    if (!matches) {
+        matches = attack.match(/^(?<name>.*)$/);
+    }
+    var weaponName = (_c = (_b = (_a = matches === null || matches === void 0 ? void 0 : matches.groups) === null || _a === void 0 ? void 0 : _a.name) === null || _b === void 0 ? void 0 : _b.match(/^[^(]+/)) === null || _c === void 0 ? void 0 : _c[0].trim();
+    var weaponRange = (_g = (_f = (_e = (_d = matches === null || matches === void 0 ? void 0 : matches.groups) === null || _d === void 0 ? void 0 : _d.name) === null || _e === void 0 ? void 0 : _e.match(/\((.+)\)/)) === null || _f === void 0 ? void 0 : _f[1]) === null || _g === void 0 ? void 0 : _g.trim();
+    if (!weaponName) {
+        throw new Error("Failed to parse attack: ".concat(attack));
+    }
+    return {
+        quantity: (_h = matches === null || matches === void 0 ? void 0 : matches.groups) === null || _h === void 0 ? void 0 : _h.qty,
+        name: weaponName,
+        range: weaponRange,
+        bonus: (_j = matches === null || matches === void 0 ? void 0 : matches.groups) === null || _j === void 0 ? void 0 : _j.bonus,
+        damage: (_k = matches === null || matches === void 0 ? void 0 : matches.groups) === null || _k === void 0 ? void 0 : _k.damage,
+    };
 }
-
 /**
  * Parse the attack line of a statblock
  * Group the attacks based on the "and" and "or" usage
- * @param {string} attacks
+ * @param attacks A string of attacks
+ * @returns a 2D array of attacks. Each sub-array is a set of attacks
+ * that can all happen on the same turn
  */
 function parseAttacks(attacks) {
-  let groups = attacks.split(" or ");
-  groups = groups.map((group) =>
-    group.split(" and ").map((atk) => parseAttack(atk)),
-  );
-  return groups;
+    return attacks
+        .split(" or ")
+        .map(function (group) { return group.split(" and ").map(function (atk) { return parseAttack(atk); }); });
 }
-
 /**
  * Determine whether a line is the beginning of a new trait
- * @param {string} part
+ * @param line The line of the statblock
  */
-function isTraitStart(part) {
-  if (part.indexOf(".") === -1) return false;
-  if (!/^[A-Z]$/.test(part[0])) return false;
-  const lastWordBeforePeriod = part.match(/[a-zA-Z0-9_)-]+\./)[0];
-  if (!/^[A-Z]$/.test(lastWordBeforePeriod[0])) return false;
-  return true;
+function isTraitStart(line) {
+    var _a;
+    if (line.indexOf(".") === -1)
+        return false;
+    if (!/^[A-Z]$/.test(line.charAt(0)))
+        return false;
+    var lastWordBeforePeriod = (_a = line.match(/[a-zA-Z0-9_)-]+\./)) === null || _a === void 0 ? void 0 : _a[0];
+    if (!lastWordBeforePeriod) {
+        throw new Error("Failed to parse possible trait start, ".concat(line));
+    }
+    if (!/^[A-Z]$/.test(lastWordBeforePeriod.charAt(0)))
+        return false;
+    return true;
 }
-
 /**
  * Parse the traits section of a statblock
- * @param {string[]} traits
+ * @param lines the statblock lines containing traits
  */
-function parseTraits(traits) {
-  const parsed = [];
-  let current = "";
-  for (let i = 0; i < traits.length; i++) {
-    const line = traits[i];
-    if (isTraitStart(line)) {
-      parsed.push(current.trim());
-      current = line;
-    } else {
-      current += ` ${line}`;
+function parseTraits(lines) {
+    var parsed = [];
+    var current = "";
+    for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        if (isTraitStart(line)) {
+            parsed.push(current.trim());
+            current = line;
+        }
+        else {
+            current += " ".concat(line);
+        }
     }
-  }
-  parsed.push(current.trim());
-  return parsed.filter(Boolean).map((trait) => {
-    const indexOfPeriod = trait.indexOf(". ");
-    const name = trait.slice(0, indexOfPeriod).trim();
-    const description = trait.slice(indexOfPeriod + 1, trait.length).trim();
-    return {
-      /** Trait name */
-      name,
-      /** Trait description */
-      description,
-    };
-  });
+    parsed.push(current.trim());
+    return parsed.filter(Boolean).map(function (trait) {
+        var indexOfPeriod = trait.indexOf(". ");
+        var name = trait.slice(0, indexOfPeriod).trim();
+        var description = trait.slice(indexOfPeriod + 1, trait.length).trim();
+        return {
+            name: name,
+            description: description,
+        };
+    });
 }
-
 /**
  * Parse a shadowdark statblock
- * @param {string} statblockText
+ * @param statblockText The text which makes up the statblock
  */
 function parseStatblock(statblockText) {
-  const lines = getLines(statblockText);
-  const name = getName(lines);
-  let description = "";
-  while (!lines[0].startsWith("AC ") && lines.length > 0) {
-    description += ` ${lines.shift()}`;
-  }
-  description = description.trim();
-  let stats = "";
-  while (!/LV [0-9/*]+\s?$/.test(lines[0]) && lines.length > 0) {
-    stats += ` ${lines.shift()}`;
-  }
-  stats += ` ${lines.shift()}`;
-  stats = stats.trim().replace(/  */g, " ");
-
-  const statPattern =
-    /AC (?<ac>.+), HP (?<hp>[0-9/*]+), ATK (?<atks>.+), MV (?<mv>.+), S (?<str>(\+|-) *\d+), D (?<dex>(\+|-) *\d+), C (?<con>(\+|-) *\d+), I (?<int>(\+|-) *\d+), W (?<wis>(\+|-) *\d+), (Ch|X|Z) (?<cha>(\+|-) *\d+), AL (?<al>L|N|C|\*), LV (?<lv>[0-9/*]+)/;
-
-  const matches = stats.match(statPattern);
-
-  const armor = matches?.groups?.ac?.match(/\((.+)\)$/)?.[1];
-  const movementType = matches?.groups?.mv?.match(/\((.+)\)$/)?.[1];
-
-  const ac =
-    Number(matches?.groups?.ac?.replace(armor, "")) ||
-    matches?.groups?.ac?.replace(armor, "").trim();
-  const hp = Number(matches?.groups?.hp) || matches?.groups?.hp;
-  const attacks = matches?.groups?.atks
-    ? parseAttacks(matches.groups.atks)
-    : "";
-  const movementDistance = matches?.groups?.mv
-    ?.replace(`(${movementType})`, "")
-    .trim();
-  const strength = Number(matches?.groups?.str.replace(/ /g, ""));
-  const dexterity = Number(matches?.groups?.dex.replace(/ /g, ""));
-  const constitution = Number(matches?.groups?.con.replace(/ /g, ""));
-  const intelligence = Number(matches?.groups?.int.replace(/ /g, ""));
-  const wisdom = Number(matches?.groups?.wis.replace(/ /g, ""));
-  const charisma = Number(matches?.groups?.cha.replace(/ /g, ""));
-  const alignment = matches?.groups?.al;
-  const level = Number(matches?.groups?.lv) || matches?.groups?.lv;
-
-  const alignmentMap = new Map([
-    ["L", "Lawful"],
-    ["N", "Neutral"],
-    ["C", "Chaotic"],
-    ["*", "*"],
-  ]);
-
-  return {
-    /** Name */
-    name,
-    /** Description */
-    description,
-    /**
-     * Armor Class
-     * Usually a number, but in some cases where the AC is variable, it will be a string
-     */
-    ac,
-    /**
-     * The type of armor & shields used
-     * Will be undefined if not specified in the statblock
-     */
-    armor,
-    /**
-     * Hit Points
-     * Usually a number, but in some cases where the HP is variable, it will be a string
-     */
-    hp,
-    /**
-     * An array of arrays of attacks.
-     * Each top-level sub-array is a grouping of "and" attacks
-     *
-     * @example
-     * "1 attackA and 1 attackB or 1 attackC" would come out as `[[attackA, attackB], [attackC]]`
-     */
-    attacks,
-    /**
-     * The distance that can be moved
-     */
-    movementDistance,
-    /**
-     * The type of movement, e.g. "fly"
-     */
-    movementType,
-    /** Strength */
-    strength,
-    /** Dexterity */
-    dexterity,
-    /** Constitution */
-    constitution,
-    /** Intelligence */
-    intelligence,
-    /** Wisdom */
-    wisdom,
-    /** Charisma */
-    charisma,
-    /**
-     * @type {'Lawful'|'Neutral'|'Chaotic'|'*'}
-     * Alignment
-     * */
-    alignment: alignmentMap.get(alignment),
-    /**
-     * Level
-     * Usually a number, but in some cases where the level is variable, it can be a string
-     */
-    level,
-    /**
-     * An array of traits
-     */
-    traits: parseTraits(lines),
-  };
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5;
+    var lines = getLines(statblockText);
+    var name = getName(lines);
+    var description = "";
+    while (lines.length > 0 && !lines[0].startsWith("AC ")) {
+        description += " ".concat(lines.shift());
+    }
+    description = description.trim();
+    var stats = "";
+    while (lines.length > 0 && !/LV [0-9/*]+\s?$/.test(lines[0])) {
+        stats += " ".concat(lines.shift());
+    }
+    stats += " ".concat(lines.shift());
+    stats = stats.trim().replace(/  */g, " ");
+    var statPattern = /AC (?<ac>.+), HP (?<hp>[0-9/*]+), ATK (?<atks>.+), MV (?<mv>.+), S (?<str>(\+|-) *\d+), D (?<dex>(\+|-) *\d+), C (?<con>(\+|-) *\d+), I (?<int>(\+|-) *\d+), W (?<wis>(\+|-) *\d+), (Ch|X|Z) (?<cha>(\+|-) *\d+), AL (?<al>L|N|C|\*), LV (?<lv>[0-9/*]+)/;
+    var matches = stats.match(statPattern);
+    var armor = (_c = (_b = (_a = matches === null || matches === void 0 ? void 0 : matches.groups) === null || _a === void 0 ? void 0 : _a.ac) === null || _b === void 0 ? void 0 : _b.match(/\((.+)\)$/)) === null || _c === void 0 ? void 0 : _c[1];
+    if (!armor) {
+        throw new Error("Failed to parse armor in statblock:\n\n".concat(statblockText));
+    }
+    var movementType = (_f = (_e = (_d = matches === null || matches === void 0 ? void 0 : matches.groups) === null || _d === void 0 ? void 0 : _d.mv) === null || _e === void 0 ? void 0 : _e.match(/\((.+)\)$/)) === null || _f === void 0 ? void 0 : _f[1];
+    var ac = Number((_h = (_g = matches === null || matches === void 0 ? void 0 : matches.groups) === null || _g === void 0 ? void 0 : _g.ac) === null || _h === void 0 ? void 0 : _h.replace(armor, "")) ||
+        ((_k = (_j = matches === null || matches === void 0 ? void 0 : matches.groups) === null || _j === void 0 ? void 0 : _j.ac) === null || _k === void 0 ? void 0 : _k.replace(armor, "").trim());
+    var hp = Number((_l = matches === null || matches === void 0 ? void 0 : matches.groups) === null || _l === void 0 ? void 0 : _l.hp) || ((_m = matches === null || matches === void 0 ? void 0 : matches.groups) === null || _m === void 0 ? void 0 : _m.hp);
+    var attacks = ((_o = matches === null || matches === void 0 ? void 0 : matches.groups) === null || _o === void 0 ? void 0 : _o.atks)
+        ? parseAttacks(matches.groups.atks)
+        : "";
+    var movementDistance = (_q = (_p = matches === null || matches === void 0 ? void 0 : matches.groups) === null || _p === void 0 ? void 0 : _p.mv) === null || _q === void 0 ? void 0 : _q.replace("(".concat(movementType, ")"), "").trim();
+    var strength = Number((_s = (_r = matches === null || matches === void 0 ? void 0 : matches.groups) === null || _r === void 0 ? void 0 : _r.str) === null || _s === void 0 ? void 0 : _s.replace(/ /g, ""));
+    var dexterity = Number((_u = (_t = matches === null || matches === void 0 ? void 0 : matches.groups) === null || _t === void 0 ? void 0 : _t.dex) === null || _u === void 0 ? void 0 : _u.replace(/ /g, ""));
+    var constitution = Number((_w = (_v = matches === null || matches === void 0 ? void 0 : matches.groups) === null || _v === void 0 ? void 0 : _v.con) === null || _w === void 0 ? void 0 : _w.replace(/ /g, ""));
+    var intelligence = Number((_y = (_x = matches === null || matches === void 0 ? void 0 : matches.groups) === null || _x === void 0 ? void 0 : _x.int) === null || _y === void 0 ? void 0 : _y.replace(/ /g, ""));
+    var wisdom = Number((_0 = (_z = matches === null || matches === void 0 ? void 0 : matches.groups) === null || _z === void 0 ? void 0 : _z.wis) === null || _0 === void 0 ? void 0 : _0.replace(/ /g, ""));
+    var charisma = Number((_2 = (_1 = matches === null || matches === void 0 ? void 0 : matches.groups) === null || _1 === void 0 ? void 0 : _1.cha) === null || _2 === void 0 ? void 0 : _2.replace(/ /g, ""));
+    var alignment = (_3 = matches === null || matches === void 0 ? void 0 : matches.groups) === null || _3 === void 0 ? void 0 : _3.al;
+    var level = Number((_4 = matches === null || matches === void 0 ? void 0 : matches.groups) === null || _4 === void 0 ? void 0 : _4.lv) || ((_5 = matches === null || matches === void 0 ? void 0 : matches.groups) === null || _5 === void 0 ? void 0 : _5.lv);
+    if (!ac ||
+        !hp ||
+        !attacks ||
+        !movementDistance ||
+        !strength ||
+        !dexterity ||
+        !constitution ||
+        !intelligence ||
+        !wisdom ||
+        !charisma ||
+        !alignment ||
+        !level) {
+        throw new Error("Could not parse monster stats:\n\n".concat(statblockText));
+    }
+    var alignmentMap = new Map([
+        ["L", "Lawful"],
+        ["N", "Neutral"],
+        ["C", "Chaotic"],
+        ["*", "*"],
+    ]);
+    return {
+        name: name,
+        description: description,
+        ac: ac,
+        armor: armor,
+        hp: hp,
+        attacks: attacks,
+        movementDistance: movementDistance,
+        movementType: movementType,
+        strength: strength,
+        dexterity: dexterity,
+        constitution: constitution,
+        intelligence: intelligence,
+        wisdom: wisdom,
+        charisma: charisma,
+        alignment: alignmentMap.get(alignment),
+        level: level,
+        traits: parseTraits(lines),
+    };
 }
-
 /**
  * Parses an encounter table in the format of
  * 01 First Encounter
  * 02-03 Second Encounter
- * @param {string} tableText The rows of the table
- * @param {string} [tableName] The name of the table
+ * @param tableText The rows of the table
+ * @param [tableName] The name of the table
  * @returns a JSON object usable in Foundry
  */
-function parseRollTable(tableText, tableName = "Imported Table") {
-  const rows = getLines(tableText)
-    .reduce((arr, line) => {
-      if (/^[0-9]/.test(line)) {
-        return [...arr, line];
-      } else {
-        arr[arr.length - 1] += ` ${line}`;
-        return arr;
-      }
+function parseRollTable(tableText, tableName) {
+    if (tableName === void 0) { tableName = "Imported Table"; }
+    var rows = getLines(tableText)
+        .reduce(function (arr, line) {
+        if (/^[0-9]/.test(line)) {
+            return __spreadArray(__spreadArray([], arr, true), [line], false);
+        }
+        else {
+            arr[arr.length - 1] += " ".concat(line);
+            return arr;
+        }
     }, [])
-    .map((line) => {
-      const matches = line.match(
-        /^(?<range>[0-9]+|[0-9]+-[0-9]+) (?<detail>.+)/,
-      );
-      const range = matches?.groups.range;
-      const detail = matches?.groups.detail;
-      const rangeParts = range.split("-").map(Number);
-      if (rangeParts.length === 1) {
-        rangeParts.push(rangeParts[0]);
-      }
-      return {
-        type: "text",
-        text: detail,
-        range: rangeParts,
-      };
+        .map(function (line) {
+        var _a, _b;
+        var matches = line.match(/^(?<range>[0-9]+|[0-9]+-[0-9]+) (?<detail>.+)/);
+        var range = (_a = matches === null || matches === void 0 ? void 0 : matches.groups) === null || _a === void 0 ? void 0 : _a.range;
+        var detail = (_b = matches === null || matches === void 0 ? void 0 : matches.groups) === null || _b === void 0 ? void 0 : _b.detail;
+        var rangeParts = range === null || range === void 0 ? void 0 : range.split("-").map(Number);
+        if (rangeParts && rangeParts.length === 1) {
+            rangeParts.push(rangeParts[0]);
+        }
+        if (!detail) {
+            throw new Error("Could not parse row result:\n\n".concat(line));
+        }
+        if (!rangeParts) {
+            throw new Error("Could not parse row range:\n\n".concat(line));
+        }
+        return {
+            type: "text",
+            text: detail,
+            range: rangeParts,
+        };
     });
-  return {
-    name: tableName,
-    results: rows,
-  };
+    return {
+        name: tableName,
+        results: rows,
+    };
 }
-
 /**
- * @param {string} spellText
+ * Parse a spell
+ * @param spellText The text of the spell body
  */
 function parseSpell(spellText) {
-  const lines = getLines(spellText);
-  const name = getName(lines);
-  const tierAndClasses = lines.shift();
-  const [tierPart, ...classes] = tierAndClasses
-    .split(",")
-    .map((part) => part.trim());
-  const tier = Number(tierPart.match(/\d+$/)[0]);
-  const duration = lines.shift().match(/^Duration: (.+)$/)?.[1];
-  if (!duration) {
-    throw new Error("Expected a duration!");
-  }
-  const range = lines
-    .shift()
-    .match(/^Range: (.+)$/)?.[1]
-    .toLowerCase();
-  if (!range) {
-    throw new Error("Expected a range!");
-  }
-  let descriptionLines = [];
-  let current = "";
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-    if (/^[A-Z]/.test(line) && (current === "" || /\.$/.test(current))) {
-      descriptionLines.push(current);
-      current = line;
-    } else {
-      current += ` ${line}`;
+    var _a, _b, _c, _d, _e, _f;
+    var lines = getLines(spellText);
+    if (lines.length === 0) {
+        throw new Error("Not enough lines in spell:\n\n".concat(spellText));
     }
-  }
-  descriptionLines.push(current);
-  descriptionLines = descriptionLines
-    .map((line) => line.trim())
-    .filter(Boolean);
-  return {
-    name,
-    tier,
-    classes,
-    duration,
-    range,
-    description: descriptionLines.join("\n"),
-  };
+    var name = getName(lines);
+    var tierAndClasses = lines.shift();
+    var _g = tierAndClasses
+        .split(",")
+        .map(function (part) { return part.trim(); }), tierPart = _g[0], classes = _g.slice(1);
+    var tier = Number((_a = tierPart === null || tierPart === void 0 ? void 0 : tierPart.match(/\d+$/)) === null || _a === void 0 ? void 0 : _a[0]);
+    var duration = (_c = (_b = lines.shift()) === null || _b === void 0 ? void 0 : _b.match(/^Duration: (.+)$/)) === null || _c === void 0 ? void 0 : _c[1];
+    if (!duration) {
+        throw new Error("Expected a duration!");
+    }
+    var range = (_f = (_e = (_d = lines === null || lines === void 0 ? void 0 : lines.shift()) === null || _d === void 0 ? void 0 : _d.match(/^Range: (.+)$/)) === null || _e === void 0 ? void 0 : _e[1]) === null || _f === void 0 ? void 0 : _f.toLowerCase();
+    if (!range) {
+        throw new Error("Expected a range!");
+    }
+    var descriptionLines = [];
+    var current = "";
+    for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        if (/^[A-Z]/.test(line) && (current === "" || /\.$/.test(current))) {
+            descriptionLines.push(current);
+            current = line;
+        }
+        else {
+            current += " ".concat(line);
+        }
+    }
+    descriptionLines.push(current);
+    descriptionLines = descriptionLines
+        .map(function (line) { return line.trim(); })
+        .filter(Boolean);
+    return {
+        name: name,
+        tier: tier,
+        classes: classes,
+        duration: duration,
+        range: range,
+        description: descriptionLines.join("\n"),
+    };
 }
-
 /**
  * Parse a magic item
- * @param {string} itemText
+ * @param itemText The body text of the magic item
  */
 function parseMagicItem(itemText) {
-  const lines = getLines(itemText);
-  const name = getName(lines);
-  const description = [];
-  while (!isTraitStart(lines[0]) && lines.length > 0) {
-    description.push(lines.shift());
-  }
-  const traits = parseTraits(lines);
-  return {
-    name,
-    description: description.join(" "),
-    traits,
-  };
+    var lines = getLines(itemText);
+    if (lines.length === 0) {
+        throw new Error("Not enough lines in spell:\n\n".concat(itemText));
+    }
+    var name = getName(lines);
+    var description = [];
+    while (lines.length > 0 && !isTraitStart(lines[0])) {
+        description.push(lines.shift());
+    }
+    var traits = parseTraits(lines);
+    return {
+        name: name,
+        description: description.join(" "),
+        traits: traits,
+    };
 }
-
 /**
  * Identify what type of entry is being processed
- * @param {string} entry
- * @returns {'MONSTER' | 'TABLE' | 'SPELL' | undefined}
+ * @param entity The entity to identify
  */
-function identify(entry) {
-  if (/AC \d+/.test(entry) && /ATK/.test(entry)) {
-    return "MONSTER";
-  }
-  if (/Duration:/.test(entry) && /Range:/.test(entry)) {
-    return "SPELL";
-  }
-  if (/\n(Benefit|Bonus|Personality|Curse)\./.test(entry)) {
-    return "MAGICITEM";
-  }
-  if (/^\d+/.test(entry.trim())) {
-    return "TABLE";
-  }
-  return undefined;
+function identify(entity) {
+    if (/AC \d+/.test(entity) && /ATK/.test(entity)) {
+        return "MONSTER";
+    }
+    if (/Duration:/.test(entity) && /Range:/.test(entity)) {
+        return "SPELL";
+    }
+    if (/\n(Benefit|Bonus|Personality|Curse)\./.test(entity)) {
+        return "MAGICITEM";
+    }
+    if (/^\d+/.test(entity.trim())) {
+        return "TABLE";
+    }
+    return undefined;
 }
-
 /**
  * Parse a generic entry, it will decide what kind of entry it is and return the appropriate JSON
- * @param {string} entry
+ * @param entity The body text of the entity to parse
  */
-function parse(entry) {
-  const identity = identify(entry);
-  switch (identity) {
-    case "MONSTER":
-      return parseStatblock(entry);
-    case "SPELL":
-      return parseSpell(entry);
-    case "TABLE":
-      return parseRollTable(entry);
-    case "MAGICITEM":
-      return parseMagicItem(entry);
-    default:
-      throw new Error(
-        "Could not identify the type of entry. This parser only supports monsters, spells, magic items & roll tables currently",
-      );
-  }
+function parse(entity) {
+    var identity = identify(entity);
+    switch (identity) {
+        case "MONSTER":
+            return parseStatblock(entity);
+        case "SPELL":
+            return parseSpell(entity);
+        case "TABLE":
+            return parseRollTable(entity);
+        case "MAGICITEM":
+            return parseMagicItem(entity);
+        default:
+            throw new Error("Could not identify the type of entry. This parser only supports monsters, spells, magic items & roll tables currently");
+    }
 }
-
-const shadowdarkParser = {
-  identify,
-  isTraitStart,
-  parse,
-  parseAttack,
-  parseAttacks,
-  parseMagicItem,
-  parseRollTable,
-  parseSpell,
-  parseStatblock,
-  parseTraits,
+var shadowdarkParser = {
+    identify: identify,
+    isTraitStart: isTraitStart,
+    parse: parse,
+    parseAttack: parseAttack,
+    parseAttacks: parseAttacks,
+    parseMagicItem: parseMagicItem,
+    parseRollTable: parseRollTable,
+    parseSpell: parseSpell,
+    parseStatblock: parseStatblock,
+    parseTraits: parseTraits,
 };
-
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = shadowdarkParser;
-} else {
-  window.shadowdarkParser = shadowdarkParser;
+    module.exports = shadowdarkParser;
+}
+else {
+    window.shadowdarkParser = shadowdarkParser;
 }
