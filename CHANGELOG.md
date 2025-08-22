@@ -1,5 +1,24 @@
 # Changelog
 
+## [2.0.0](https://github.com/ashleytowner/shadowdark-parser/compare/v1.11.4...v2.0.0) (2025-08-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* Changed imports
+
+### Bug Fixes
+
+* Fix handlebar imports in executable ([b12f48d](https://github.com/ashleytowner/shadowdark-parser/commit/b12f48d5f1f0ab86588245e227aa43dd4d4d8c1f))
+* Fix parsing issues with special characters in names ([d06f49b](https://github.com/ashleytowner/shadowdark-parser/commit/d06f49b8a758256dd82f4a2466260e7d74e7e6fa))
+* Removed unnecessary errors ([9db6140](https://github.com/ashleytowner/shadowdark-parser/commit/9db6140b5674e9dc31b247a0520459e1d7bd3c85))
+* Set correct types for monster parser ([e7d34a8](https://github.com/ashleytowner/shadowdark-parser/commit/e7d34a819f36ad3e8eb3ab1a153c09352d3c0dc7))
+
+
+### Code Refactoring
+
+* Changed imports ([4fc7684](https://github.com/ashleytowner/shadowdark-parser/commit/4fc76842b2e5a59310ed663c79914cccc724f976))
+
 ## [1.11.4](https://github.com/ashleytowner/shadowdark-parser/compare/v1.11.3...v1.11.4) (2025-08-21)
 
 
