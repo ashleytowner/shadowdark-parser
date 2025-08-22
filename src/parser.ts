@@ -1,6 +1,6 @@
-import { parseAttacks, type Attack } from './attacks.js';
-import { isTraitStart, parseTraits, type Trait } from './traits.js';
-import { getLines, getName } from './util.js';
+import { parseAttacks, type Attack } from "./attacks.js";
+import { isTraitStart, parseTraits, type Trait } from "./traits.js";
+import { getLines, getName } from "./util.js";
 
 type Monster = {
   /** Name */
@@ -16,7 +16,7 @@ type Monster = {
    * The type of armor & shields used
    * Will be undefined if not specified in the statblock
    */
-  armor: string;
+  armor?: string;
   /**
    * Hit Points
    * Usually a number, but in some cases where the HP is variable, it will be a string
@@ -37,7 +37,7 @@ type Monster = {
   /**
    * The type of movement, e.g. "fly"
    */
-  movementType: string;
+  movementType?: string;
   /** Strength */
   strength: number;
   /** Dexterity */
@@ -69,7 +69,7 @@ type Monster = {
  * Parse a shadowdark statblock
  * @param statblockText The text which makes up the statblock
  */
-export function parseStatblock(statblockText: string) {
+export function parseStatblock(statblockText: string): Monster {
   const lines = getLines(statblockText);
   const name = getName(lines);
   let description = "";
@@ -93,12 +93,12 @@ export function parseStatblock(statblockText: string) {
   const movementType = matches?.groups?.mv?.match(/\((.+)\)$/)?.[1];
 
   const ac =
-    Number(matches?.groups?.ac?.replace(armor || '', "")) ||
-    matches?.groups?.ac?.replace(armor || '', "").trim();
+    Number(matches?.groups?.ac?.replace(armor || "", "")) ||
+    matches?.groups?.ac?.replace(armor || "", "").trim();
   const hp = Number(matches?.groups?.hp) || matches?.groups?.hp;
   const attacks = matches?.groups?.atks
     ? parseAttacks(matches.groups.atks)
-    : "";
+    : [];
   const movementDistance = matches?.groups?.mv
     ?.replace(`(${movementType})`, "")
     .trim();
@@ -111,9 +111,29 @@ export function parseStatblock(statblockText: string) {
   const alignment = matches?.groups?.al;
   const level = Number(matches?.groups?.lv) || matches?.groups?.lv;
 
-	if (!alignment) {
-		throw new Error(`Could not get alignment from statblock:\n\n${statblockText}`);
-	}
+  if (!ac) {
+    throw new Error(`Could not get ac from statblock:\n\n${statblockText}`);
+  }
+
+  if (!hp) {
+    throw new Error(`Could not get hp from statblock:\n\n${statblockText}`);
+  }
+
+  if (!movementDistance) {
+    throw new Error(
+      `Could not get movementDistance from statblock:\n\n${statblockText}`,
+    );
+  }
+
+  if (!level) {
+    throw new Error(`Could not get level from statblock:\n\n${statblockText}`);
+  }
+
+  if (!alignment) {
+    throw new Error(
+      `Could not get alignment from statblock:\n\n${statblockText}`,
+    );
+  }
 
   const alignmentMap = new Map([
     ["L", "Lawful"],
@@ -137,7 +157,7 @@ export function parseStatblock(statblockText: string) {
     intelligence,
     wisdom,
     charisma,
-    alignment: alignmentMap.get(alignment),
+    alignment: alignmentMap.get(alignment) as any,
     level,
     traits: parseTraits(lines),
   };
