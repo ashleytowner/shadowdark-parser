@@ -319,6 +319,20 @@ xx xxxx-xxxxx xxxxx xxxx.`);
 
     expect(test.charisma).toBe(-2);
   });
+
+  it("parses unsigned stats as positive", () => {
+    const monster = parseStatblock(`
+Knight
+A warrior in shining plate mail and the surcoat of a knightly order.
+AC 17, HP 14, ATK 2 bastard sword +3 (1d8), MV near, S 3, D 0, C 1, I 0, W 0, Ch 1, AL L, LV 3
+Oath. 3/day, ADV on a roll made in service of knight's order.`);
+		expect(monster.strength).toBe(3);
+		expect(monster.dexterity).toBe(0);
+		expect(monster.constitution).toBe(1);
+		expect(monster.intelligence).toBe(0);
+		expect(monster.wisdom).toBe(0);
+		expect(monster.charisma).toBe(1)
+  });
 });
 
 describe("parseRollTable", () => {

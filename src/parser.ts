@@ -65,6 +65,8 @@ type Monster = {
   traits: Trait[];
 };
 
+type Alignment = "Lawful" | "Neutral" | "Chaotic" | "*";
+
 /**
  * Parse a shadowdark statblock
  * @param statblockText The text which makes up the statblock
@@ -85,7 +87,7 @@ export function parseStatblock(statblockText: string): Monster {
   stats = stats.trim().replace(/  */g, " ");
 
   const statPattern =
-    /AC (?<ac>.+), HP (?<hp>[0-9/*]+), ATK (?<atks>.+), MV (?<mv>.+), S (?<str>(\+|-) *\d+), D (?<dex>(\+|-) *\d+), C (?<con>(\+|-) *\d+), I (?<int>(\+|-) *\d+), W (?<wis>(\+|-) *\d+), (Ch|X|Z) (?<cha>(\+|-) *\d+), AL (?<al>L|N|C|\*), LV (?<lv>[0-9/*]+)/;
+    /AC (?<ac>.+), HP (?<hp>[0-9/*]+), ATK (?<atks>.+), MV (?<mv>.+), S (?<str>(\+|-)? *\d+), D (?<dex>(\+|-)? *\d+), C (?<con>(\+|-)? *\d+), I (?<int>(\+|-)? *\d+), W (?<wis>(\+|-)? *\d+), (Ch|X|Z) (?<cha>(\+|-)? *\d+), AL (?<al>L|N|C|\*), LV (?<lv>[0-9/*]+)/;
 
   const matches = stats.match(statPattern);
 
@@ -111,36 +113,24 @@ export function parseStatblock(statblockText: string): Monster {
   const alignment = matches?.groups?.al;
   const level = Number(matches?.groups?.lv) || matches?.groups?.lv;
 
-  if (!ac) {
-    throw new Error(`Could not get ac from statblock:\n\n${statblockText}`);
-  }
-
-  if (!hp) {
-    throw new Error(`Could not get hp from statblock:\n\n${statblockText}`);
-  }
-
-  if (!movementDistance) {
+  if (!ac || !hp || !movementDistance || !level || !alignment) {
     throw new Error(
-      `Could not get movementDistance from statblock:\n\n${statblockText}`,
+      `Could not parse stats from statblock:\n\n${statblockText}`,
     );
   }
 
-  if (!level) {
-    throw new Error(`Could not get level from statblock:\n\n${statblockText}`);
-  }
-
-  if (!alignment) {
-    throw new Error(
-      `Could not get alignment from statblock:\n\n${statblockText}`,
-    );
-  }
-
-  const alignmentMap = new Map([
+  const alignmentMap = new Map<string, Alignment>([
     ["L", "Lawful"],
     ["N", "Neutral"],
     ["C", "Chaotic"],
     ["*", "*"],
   ]);
+
+  const mappedAlignment = alignmentMap.get(alignment);
+
+  if (!mappedAlignment) {
+    throw new Error(`Invalid alignment: ${alignment}`);
+  }
 
   return {
     name,
@@ -157,7 +147,7 @@ export function parseStatblock(statblockText: string): Monster {
     intelligence,
     wisdom,
     charisma,
-    alignment: alignmentMap.get(alignment) as any,
+    alignment: mappedAlignment,
     level,
     traits: parseTraits(lines),
   };
