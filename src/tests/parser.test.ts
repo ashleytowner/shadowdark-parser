@@ -82,4 +82,19 @@ their body and return to unlife.`);
     const identity = identify("foobar");
     expect(identity).toBe(undefined);
   });
+
+  it("identifies a spell with a statblock in it as a spell", () => {
+    const identity = identify(`
+SPELL NAME
+Tier 1, wizard
+
+Duration: Instant
+Range: Close
+
+Some spell description
+
+AC 12, HP 4, ATK 1 beak +2 (1d4 + blood drain), MV near (fly), S -2, D +2, C +0, I -2, W +0, Ch -2, AL N, LV 1
+`);
+    expect(identity).toBe("SPELL");
+  });
 });

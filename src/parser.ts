@@ -10,11 +10,15 @@ import { parseStatblock } from "./statblock.js";
 export function identify(
   entity: string,
 ): "MONSTER" | "TABLE" | "SPELL" | "MAGICITEM" | undefined {
+  if (
+    /Duration:/.test(entity) &&
+    /Range:/.test(entity) &&
+    /Tier \d+,/.test(entity)
+  ) {
+    return "SPELL";
+  }
   if (/AC \d+/.test(entity) && /ATK/.test(entity)) {
     return "MONSTER";
-  }
-  if (/Duration:/.test(entity) && /Range:/.test(entity)) {
-    return "SPELL";
   }
   if (/\n(Benefit|Bonus|Personality|Curse)\./.test(entity)) {
     return "MAGICITEM";
