@@ -94,9 +94,9 @@ export function parseStatblock(statblockText: string): Monster {
   const armor = matches?.groups?.ac?.match(/\((.+)\)$/)?.[1];
   const movementType = matches?.groups?.mv?.match(/\((.+)\)$/)?.[1];
 
-  const ac =
-    Number(matches?.groups?.ac?.replace(armor || "", "")) ||
-    matches?.groups?.ac?.replace(armor || "", "").trim();
+  const cleanedAc = matches?.groups?.ac?.replace(`(${armor})` || "", "");
+
+  const ac = Number(cleanedAc) || cleanedAc;
   const hp = Number(matches?.groups?.hp) || matches?.groups?.hp;
   const attacks = matches?.groups?.atks
     ? parseAttacks(matches.groups.atks)
