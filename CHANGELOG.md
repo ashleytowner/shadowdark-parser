@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.2](https://github.com/ashleytowner/shadowdark-parser/compare/v2.0.1...v2.0.2) (2025-08-24)
+
+
+### Bug Fixes
+
+* Remove brackets from AC when armor type is specified ([2fd92a8](https://github.com/ashleytowner/shadowdark-parser/commit/2fd92a8db81b883e4a57877343a25002b5771e92))
+
 ## [2.0.1](https://github.com/ashleytowner/shadowdark-parser/compare/v2.0.0...v2.0.1) (2025-08-22)
 
 
