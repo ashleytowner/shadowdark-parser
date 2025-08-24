@@ -57,18 +57,7 @@ Some custom helpers have been implemented to help format statblocks:
 
 #### Example Handlebars Template
 
-```hbs
-# {{ name }}
-
-*{{ description }}*
-
-**AC** {{ ac }}{{#if armor}} ({{ armor }}){{/if}}, **HP** {{hp}}, **ATK** {{#each attacks}}{{#each this}}{{#if quantity}}{{quantity}} {{/if}}{{name}} {{bonus}}{{#if damage}} ({{damage}}){{/if}}{{#unless @last}} and {{/unless}}{{/each}}{{#unless @last}} or {{/unless}}{{/each}}, **MV** {{ movementDistance }}{{#if movementType}} ({{movementType}}){{/if}}, **S** {{signedNumber strength}}, **D** {{signedNumber dexterity}}, **C** {{signedNumber constitution}}, **I** {{signedNumber intelligence}}, **W** {{signedNumber wisdom}}, **Ch** {{signedNumber charisma}}, **AL** {{firstChar alignment}}, **LV** {{level}}
-
-{{#each traits}}
-**{{name}}.** {{description}}
-
-{{/each}}
-```
+Check out [the wiki](https://github.com/ashleytowner/shadowdark-parser/wiki/Example-Handlebars-Templates) for some example templates for common use-cases.
 
 ### In your code (Library)
 
