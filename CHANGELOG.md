@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.3](https://github.com/ashleytowner/shadowdark-parser/compare/v2.0.2...v2.0.3) (2025-08-24)
+
+
+### Bug Fixes
+
+* Now identifies spells with statblocks as spells instead of monsters ([89ac467](https://github.com/ashleytowner/shadowdark-parser/commit/89ac467128c2298ee8e5cd0360ca1a0327c2e85d))
+
 ## [2.0.2](https://github.com/ashleytowner/shadowdark-parser/compare/v2.0.1...v2.0.2) (2025-08-24)
 
 
