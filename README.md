@@ -43,6 +43,8 @@ Arguments:
 Options:
   -t, --template <file>  A handlebars template file
   -o, --output <file>    The file to output to
+  -b, --bulk             Mark the input as containing multiple entities, one
+                         after the other
   -n, --name-from-file   Use the name of the file as the name of the entity.
                          This option will do nothing if the file is stdin
   -h, --help             display help for command
