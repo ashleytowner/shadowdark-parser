@@ -7,6 +7,10 @@ import handlebars from "handlebars";
 import { allCapsStrategy } from "../splitbulk.js";
 import type { Entity } from "../entity.js";
 
+handlebars.registerHelper("eq", function (a, b) {
+  return a == b;
+});
+
 handlebars.registerHelper("signedNumber", function (value) {
   if (typeof value === "string") {
     value = Number(value);

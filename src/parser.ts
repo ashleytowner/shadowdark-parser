@@ -47,7 +47,7 @@ export function parse(entity: string) {
       return parseMagicItem(entity);
     default:
       throw new Error(
-        "Could not identify the type of entry. This parser only supports monsters, spells, magic items & roll tables currently",
+        `Could not identify the type of entry. This parser only supports monsters, spells, magic items & roll tables currently:\n${entity}`,
       );
   }
 }
