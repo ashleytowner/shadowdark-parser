@@ -18,3 +18,5 @@ jobs:
         with:
           token: ${{ secrets.GH_PAT }}
           release-type: node
+          extra-files:
+            - "../../src/bin/shadowdark-parser.ts"

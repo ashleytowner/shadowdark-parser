@@ -9,6 +9,8 @@ import getTemplateFromFile from "../templates";
 
 program
   .name("shadowdark-parser")
+	.description("Take statblocks, spell descriptions, roll tables and more from shadowdark and converts them into other formats")
+  .version("3.0.0") // x-release-please-version
   .option("-t, --template <file>", "A handlebars template file")
   .option("-o, --output <file>", "The file to output to")
   .option(

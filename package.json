@@ -20,7 +20,7 @@
     "url": "https://github.com/ashleytowner/shadowdark-statblock-parser/issues"
   },
   "homepage": "https://github.com/ashleytowner/shadowdark-statblock-parser#readme",
-  "description": "",
+  "description": "Take statblocks, spell descriptions, roll tables and more from shadowdark and converts them into other formats",
   "devDependencies": {
     "@babel/preset-env": "^7.28.3",
     "@babel/preset-typescript": "^7.27.1",
