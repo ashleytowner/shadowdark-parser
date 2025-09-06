@@ -1,6 +1,9 @@
+/** An alignment, '*' represents a variable alignment */
 export type Alignment = "Lawful" | "Neutral" | "Chaotic" | "*";
 
+/** An attack that a monster can do */
 export type Attack = {
+  /** Discriminator field */
   type: "attack";
   /** The number of this attack that can be made per turn */
   quantity?: string;
@@ -18,6 +21,7 @@ export type Attack = {
  * A trait is an aspect of some kind on items, monsters, etc
  */
 export type Trait = {
+  /** Discriminator field */
   type: "trait";
   /** The name of the trait */
   name: string;
@@ -25,7 +29,9 @@ export type Trait = {
   description: string;
 };
 
+/** A monster */
 export type Monster = {
+  /** Discriminator field */
   type: "monster";
   /** Name */
   name: string;
@@ -89,7 +95,9 @@ export type Monster = {
   traits: Trait[];
 };
 
+/** A spell */
 export type Spell = {
+  /** Discriminator field */
   type: "spell";
   name: string;
   tier: number;
@@ -99,14 +107,18 @@ export type Spell = {
   description: string;
 };
 
+/** A magic item */
 export type MagicItem = {
+  /** Discriminator field */
   type: "magicItem";
   name: string;
   description: string;
   traits: Trait[];
 };
 
+/** A rollable table */
 export type Table = {
+  /** Discriminator field */
   type: "table";
   /** The name of the table */
   name: string;
@@ -120,4 +132,5 @@ export type Table = {
   }[];
 };
 
+/** A parsable entity */
 export type Entity = Monster | MagicItem | Spell | Table;

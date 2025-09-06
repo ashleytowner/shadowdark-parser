@@ -12,6 +12,9 @@ export type EntryIdentifierStrategy = (
   nextLine: string | undefined,
 ) => boolean;
 
+/**
+ * Identifies a new entity when an all-caps line follows a non-all-caps line
+ */
 export const allCapsStrategy: EntryIdentifierStrategy = (
   prevLine,
   currentLine,
@@ -49,5 +52,5 @@ export function splitBulkEntries(
     }
   }
   if (currentEntry !== undefined) entries.push(currentEntry);
-  return entries.map(entry => entry.join('\n'));
+  return entries.map((entry) => entry.join("\n"));
 }

@@ -13,6 +13,7 @@ import { parseMagicItem } from "./magicitem";
 import { parse, bulkParse, identify } from "./parser";
 import { parseRollTable } from "./rolltable";
 import { parseSpell } from "./spell";
+import { allCapsStrategy } from "./splitbulk";
 import { parseStatblock } from "./statblock";
 import getTemplateFromFile from "./templates";
 import { parseTraits } from "./traits";
@@ -29,6 +30,7 @@ export type {
 };
 
 export {
+  allCapsStrategy,
   bulkParse,
   getTemplateFromFile,
   identify,

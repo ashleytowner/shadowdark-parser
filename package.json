@@ -4,7 +4,8 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",
-    "build": "tsc"
+    "build": "tsc",
+    "docs": "typedoc --out docs --plugin typedoc-plugin-markdown src/"
   },
   "bin": {
     "shadowdark-parser": "dist/bin/shadowdark-parser.js"
@@ -26,6 +27,8 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^24.3.0",
     "jest": "^30.0.5",
+    "typedoc": "^0.28.12",
+    "typedoc-plugin-markdown": "^4.8.1",
     "typescript": "^5.9.2"
   },
   "dependencies": {

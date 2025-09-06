@@ -25,6 +25,11 @@ handlebars.registerHelper("firstChar", function (value) {
   }
 });
 
+/**
+ * Get a handlebars template from a filename
+ * Also automatically registers helper functions
+ * @param filename the name of the template file
+ */
 export default function getTemplateFromFile(filename: string) {
   const templateSource = fs.readFileSync(filename, "utf8");
   const template = handlebars.compile(templateSource);
