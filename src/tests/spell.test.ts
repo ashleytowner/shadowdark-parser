@@ -1,4 +1,4 @@
-import { parseSpell } from "../spell.js";
+import { parseSpell } from "../spell";
 
 describe("parseSpell", () => {
   const demoSpell = `

@@ -1,6 +1,6 @@
-import type { MagicItem } from "./entity.js";
-import { isTraitStart, parseTraits } from "./traits.js";
-import { getLines, getName } from "./util.js";
+import type { MagicItem } from "./entity";
+import { isTraitStart, parseTraits } from "./traits";
+import { getLines, getName } from "./util";
 
 /**
  * Parse a magic item

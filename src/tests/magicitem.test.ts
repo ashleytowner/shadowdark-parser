@@ -1,4 +1,4 @@
-import { parseMagicItem } from "../magicitem.js";
+import { parseMagicItem } from "../magicitem";
 
 describe("parseMagicItem", () => {
   it("should parse a magic item with a benefit & curse", () => {

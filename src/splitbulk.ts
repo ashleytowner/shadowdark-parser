@@ -1,4 +1,4 @@
-import { allCapsNamePattern, getLines } from "./util.js";
+import { allCapsNamePattern, getLines } from "./util";
 
 /**
  * @param prevLine the previous line, undefined if we are on the first line

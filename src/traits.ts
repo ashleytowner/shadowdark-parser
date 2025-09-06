@@ -1,4 +1,4 @@
-import type { Trait } from "./entity.js";
+import type { Trait } from "./entity";
 
 /**
  * Determine whether a line is the beginning of a new trait

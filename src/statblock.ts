@@ -1,7 +1,7 @@
-import { parseAttacks } from "./attacks.js";
-import type { Alignment, Monster } from "./entity.js";
-import { parseTraits } from "./traits.js";
-import { getLines, getName } from "./util.js";
+import { parseAttacks } from "./attacks";
+import type { Alignment, Monster } from "./entity";
+import { parseTraits } from "./traits";
+import { getLines, getName } from "./util";
 
 /**
  * Parse a shadowdark statblock

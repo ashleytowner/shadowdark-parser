@@ -1,4 +1,4 @@
-import { parseAttack } from "./attacks.js";
+import { parseAttack } from "./attacks";
 import type {
   Alignment,
   Attack,
@@ -9,13 +9,13 @@ import type {
   Table,
   Trait,
 } from "./entity.js";
-import { parseMagicItem } from "./magicitem.js";
-import { parse, bulkParse, identify } from "./parser.js";
-import { parseRollTable } from "./rolltable.js";
-import { parseSpell } from "./spell.js";
-import { parseStatblock } from "./statblock.js";
-import getTemplateFromFile from "./templates.js";
-import { parseTraits } from "./traits.js";
+import { parseMagicItem } from "./magicitem";
+import { parse, bulkParse, identify } from "./parser";
+import { parseRollTable } from "./rolltable";
+import { parseSpell } from "./spell";
+import { parseStatblock } from "./statblock";
+import getTemplateFromFile from "./templates";
+import { parseTraits } from "./traits";
 
 export type {
   Alignment,
@@ -28,7 +28,7 @@ export type {
   Trait,
 };
 
-export default {
+export {
   bulkParse,
   getTemplateFromFile,
   identify,

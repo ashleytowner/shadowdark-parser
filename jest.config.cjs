@@ -4,8 +4,4 @@ module.exports = {
     "^.+\\.(ts|js)$": "babel-jest",
   },
   moduleFileExtensions: ["js", "ts"],
-  moduleNameMapper: {
-    "^(.+)\\.js$": "$1",
-  },
-  extensionsToTreatAsEsm: [".ts"],
 };

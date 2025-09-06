@@ -1,5 +1,5 @@
-import type { Spell } from "./entity.js";
-import { getLines, getName } from "./util.js";
+import type { Spell } from "./entity";
+import { getLines, getName } from "./util";
 
 /**
  * Parse a spell

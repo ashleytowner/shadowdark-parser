@@ -1,4 +1,4 @@
-import { getLines, getName } from "../util.js";
+import { getLines, getName } from "../util";
 
 describe("getLines", () => {
   it("splits multiline text into an array", () => {

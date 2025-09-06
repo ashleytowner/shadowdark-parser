@@ -1,4 +1,4 @@
-import { parseAttack, parseAttacks } from "../attacks.js";
+import { parseAttack, parseAttacks } from "../attacks";
 
 describe("parseAttack", () => {
   it("handles a melee weapon attack", () => {

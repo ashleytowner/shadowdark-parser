@@ -1,7 +1,6 @@
 {
   "name": "shadowdark-parser",
   "version": "2.1.0",
-  "type": "module",
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",

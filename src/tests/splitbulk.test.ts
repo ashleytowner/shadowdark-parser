@@ -1,4 +1,4 @@
-import { allCapsStrategy, splitBulkEntries } from "../splitbulk.js";
+import { allCapsStrategy, splitBulkEntries } from "../splitbulk";
 
 describe("allCapsStrategy", () => {
   it("identifies a 1-line all-caps name at the beginning", () => {

@@ -1,4 +1,4 @@
-import type { Attack } from "./entity.js";
+import type { Attack } from "./entity";
 
 /**
  * Parse a single attack

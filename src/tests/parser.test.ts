@@ -1,5 +1,5 @@
-import { bulkParse, identify } from "../parser.js";
-import { allCapsStrategy } from "../splitbulk.js";
+import { bulkParse, identify } from "../parser";
+import { allCapsStrategy } from "../splitbulk";
 
 describe("identify", () => {
   it("should correctly identify a monster statblock", () => {

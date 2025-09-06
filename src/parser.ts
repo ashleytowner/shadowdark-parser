@@ -1,8 +1,8 @@
-import { parseMagicItem } from "./magicitem.js";
-import { parseRollTable } from "./rolltable.js";
-import { parseSpell } from "./spell.js";
-import { splitBulkEntries, type EntryIdentifierStrategy } from "./splitbulk.js";
-import { parseStatblock } from "./statblock.js";
+import { parseMagicItem } from "./magicitem";
+import { parseRollTable } from "./rolltable";
+import { parseSpell } from "./spell";
+import { splitBulkEntries, type EntryIdentifierStrategy } from "./splitbulk";
+import { parseStatblock } from "./statblock";
 
 /**
  * Identify what type of entry is being processed

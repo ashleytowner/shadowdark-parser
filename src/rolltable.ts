@@ -1,5 +1,5 @@
-import type { Table } from "./entity.js";
-import { getLines } from "./util.js";
+import type { Table } from "./entity";
+import { getLines } from "./util";
 
 /**
  * Parses an encounter table in the format of

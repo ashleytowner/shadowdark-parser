@@ -1,4 +1,4 @@
-import { parseRollTable } from "../rolltable.js";
+import { parseRollTable } from "../rolltable";
 
 describe("parseRollTable", () => {
   it("should parse a table with single keys & multiline rows", () => {

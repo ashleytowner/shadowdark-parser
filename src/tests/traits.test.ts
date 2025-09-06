@@ -1,4 +1,4 @@
-import { isTraitStart } from "../traits.js";
+import { isTraitStart } from "../traits";
 
 describe("isTraitStart", () => {
   it("rejects lines with no period", () => {

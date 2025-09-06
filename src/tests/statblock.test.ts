@@ -1,4 +1,4 @@
-import { parseStatblock } from "../statblock.js";
+import { parseStatblock } from "../statblock";
 
 describe("parseStatblock", () => {
   it("Does not infinitely loop when it can't find the end of the statblock", () => {

@@ -2,10 +2,10 @@
 import readline from "readline";
 import fs from "fs";
 import { program } from "commander";
-import { bulkParse, parse } from "../parser.js";
-import { allCapsStrategy } from "../splitbulk.js";
-import type { Entity } from "../entity.js";
-import getTemplateFromFile from "../templates.js";
+import { bulkParse, parse } from "../parser";
+import { allCapsStrategy } from "../splitbulk";
+import type { Entity } from "../entity";
+import getTemplateFromFile from "../templates";
 
 program
   .name("shadowdark-parser")
