@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.1](https://github.com/ashleytowner/shadowdark-parser/compare/v3.0.0...v3.0.1) (2025-09-06)
+
+
+### Bug Fixes
+
+* Add new character to possible names ([1a2d078](https://github.com/ashleytowner/shadowdark-parser/commit/1a2d078d1d27fe26e21d0272c202629e52b4f006))
+
 ## [3.0.0](https://github.com/ashleytowner/shadowdark-parser/compare/v2.1.0...v3.0.0) (2025-09-06)
 
 
