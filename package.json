@@ -7,6 +7,9 @@
     "build": "tsc",
     "docs": "typedoc --out docs --plugin typedoc-plugin-markdown src/"
   },
+  "files": [
+    "dist"
+  ],
   "bin": {
     "shadowdark-parser": "dist/bin/shadowdark-parser.js"
   },
