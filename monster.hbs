@@ -1,0 +1,9 @@
+# {{{name}}}
+{{#if description}}*{{{description}}}*{{/if}}
+
+**AC** {{ac}}{{#if armor}} ({{{armor}}}){{/if}}, **HP** {{hp}}, **ATK** {{#each attacks}}{{#each this}}{{#if quantity}}{{quantity}} {{/if}}{{{name}}}{{#if range}} ({{range}}){{/if}} {{bonus}}{{#if damage}} ({{{damage}}}){{/if}}{{#unless @last}} and {{/unless}}{{/each}}{{#unless @last}} or {{/unless}}{{/each}}, **MV** {{movementDistance}}{{#if movementType}} ({{{movementType}}}){{/if}}, **S** {{signedNumber strength}}, **D** {{signedNumber dexterity}}, **C** {{signedNumber constitution}}, **I** {{signedNumber intelligence}}, **W** {{signedNumber wisdom}}, **Ch** {{signedNumber charisma}}, **AL** {{firstChar alignment}}, **LV** {{level}}
+
+{{#each traits}}
+**{{{name}}}.** {{{description}}}
+
+{{/each}}
