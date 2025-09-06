@@ -1,17 +1,5 @@
+import type { Table } from "./entity.js";
 import { getLines } from "./util.js";
-
-export type Table = {
-  /** The name of the table */
-  name: string;
-  /** The table rows */
-  results: {
-    type: "text";
-    /** The text of the row result */
-    text: string;
-    /** The number range within which this result is rolled */
-    range: [number, number];
-  }[];
-};
 
 /**
  * Parses an encounter table in the format of
@@ -57,6 +45,7 @@ export function parseRollTable(
       };
     });
   return {
+    type: "table",
     name: tableName,
     results: rows,
   };

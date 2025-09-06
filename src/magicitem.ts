@@ -1,3 +1,4 @@
+import type { MagicItem } from "./entity.js";
 import { isTraitStart, parseTraits } from "./traits.js";
 import { getLines, getName } from "./util.js";
 
@@ -5,7 +6,7 @@ import { getLines, getName } from "./util.js";
  * Parse a magic item
  * @param itemText The body text of the magic item
  */
-export function parseMagicItem(itemText: string) {
+export function parseMagicItem(itemText: string): MagicItem {
   const lines = getLines(itemText);
   if (lines.length === 0) {
     throw new Error(`Not enough lines in spell:\n\n${itemText}`);
@@ -17,6 +18,7 @@ export function parseMagicItem(itemText: string) {
   }
   const traits = parseTraits(lines);
   return {
+    type: "magicItem",
     name,
     description: description.join(" "),
     traits,

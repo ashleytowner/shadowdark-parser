@@ -1,15 +1,4 @@
-export type Attack = {
-  /** The number of this attack that can be made per turn */
-  quantity?: string;
-  /** The name of this attack */
-  name: string;
-  /** The range of this attack */
-  range?: string;
-  /** The to-hit bonus for this attack */
-  bonus?: string;
-  /** The damage this attack does */
-  damage?: string;
-};
+import type { Attack } from "./entity.js";
 
 /**
  * Parse a single attack
@@ -37,6 +26,7 @@ export function parseAttack(attack: string): Attack {
   }
 
   return {
+    type: "attack",
     quantity: matches?.groups?.qty,
     name: weaponName,
     range: weaponRange,

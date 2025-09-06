@@ -133,6 +133,7 @@ immobilizes all inside it for 5 rounds. DC 15 STR on turn to break free.
 		`);
 
     expect(drowPriestess.traits).toContainEqual({
+      type: "trait",
       name: "Web (WIS Spell)",
       description:
         "DC 13. A near- sized cube of webs within far immobilizes all inside it for 5 rounds. DC 15 STR on turn to break free.",

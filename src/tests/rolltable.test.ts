@@ -14,6 +14,7 @@ with a bit of text
 		`);
 
     expect(table).toEqual({
+      type: "table",
       name: "Imported Table",
       results: [
         {
@@ -46,6 +47,7 @@ with a bit of text
     `);
 
     expect(table).toEqual({
+      type: "table",
       name: "Imported Table",
       results: [
         {
@@ -68,6 +70,7 @@ with a bit of text
     `);
 
     expect(table).toEqual({
+      type: "table",
       name: "Imported Table",
       results: [
         {

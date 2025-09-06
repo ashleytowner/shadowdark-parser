@@ -1,3 +1,5 @@
+import type { Trait } from "./entity.js";
+
 /**
  * Determine whether a line is the beginning of a new trait
  * @param line The line of the statblock
@@ -12,16 +14,6 @@ export function isTraitStart(line: string): boolean {
   if (!/^[A-Z]$/.test(lastWordBeforePeriod.charAt(0))) return false;
   return true;
 }
-
-/**
- * A trait is an aspect of some kind on items, monsters, etc
- */
-export type Trait = {
-  /** The name of the trait */
-  name: string;
-  /** The description of the trait */
-  description: string;
-};
 
 /**
  * Parse the traits section of a statblock
@@ -45,6 +37,7 @@ export function parseTraits(lines: string[]): Trait[] {
     const name = trait.slice(0, indexOfPeriod).trim();
     const description = trait.slice(indexOfPeriod + 1, trait.length).trim();
     return {
+      type: "trait",
       name,
       description,
     };

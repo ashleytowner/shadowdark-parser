@@ -1,10 +1,11 @@
+import type { Spell } from "./entity.js";
 import { getLines, getName } from "./util.js";
 
 /**
  * Parse a spell
  * @param spellText The text of the spell body
  */
-export function parseSpell(spellText: string) {
+export function parseSpell(spellText: string): Spell {
   const lines = getLines(spellText);
   if (lines.length === 0) {
     throw new Error(`Not enough lines in spell:\n\n${spellText}`);
@@ -42,6 +43,7 @@ export function parseSpell(spellText: string) {
     .map((line) => line.trim())
     .filter(Boolean);
   return {
+    type: "spell",
     name,
     tier,
     classes,

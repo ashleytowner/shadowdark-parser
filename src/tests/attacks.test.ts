@@ -3,6 +3,7 @@ import { parseAttack, parseAttacks } from "../attacks.js";
 describe("parseAttack", () => {
   it("handles a melee weapon attack", () => {
     expect(parseAttack("1 sword +5 (1d6)")).toEqual({
+      type: "attack",
       quantity: "1",
       name: "sword",
       range: undefined,
@@ -12,6 +13,7 @@ describe("parseAttack", () => {
   });
   it("handles a ranged weapon attack", () => {
     expect(parseAttack("1 bow (far) +5 (1d6)")).toEqual({
+      type: "attack",
       quantity: "1",
       name: "bow",
       range: "far",
@@ -21,6 +23,7 @@ describe("parseAttack", () => {
   });
   it("handles a thrown weapon attack", () => {
     expect(parseAttack("1 dagger (close/near) +5 (1d6)")).toEqual({
+      type: "attack",
       quantity: "1",
       name: "dagger",
       range: "close/near",
@@ -30,6 +33,7 @@ describe("parseAttack", () => {
   });
   it("handles a spell or named trait with no bonus", () => {
     expect(parseAttack("1 spell")).toEqual({
+      type: "attack",
       quantity: "1",
       name: "spell",
       bonus: undefined,
@@ -37,6 +41,7 @@ describe("parseAttack", () => {
       range: undefined,
     });
     expect(parseAttack("1 multi word spell")).toEqual({
+      type: "attack",
       quantity: "1",
       name: "multi word spell",
       bonus: undefined,
@@ -46,6 +51,7 @@ describe("parseAttack", () => {
   });
   it("handles a trait with no quantity or bonus", () => {
     expect(parseAttack("bone")).toEqual({
+      type: "attack",
       quantity: undefined,
       name: "bone",
       bonus: undefined,
@@ -54,6 +60,7 @@ describe("parseAttack", () => {
     });
 
     expect(parseAttack("blood whip")).toEqual({
+      type: "attack",
       quantity: undefined,
       name: "blood whip",
       bonus: undefined,
@@ -63,6 +70,7 @@ describe("parseAttack", () => {
   });
   it("separates the bonus for spells with a bonus", () => {
     expect(parseAttack("1 spell +3")).toEqual({
+      type: "attack",
       quantity: "1",
       name: "spell",
       bonus: "+3",

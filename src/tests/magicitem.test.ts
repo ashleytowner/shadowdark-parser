@@ -14,16 +14,19 @@ compulsion to look at everything
 through the spyglass.`);
 
     expect(item.name).toBe("SPYGLASS OF TRUE SIGHT");
+    expect(item.type).toBe("magicItem");
     expect(item.description).toBe(
       "A brass, telescoping lens with magical runes carved on it.",
     );
     expect(item.traits).toEqual([
       {
+        type: "trait",
         name: "Benefit",
         description:
           "When you look through the spyglass, you can see invisible creatures and objects.",
       },
       {
+        type: "trait",
         name: "Curse",
         description:
           "The wielder feels a compulsion to look at everything through the spyglass.",
