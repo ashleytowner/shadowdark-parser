@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.1.0](https://github.com/ashleytowner/shadowdark-parser/compare/v3.0.1...v3.1.0) (2025-09-06)
+
+
+### Features
+
+* auto-update version number ([8c019aa](https://github.com/ashleytowner/shadowdark-parser/commit/8c019aae752b847185154d90457dae37ee409d1f))
+
+
+### Bug Fixes
+
+* Only release dist/ to npm ([4973c07](https://github.com/ashleytowner/shadowdark-parser/commit/4973c07dc8e8eda6d60366c513eea3ae844f6d97))
+
 ## [3.0.1](https://github.com/ashleytowner/shadowdark-parser/compare/v3.0.0...v3.0.1) (2025-09-06)
 
 
