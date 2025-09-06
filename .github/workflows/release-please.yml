@@ -17,6 +17,5 @@ jobs:
       - uses: googleapis/release-please-action@v4
         with:
           token: ${{ secrets.GH_PAT }}
-          release-type: node
-          extra-files:
-            - "../../src/bin/shadowdark-parser.ts"
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
