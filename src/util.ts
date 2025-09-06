@@ -9,7 +9,7 @@ export function getLines(str: string) {
     .filter(Boolean);
 }
 
-export const allCapsNamePattern = /^[A-Z \-',]+$/;
+export const allCapsNamePattern = /^[A-Z \-',’]+$/;
 
 /**
  * Get the name of an entity.
