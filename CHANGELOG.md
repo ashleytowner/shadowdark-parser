@@ -1,5 +1,28 @@
 # Changelog
 
+## [3.0.0](https://github.com/ashleytowner/shadowdark-parser/compare/v2.1.0...v3.0.0) (2025-09-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* switch to cjs
+
+### Features
+
+* **templates:** Move template code from CLI to library ([1779374](https://github.com/ashleytowner/shadowdark-parser/commit/1779374f66c8059660360d6061f2020f4ad7ebc5))
+
+
+### Bug Fixes
+
+* Export more functions & types ([8f0c686](https://github.com/ashleytowner/shadowdark-parser/commit/8f0c686e023786644276b7243b8ab3bf7d18e39e))
+* Remove unused file ([f88639e](https://github.com/ashleytowner/shadowdark-parser/commit/f88639ecc162a3164ae0aceb0a194e21ad77e302))
+* Update package-lock ([267a373](https://github.com/ashleytowner/shadowdark-parser/commit/267a373a89c8a74b351ceac477665412108ba1a2))
+
+
+### Code Refactoring
+
+* switch to cjs ([fd1c68d](https://github.com/ashleytowner/shadowdark-parser/commit/fd1c68d6dc17e80c3409f2921439264a65bee218))
+
 ## [2.1.0](https://github.com/ashleytowner/shadowdark-parser/compare/v2.0.3...v2.1.0) (2025-09-06)
 
 
