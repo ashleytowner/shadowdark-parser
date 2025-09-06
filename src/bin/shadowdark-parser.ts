@@ -2,8 +2,10 @@
 import readline from "readline";
 import fs from "fs";
 import { program } from "commander";
-import { parse } from "../parser.js";
+import { bulkParse, parse } from "../parser.js";
 import handlebars from "handlebars";
+import { allCapsStrategy } from "../splitbulk.js";
+import type { Entity } from "../entity.js";
 
 handlebars.registerHelper("signedNumber", function (value) {
   if (typeof value === "string") {
@@ -78,7 +80,13 @@ const filename = program.args[0];
     }
   }
 
-  let data: any = parse(entry);
+  let data: Entity | Entity[] | string;
+
+  if (options.bulk) {
+    data = bulkParse(entry, allCapsStrategy);
+  } else {
+    data = parse(entry);
+  }
 
   if (options.template) {
     const templateSource = fs.readFileSync(options.template, "utf8");
