@@ -5,7 +5,7 @@
   "packages": {
     ".": {
       "extra-files": [
-        "src/bin/shadowdark-parser.ts",
+        "src/bin/shadowdark-parser.ts"
       ]
     }
   }
