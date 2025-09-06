@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.1.0](https://github.com/ashleytowner/shadowdark-parser/compare/v2.0.3...v2.1.0) (2025-09-06)
+
+
+### Features
+
+* Add types to entity output, to make templates easier ([51cd40c](https://github.com/ashleytowner/shadowdark-parser/commit/51cd40c482398575c8d968e054af519a2e4572ce))
+* **bulk-parsing:** Add bulk parsing to core library ([d7204a4](https://github.com/ashleytowner/shadowdark-parser/commit/d7204a49115359f966e46fadb9e9f1904fb54227))
+* **bulk-parsing:** Add bulk parsing to the CLI ([d60342d](https://github.com/ashleytowner/shadowdark-parser/commit/d60342df366b993c361310e2f5ef3c7bf60f6d87))
+* **templates:** Add a way to check equality ([807b233](https://github.com/ashleytowner/shadowdark-parser/commit/807b233d43a26c924f9c03cb10cc8d090ed8e78f))
+
 ## [2.0.3](https://github.com/ashleytowner/shadowdark-parser/compare/v2.0.2...v2.0.3) (2025-08-24)
 
 
