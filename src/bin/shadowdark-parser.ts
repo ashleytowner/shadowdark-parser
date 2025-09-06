@@ -5,8 +5,7 @@ import { program } from "commander";
 import { bulkParse, parse } from "../parser.js";
 import { allCapsStrategy } from "../splitbulk.js";
 import type { Entity } from "../entity.js";
-import handlebars from "../handlebars.js";
-import getTemplateFromFile from "../handlebars.js";
+import getTemplateFromFile from "../templates.js";
 
 program
   .name("shadowdark-parser")
