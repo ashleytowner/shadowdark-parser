@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-import readline from 'readline';
-import fs from 'fs';
-import { program } from 'commander';
-import { parse } from '../parser.js';
-import handlebars from 'handlebars';
+import readline from "readline";
+import fs from "fs";
+import { program } from "commander";
+import { parse } from "../parser.js";
+import handlebars from "handlebars";
 
 handlebars.registerHelper("signedNumber", function (value) {
   if (typeof value === "string") {
@@ -29,6 +29,10 @@ program
   .name("shadowdark-parser")
   .option("-t, --template <file>", "A handlebars template file")
   .option("-o, --output <file>", "The file to output to")
+  .option(
+    "-b, --bulk",
+    "Mark the input as containing multiple entities, one after the other",
+  )
   .option(
     "-n, --name-from-file",
     "Use the name of the file as the name of the entity. This option will do nothing if the file is stdin",

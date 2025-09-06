@@ -1,6 +1,7 @@
 import { parseMagicItem } from "./magicitem.js";
 import { parseRollTable } from "./rolltable.js";
 import { parseSpell } from "./spell.js";
+import { splitBulkEntries, type EntryIdentifierStrategy } from "./splitbulk.js";
 import { parseStatblock } from "./statblock.js";
 
 /**
@@ -49,4 +50,14 @@ export function parse(entity: string) {
         "Could not identify the type of entry. This parser only supports monsters, spells, magic items & roll tables currently",
       );
   }
+}
+
+/**
+ * Parse a bulk list of entries, it will use a strategy to split them up, then will parse each of them individually and return tehm as an array
+	* @param entities the bulk list of entities
+	* @param strategy the strategy to use to split up entities
+	*/
+export function bulkParse(entities: string, strategy: EntryIdentifierStrategy) {
+	const entries = splitBulkEntries(entities, strategy);
+	return entries.map(parse);
 }

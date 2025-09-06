@@ -9,6 +9,8 @@ export function getLines(str: string) {
     .filter(Boolean);
 }
 
+export const allCapsNamePattern = /^[A-Z \-',]+$/;
+
 /**
  * Get the name of an entity.
  * In most cases, this identifies the first line as the name,
@@ -17,10 +19,9 @@ export function getLines(str: string) {
  * @param lines
  */
 export function getName(lines: string[]) {
-  const allCapsPattern = /^[A-Z \-',]+$/;
   const nameLines = [];
 
-  while (lines[0] && allCapsPattern.test(lines[0])) {
+  while (lines[0] && allCapsNamePattern.test(lines[0])) {
     nameLines.push(lines.shift());
   }
 
