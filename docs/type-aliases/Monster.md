@@ -8,7 +8,7 @@
 
 > **Monster** = `object`
 
-Defined in: [entity.ts:33](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L33)
+Defined in: [entity.ts:33](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L33)
 
 A monster
 
@@ -18,7 +18,7 @@ A monster
 
 > **ac**: `number` \| `string`
 
-Defined in: [entity.ts:44](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L44)
+Defined in: [entity.ts:44](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L44)
 
 Armor Class
 Usually a number, but in some cases where the AC is variable, it will be a string
@@ -29,7 +29,7 @@ Usually a number, but in some cases where the AC is variable, it will be a strin
 
 > **alignment**: [`Alignment`](Alignment.md)
 
-Defined in: [entity.ts:86](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L86)
+Defined in: [entity.ts:86](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L86)
 
 Alignment
 
@@ -39,7 +39,7 @@ Alignment
 
 > `optional` **armor**: `string`
 
-Defined in: [entity.ts:49](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L49)
+Defined in: [entity.ts:49](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L49)
 
 The type of armor & shields used
 Will be undefined if not specified in the statblock
@@ -50,7 +50,7 @@ Will be undefined if not specified in the statblock
 
 > **attacks**: [`Attack`](Attack.md)[][]
 
-Defined in: [entity.ts:62](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L62)
+Defined in: [entity.ts:62](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L62)
 
 An array of arrays of attacks.
 Each top-level sub-array is a grouping of "and" attacks
@@ -67,7 +67,7 @@ Each top-level sub-array is a grouping of "and" attacks
 
 > **charisma**: `number`
 
-Defined in: [entity.ts:82](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L82)
+Defined in: [entity.ts:82](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L82)
 
 Charisma
 
@@ -77,7 +77,7 @@ Charisma
 
 > **constitution**: `number`
 
-Defined in: [entity.ts:76](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L76)
+Defined in: [entity.ts:76](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L76)
 
 Constitution
 
@@ -87,7 +87,7 @@ Constitution
 
 > **description**: `string`
 
-Defined in: [entity.ts:39](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L39)
+Defined in: [entity.ts:39](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L39)
 
 Description
 
@@ -97,7 +97,7 @@ Description
 
 > **dexterity**: `number`
 
-Defined in: [entity.ts:74](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L74)
+Defined in: [entity.ts:74](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L74)
 
 Dexterity
 
@@ -107,7 +107,7 @@ Dexterity
 
 > **hp**: `number` \| `string`
 
-Defined in: [entity.ts:54](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L54)
+Defined in: [entity.ts:54](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L54)
 
 Hit Points
 Usually a number, but in some cases where the HP is variable, it will be a string
@@ -118,7 +118,7 @@ Usually a number, but in some cases where the HP is variable, it will be a strin
 
 > **intelligence**: `number`
 
-Defined in: [entity.ts:78](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L78)
+Defined in: [entity.ts:78](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L78)
 
 Intelligence
 
@@ -128,7 +128,7 @@ Intelligence
 
 > **level**: `number` \| `string`
 
-Defined in: [entity.ts:91](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L91)
+Defined in: [entity.ts:91](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L91)
 
 Level
 Usually a number, but in some cases where the level is variable, it can be a string
@@ -139,7 +139,7 @@ Usually a number, but in some cases where the level is variable, it can be a str
 
 > **movementDistance**: `string`
 
-Defined in: [entity.ts:66](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L66)
+Defined in: [entity.ts:66](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L66)
 
 The distance that can be moved
 
@@ -149,7 +149,7 @@ The distance that can be moved
 
 > `optional` **movementType**: `string`
 
-Defined in: [entity.ts:70](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L70)
+Defined in: [entity.ts:70](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L70)
 
 The type of movement, e.g. "fly"
 
@@ -159,7 +159,7 @@ The type of movement, e.g. "fly"
 
 > **name**: `string`
 
-Defined in: [entity.ts:37](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L37)
+Defined in: [entity.ts:37](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L37)
 
 Name
 
@@ -169,7 +169,7 @@ Name
 
 > **strength**: `number`
 
-Defined in: [entity.ts:72](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L72)
+Defined in: [entity.ts:72](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L72)
 
 Strength
 
@@ -179,7 +179,7 @@ Strength
 
 > **traits**: [`Trait`](Trait.md)[]
 
-Defined in: [entity.ts:95](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L95)
+Defined in: [entity.ts:95](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L95)
 
 An array of traits
 
@@ -189,7 +189,7 @@ An array of traits
 
 > **type**: `"monster"`
 
-Defined in: [entity.ts:35](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L35)
+Defined in: [entity.ts:35](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L35)
 
 Discriminator field
 
@@ -199,6 +199,6 @@ Discriminator field
 
 > **wisdom**: `number`
 
-Defined in: [entity.ts:80](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L80)
+Defined in: [entity.ts:80](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L80)
 
 Wisdom

@@ -6,9 +6,9 @@
 
 # Function: bulkParse()
 
-> **bulkParse**(`entities`, `strategy`): ([`Monster`](../type-aliases/Monster.md) \| [`Spell`](../type-aliases/Spell.md) \| [`MagicItem`](../type-aliases/MagicItem.md) \| [`Table`](../type-aliases/Table.md))[]
+> **bulkParse**(`entities`, `strategy`): readonly \[[`Entity`](../type-aliases/Entity.md)[], `string`[]\]
 
-Defined in: [parser.ts:60](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/parser.ts#L60)
+Defined in: [parser.ts:62](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/parser.ts#L62)
 
 Parse a bulk list of entries, it will use a strategy to split them up, then will parse each of them individually and return tehm as an array
 
@@ -28,4 +28,6 @@ the strategy to use to split up entities
 
 ## Returns
 
-([`Monster`](../type-aliases/Monster.md) \| [`Spell`](../type-aliases/Spell.md) \| [`MagicItem`](../type-aliases/MagicItem.md) \| [`Table`](../type-aliases/Table.md))[]
+readonly \[[`Entity`](../type-aliases/Entity.md)[], `string`[]\]
+
+a tuple where the first entry is the parsed statblocks, and the second is the statblocks that failed to be parsed

@@ -8,7 +8,7 @@
 
 > **getTemplateFromFile**(`filename`): `HandlebarsTemplateDelegate`\<`any`\>
 
-Defined in: [templates.ts:33](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/templates.ts#L33)
+Defined in: [templates.ts:33](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/templates.ts#L33)
 
 Get a handlebars template from a filename
 Also automatically registers helper functions

@@ -8,7 +8,7 @@
 
 > **parse**(`entity`): [`Monster`](../type-aliases/Monster.md) \| [`Spell`](../type-aliases/Spell.md) \| [`MagicItem`](../type-aliases/MagicItem.md) \| [`Table`](../type-aliases/Table.md)
 
-Defined in: [parser.ts:37](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/parser.ts#L37)
+Defined in: [parser.ts:38](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/parser.ts#L38)
 
 Parse a generic entry, it will decide what kind of entry it is and return the appropriate JSON
 

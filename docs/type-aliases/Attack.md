@@ -8,7 +8,7 @@
 
 > **Attack** = `object`
 
-Defined in: [entity.ts:5](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L5)
+Defined in: [entity.ts:5](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L5)
 
 An attack that a monster can do
 
@@ -18,7 +18,7 @@ An attack that a monster can do
 
 > `optional` **bonus**: `string`
 
-Defined in: [entity.ts:15](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L15)
+Defined in: [entity.ts:15](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L15)
 
 The to-hit bonus for this attack
 
@@ -28,7 +28,7 @@ The to-hit bonus for this attack
 
 > `optional` **damage**: `string`
 
-Defined in: [entity.ts:17](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L17)
+Defined in: [entity.ts:17](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L17)
 
 The damage this attack does
 
@@ -38,7 +38,7 @@ The damage this attack does
 
 > **name**: `string`
 
-Defined in: [entity.ts:11](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L11)
+Defined in: [entity.ts:11](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L11)
 
 The name of this attack
 
@@ -48,7 +48,7 @@ The name of this attack
 
 > `optional` **quantity**: `string`
 
-Defined in: [entity.ts:9](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L9)
+Defined in: [entity.ts:9](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L9)
 
 The number of this attack that can be made per turn
 
@@ -58,7 +58,7 @@ The number of this attack that can be made per turn
 
 > `optional` **range**: `string`
 
-Defined in: [entity.ts:13](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L13)
+Defined in: [entity.ts:13](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L13)
 
 The range of this attack
 
@@ -68,6 +68,6 @@ The range of this attack
 
 > **type**: `"attack"`
 
-Defined in: [entity.ts:7](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L7)
+Defined in: [entity.ts:7](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L7)
 
 Discriminator field

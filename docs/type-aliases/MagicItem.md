@@ -8,7 +8,7 @@
 
 > **MagicItem** = `object`
 
-Defined in: [entity.ts:111](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L111)
+Defined in: [entity.ts:111](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L111)
 
 A magic item
 
@@ -18,7 +18,7 @@ A magic item
 
 > **description**: `string`
 
-Defined in: [entity.ts:115](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L115)
+Defined in: [entity.ts:115](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L115)
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: [entity.ts:115](https://github.com/ashleytowner/shadowdark-parser/bl
 
 > **name**: `string`
 
-Defined in: [entity.ts:114](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L114)
+Defined in: [entity.ts:114](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L114)
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: [entity.ts:114](https://github.com/ashleytowner/shadowdark-parser/bl
 
 > **traits**: [`Trait`](Trait.md)[]
 
-Defined in: [entity.ts:116](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L116)
+Defined in: [entity.ts:116](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L116)
 
 ***
 
@@ -42,6 +42,6 @@ Defined in: [entity.ts:116](https://github.com/ashleytowner/shadowdark-parser/bl
 
 > **type**: `"magicItem"`
 
-Defined in: [entity.ts:113](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L113)
+Defined in: [entity.ts:113](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L113)
 
 Discriminator field

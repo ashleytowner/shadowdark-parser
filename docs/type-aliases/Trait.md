@@ -8,7 +8,7 @@
 
 > **Trait** = `object`
 
-Defined in: [entity.ts:23](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L23)
+Defined in: [entity.ts:23](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L23)
 
 A trait is an aspect of some kind on items, monsters, etc
 
@@ -18,7 +18,7 @@ A trait is an aspect of some kind on items, monsters, etc
 
 > **description**: `string`
 
-Defined in: [entity.ts:29](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L29)
+Defined in: [entity.ts:29](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L29)
 
 The description of the trait
 
@@ -28,7 +28,7 @@ The description of the trait
 
 > **name**: `string`
 
-Defined in: [entity.ts:27](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L27)
+Defined in: [entity.ts:27](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L27)
 
 The name of the trait
 
@@ -38,6 +38,6 @@ The name of the trait
 
 > **type**: `"trait"`
 
-Defined in: [entity.ts:25](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L25)
+Defined in: [entity.ts:25](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L25)
 
 Discriminator field

@@ -8,7 +8,7 @@
 
 > **Spell** = `object`
 
-Defined in: [entity.ts:99](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L99)
+Defined in: [entity.ts:99](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L99)
 
 A spell
 
@@ -18,7 +18,7 @@ A spell
 
 > **classes**: `string`[]
 
-Defined in: [entity.ts:104](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L104)
+Defined in: [entity.ts:104](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L104)
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: [entity.ts:104](https://github.com/ashleytowner/shadowdark-parser/bl
 
 > **description**: `string`
 
-Defined in: [entity.ts:107](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L107)
+Defined in: [entity.ts:107](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L107)
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: [entity.ts:107](https://github.com/ashleytowner/shadowdark-parser/bl
 
 > **duration**: `string`
 
-Defined in: [entity.ts:105](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L105)
+Defined in: [entity.ts:105](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L105)
 
 ***
 
@@ -42,7 +42,7 @@ Defined in: [entity.ts:105](https://github.com/ashleytowner/shadowdark-parser/bl
 
 > **name**: `string`
 
-Defined in: [entity.ts:102](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L102)
+Defined in: [entity.ts:102](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L102)
 
 ***
 
@@ -50,7 +50,7 @@ Defined in: [entity.ts:102](https://github.com/ashleytowner/shadowdark-parser/bl
 
 > **range**: `string`
 
-Defined in: [entity.ts:106](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L106)
+Defined in: [entity.ts:106](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L106)
 
 ***
 
@@ -58,7 +58,7 @@ Defined in: [entity.ts:106](https://github.com/ashleytowner/shadowdark-parser/bl
 
 > **tier**: `number`
 
-Defined in: [entity.ts:103](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L103)
+Defined in: [entity.ts:103](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L103)
 
 ***
 
@@ -66,6 +66,6 @@ Defined in: [entity.ts:103](https://github.com/ashleytowner/shadowdark-parser/bl
 
 > **type**: `"spell"`
 
-Defined in: [entity.ts:101](https://github.com/ashleytowner/shadowdark-parser/blob/1a2d078d1d27fe26e21d0272c202629e52b4f006/src/entity.ts#L101)
+Defined in: [entity.ts:101](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L101)
 
 Discriminator field
