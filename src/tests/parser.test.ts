@@ -106,7 +106,7 @@ describe("bulkParse", () => {
       bulkParse(
         "SPIDER, SWARM\nA scurrying carpet of spiders.\nAC 13, HP 9, ATK 1 bite +3 (1d4 +\npoison), MV near (climb), S -1, D\n+3, C +0, I -3, W +1, Ch -3, AL N,\nLV 2\nPoison. DC 12 CON or paralyzed\n1d4 rounds.\nSTINGBAT\nDarting, orange insect-bat with\nfour wings and needlelike beak.\nAC 12, HP 4, ATK 1 beak +2 (1d4 +\nblood drain), MV near (fly), S -2,\nD +2, C +0, I -2, W +0, Ch -2, AL N,\nLV 1\nBlood Drain. Attach to bitten\ntarget; auto-hit the next round.\nDC 9 STR on turn to remove.\nSTRANGLER\nA gray-skinned, gaunt creature\nwith four ropy limbs tipped in\nsucker-lined claws.\nAC 12, HP 14, ATK 2 claws +2\n(1d6), MV near (climb), S -2, D +2,\nC +1, I -2, W +0, Ch -2, AL C, LV 3\nStealthy. ADV on DEX checks to\nsneak and hide.\nStrangle. Deals x2 damage\nagainst surprised creatures.",
         allCapsStrategy,
-      ).map(({ type, name }) => ({ type, name })),
+      )[0].map(({ type, name }) => ({ type, name })),
     ).toEqual([
       {
         type: "monster",
@@ -127,7 +127,19 @@ describe("bulkParse", () => {
       bulkParse(
         "STRANGLER\nA gray-skinned, gaunt creature\nwith four ropy limbs tipped in\nsucker-lined claws.\nAC 12, HP 14, ATK 2 claws +2\n(1d6), MV near (climb), S -2, D +2,\nC +1, I -2, W +0, Ch -2, AL C, LV 3\nStealthy. ADV on DEX checks to\nsneak and hide.\nStrangle. Deals x2 damage\nagainst surprised creatures.\nBOOTS OF\nTHE CAT\nGray, doeskin boots as thin and\nsoft as slippers.\nBenefit. You can jump up to a\nnear distance from a standstill.\nYour checks to move silently are\nalways easy (DC 9).",
         allCapsStrategy,
-      ).map((entity) => entity.name),
+      )[0].map((entity) => entity.name),
     ).toEqual(["STRANGLER", "BOOTS OF THE CAT"]);
+  });
+  it("should continue parsing even if one of the entries errors", () => {
+    const parsed = bulkParse(
+      "STRANGLER\nA gray-skinned, gaunt creature\nwith four ropy limbs tipped in\nsucker-lined claws.\n..AC 12, HP 14, ATK 2 claws +2\n(1d6), MV near (climb), S -2, D +2,\nC +1, I -2, W +0, Ch -2, AL C, LV 3\nStealthy. ADV on DEX checks to\nsneak and hide.\nStrangle. Deals x2 damage\nagainst surprised creatures.\nBOOTS OF\nTHE CAT\nGray, doeskin boots as thin and\nsoft as slippers.\nBenefit. You can jump up to a\nnear distance from a standstill.\nYour checks to move silently are\nalways easy (DC 9).",
+      allCapsStrategy,
+    );
+    expect(parsed[0].map((entity) => entity.name)).toEqual([
+      "BOOTS OF THE CAT",
+    ]);
+    expect(parsed[1]).toEqual([
+      "STRANGLER\nA gray-skinned, gaunt creature\nwith four ropy limbs tipped in\nsucker-lined claws.\n..AC 12, HP 14, ATK 2 claws +2\n(1d6), MV near (climb), S -2, D +2,\nC +1, I -2, W +0, Ch -2, AL C, LV 3\nStealthy. ADV on DEX checks to\nsneak and hide.\nStrangle. Deals x2 damage\nagainst surprised creatures.",
+    ]);
   });
 });

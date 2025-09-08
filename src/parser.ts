@@ -1,3 +1,4 @@
+import { Entity } from "./entity";
 import { parseMagicItem } from "./magicitem";
 import { parseRollTable } from "./rolltable";
 import { parseSpell } from "./spell";
@@ -54,10 +55,29 @@ export function parse(entity: string) {
 
 /**
  * Parse a bulk list of entries, it will use a strategy to split them up, then will parse each of them individually and return tehm as an array
-	* @param entities the bulk list of entities
-	* @param strategy the strategy to use to split up entities
-	*/
+ * @param entities the bulk list of entities
+ * @param strategy the strategy to use to split up entities
+ * @returns a tuple where the first entry is the parsed statblocks, and the second is the statblocks that failed to be parsed
+ */
 export function bulkParse(entities: string, strategy: EntryIdentifierStrategy) {
-	const entries = splitBulkEntries(entities, strategy);
-	return entries.map(parse);
+  const entries = splitBulkEntries(entities, strategy);
+  const parsedEntries: Entity[] = [];
+  const failures: string[] = [];
+  for (let i = 0; i < entries.length; i++) {
+    const entry = entries[i]!;
+    try {
+      parsedEntries.push(parse(entry));
+    } catch (e) {
+      failures.push(entry);
+      if (e instanceof Error) {
+        console.error(e.message);
+      } else {
+        console.error(e);
+      }
+    }
+  }
+  return [
+    /** Successfully parsed entities */ parsedEntries,
+    /** Faiures */ failures,
+  ] as const;
 }

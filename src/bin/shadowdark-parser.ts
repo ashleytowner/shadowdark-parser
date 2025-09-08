@@ -9,7 +9,9 @@ import getTemplateFromFile from "../templates";
 
 program
   .name("shadowdark-parser")
-	.description("Take statblocks, spell descriptions, roll tables and more from shadowdark and converts them into other formats")
+  .description(
+    "Take statblocks, spell descriptions, roll tables and more from shadowdark and converts them into other formats",
+  )
   .version("3.1.0") // x-release-please-version
   .option("-t, --template <file>", "A handlebars template file")
   .option("-o, --output <file>", "The file to output to")
@@ -65,7 +67,7 @@ const filename = program.args[0];
   let data: Entity | Entity[] | string;
 
   if (options.bulk) {
-    data = bulkParse(entry, allCapsStrategy);
+    data = bulkParse(entry, allCapsStrategy)[0];
   } else {
     data = parse(entry);
   }
