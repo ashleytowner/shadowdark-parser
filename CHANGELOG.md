@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.0.2](https://github.com/ashleytowner/shadowdark-parser/compare/v4.0.1...v4.0.2) (2025-10-21)
+
+
+### Bug Fixes
+
+* **monster:** Correctly parses traits even when LV and the number are ([5e8bec5](https://github.com/ashleytowner/shadowdark-parser/commit/5e8bec5a310dbabacc950516dcf2bda737c1cd86))
+
 ## [4.0.1](https://github.com/ashleytowner/shadowdark-parser/compare/v4.0.0...v4.0.1) (2025-10-21)
 
 
