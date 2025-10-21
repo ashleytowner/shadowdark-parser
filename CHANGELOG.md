@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.0.0](https://github.com/ashleytowner/shadowdark-parser/compare/v3.1.0...v4.0.0) (2025-10-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* **bulkParser:** Clearer error handling
+
+### Features
+
+* **bulkParser:** Clearer error handling ([acc3627](https://github.com/ashleytowner/shadowdark-parser/commit/acc3627962217d259c9ed65c6258ecd52bf69f0d))
+* **rolltable:** Add formula to rolltable ([e3757ea](https://github.com/ashleytowner/shadowdark-parser/commit/e3757ea9fabdbec8bdf93945e07fa52bce494859))
+
 ## [3.1.0](https://github.com/ashleytowner/shadowdark-parser/compare/v3.0.1...v3.1.0) (2025-09-06)
 
 
