@@ -122,6 +122,8 @@ export type Table = {
   type: "table";
   /** The name of the table */
   name: string;
+  /** The dice formula of the table */
+  formula?: string;
   /** The table rows */
   results: {
     type: "text";
