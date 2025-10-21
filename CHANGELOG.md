@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.0.1](https://github.com/ashleytowner/shadowdark-parser/compare/v4.0.0...v4.0.1) (2025-10-21)
+
+
+### Bug Fixes
+
+* **rolltable:** Correctly identify rolltables with headers ([9f6bb3e](https://github.com/ashleytowner/shadowdark-parser/commit/9f6bb3e5d6afc9e71f281706f316ed8da30eb9e3))
+
 ## [4.0.0](https://github.com/ashleytowner/shadowdark-parser/compare/v3.1.0...v4.0.0) (2025-10-21)
 
 
