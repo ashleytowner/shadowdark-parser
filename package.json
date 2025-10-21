@@ -5,7 +5,10 @@
   "scripts": {
     "test": "jest",
     "build": "tsc",
-    "docs": "typedoc --out docs --plugin typedoc-plugin-markdown src/"
+    "docs": "typedoc --out docs --plugin typedoc-plugin-markdown src/",
+    "bundle": "npm run bundle:lib && npm run bundle:cli",
+    "bundle:lib": "esbuild src/index.ts --bundle --platform=node --outfile=dist/bundle.js --format=cjs",
+    "bundle:cli": "esbuild src/bin/shadowdark-parser.ts --bundle --platform=node --outfile=dist/bundle-cli.js --format=cjs"
   },
   "files": [
     "dist"
@@ -29,6 +32,7 @@
     "@babel/preset-typescript": "^7.27.1",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.3.0",
+    "esbuild": "^0.25.11",
     "jest": "^30.0.5",
     "typedoc": "^0.28.12",
     "typedoc-plugin-markdown": "^4.8.1",
