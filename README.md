@@ -33,6 +33,8 @@ You can use shadowdark-parser via npx to parse a file
 npx shadowdark-parser [filename]
 ```
 
+Alternatively, if you can't use npm, you can download `bundle-cli.js` from the [GitHub releases](https://github.com/ashleytowner/shadowdark-parser/releases) and run it with Node.js directly.
+
 ```
 Usage: shadowdark-parser [options] [filename]
 
@@ -63,7 +65,7 @@ Check out [the wiki](https://github.com/ashleytowner/shadowdark-parser/wiki/Exam
 
 ### In your code (Library)
 
-1. Run `npm install shadowdark-parser`
+1. Run `npm install shadowdark-parser` (or download `bundle.js` from [GitHub releases](https://github.com/ashleytowner/shadowdark-parser/releases) if you can't use npm)
 2. Use it in your code:
 
 ```js
