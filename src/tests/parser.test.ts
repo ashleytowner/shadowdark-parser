@@ -26,6 +26,17 @@ describe("identify", () => {
     expect(identity).toBe("TABLE");
   });
 
+  it("should correctly identify a roll table with a header", () => {
+    const identity = identify(`d6 Details
+01 xxx
+02 xxx
+03 xxx
+04 xxx
+05 xxx
+06 xxx`);
+    expect(identity).toBe("TABLE");
+  });
+
   it("should correctly identify a spell", () => {
     const identity = identify(`
 INVISIBILITY

@@ -25,7 +25,7 @@ export function identify(
   if (/\n(Benefit|Bonus|Personality|Curse)\./.test(entity)) {
     return "MAGICITEM";
   }
-  if (/^\d+/.test(entity.trim())) {
+  if (/^\d+/.test(entity.trim()) || /^d\d+/.test(entity.trim())) {
     return "TABLE";
   }
   return undefined;
