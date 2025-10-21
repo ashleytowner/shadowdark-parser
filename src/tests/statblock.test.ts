@@ -344,4 +344,28 @@ Oath. 3/day, ADV on a roll made in service of knight's order.`);
     expect(monster.wisdom).toBe(0);
     expect(monster.charisma).toBe(1);
   });
+
+  it("parses traits when level is on its own line", () => {
+    const monster = parseStatblock(`TEST MONSTER
+A large creature with
+multiple arms. Territorial
+and aggressive.
+AC 12 (leather), HP 49, ATK 4
+spear (close/far) +5 (2d6), MV
+double near (climb), S +4, D +1,
+C +4, I -1, W -1, Ch -1, AL C, LV
+10
+Power Attack. If monster hits the
+same target with two or more
+attacks, CON 15+ or stunned
+for 1d4 rounds.`);
+
+    expect(monster.level).toBe(10);
+    expect(monster.traits).toHaveLength(1);
+    expect(monster.traits[0]).toEqual({
+      type: "trait",
+      name: "Power Attack",
+      description: "If monster hits the same target with two or more attacks, CON 15+ or stunned for 1d4 rounds.",
+    });
+  });
 });

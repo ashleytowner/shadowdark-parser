@@ -16,10 +16,15 @@ export function parseStatblock(statblockText: string): Monster {
   }
   description = description.trim();
   let stats = "";
-  while (lines.length > 0 && !/LV [0-9/*]+\s?$/.test(lines[0]!)) {
+  while (lines.length > 0 && !/LV( [0-9/*]+)?\s?$/.test(lines[0]!)) {
     stats += ` ${lines.shift()}`;
   }
-  stats += ` ${lines.shift()}`;
+  const lastLine = lines.shift();
+  stats += ` ${lastLine}`;
+  // If LV was on its own line, grab the next line with the number
+  if (lastLine && /LV\s?$/.test(lastLine) && lines.length > 0 && /^\d+/.test(lines[0]!)) {
+    stats += ` ${lines.shift()}`;
+  }
   stats = stats.trim().replace(/  */g, " ");
 
   const statPattern =
