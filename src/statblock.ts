@@ -91,7 +91,19 @@ function getStatSections(statline: string): [StatKey, string][] {
 
 type CoreStat = "str" | "dex" | "con" | "int" | "wis" | "cha";
 
-function getStatNameFromPrefix(prefix: string): CoreStat {
+type ParsedStats = {
+  hp: number | string;
+  attacks: Attack[][];
+  coreStats: Record<CoreStat, number | undefined>;
+  alignment: Alignment;
+  level: number | string;
+  ac: number;
+  armor: string | undefined;
+  movementDistance: string;
+  movementType: string | undefined;
+};
+
+export function getStatNameFromPrefix(prefix: string): CoreStat {
   switch (prefix) {
     case "S":
       return "str";
@@ -112,35 +124,7 @@ function getStatNameFromPrefix(prefix: string): CoreStat {
   }
 }
 
-/**
- * Parse a shadowdark statblock
- * @param statblockText The text which makes up the statblock
- */
-export function parseStatblock(statblockText: string): Monster {
-  const lines = getLines(statblockText);
-  const name = getName(lines);
-  let description = "";
-  while (lines.length > 0 && !lines[0]!.startsWith("AC ")) {
-    description += ` ${lines.shift()}`;
-  }
-  description = description.trim();
-  let stats = "";
-  while (lines.length > 0 && !/LV( [0-9/*]+)?\s?$/.test(lines[0]!)) {
-    stats += ` ${lines.shift()}`;
-  }
-  const lastLine = lines.shift();
-  stats += ` ${lastLine}`;
-  // If LV was on its own line, grab the next line with the number
-  if (
-    lastLine &&
-    /LV\s?$/.test(lastLine) &&
-    lines.length > 0 &&
-    /^\d+/.test(lines[0]!)
-  ) {
-    stats += ` ${lines.shift()}`;
-  }
-  stats = stats.trim().replace(/  */g, " ");
-
+export function parseStats(stats: string): ParsedStats {
   const statSections = getStatSections(stats);
 
   let hp: number | string;
@@ -241,6 +225,60 @@ export function parseStatblock(statblockText: string): Monster {
     throw new Error(`MV missing from "${stats}"`);
   if (alignment! === undefined) throw new Error(`Missing AL from "${stats}"`);
   if (level! === undefined) throw new Error(`Missing LV from "${stats}"`);
+
+  return {
+    hp,
+    attacks,
+    coreStats,
+    alignment,
+    level,
+    ac,
+    armor,
+    movementDistance,
+    movementType,
+  };
+}
+
+/**
+ * Parse a shadowdark statblock
+ * @param statblockText The text which makes up the statblock
+ */
+export function parseStatblock(statblockText: string): Monster {
+  const lines = getLines(statblockText);
+  const name = getName(lines);
+  let description = "";
+  while (lines.length > 0 && !lines[0]!.startsWith("AC ")) {
+    description += ` ${lines.shift()}`;
+  }
+  description = description.trim();
+  let stats = "";
+  while (lines.length > 0 && !/LV( [0-9/*]+)?\s?$/.test(lines[0]!)) {
+    stats += ` ${lines.shift()}`;
+  }
+  const lastLine = lines.shift();
+  stats += ` ${lastLine}`;
+  // If LV was on its own line, grab the next line with the number
+  if (
+    lastLine &&
+    /LV\s?$/.test(lastLine) &&
+    lines.length > 0 &&
+    /^\d+/.test(lines[0]!)
+  ) {
+    stats += ` ${lines.shift()}`;
+  }
+  stats = stats.trim().replace(/  */g, " ");
+
+  const {
+    hp,
+    attacks,
+    coreStats,
+    alignment,
+    level,
+    ac,
+    armor,
+    movementDistance,
+    movementType,
+  } = parseStats(stats);
 
   return {
     type: "monster",

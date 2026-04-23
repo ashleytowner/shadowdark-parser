@@ -1,6 +1,185 @@
-import { parseStatblock } from "../statblock";
+import {
+  getStatNameFromPrefix,
+  parseStats,
+  parseStatblock,
+} from "../statblock";
+
+const VALID_STATBLOCK = `
+MONSTER
+Description
+AC 12, HP 4, ATK 1 bite +1 (1d4), MV near, S +0, D +0, C +0, I +0, W +0, Ch +0, AL N, LV 1
+Trait. Description.`;
+
+function replaceStats(search: string, replacement: string) {
+  return VALID_STATBLOCK.replace(search, replacement);
+}
 
 describe("parseStatblock", () => {
+  describe("error states", () => {
+    it.each([
+      [
+        "invalid AC value",
+        replaceStats("AC 12", "AC leather"),
+        'Invalid AC value: "leather"',
+      ],
+      [
+        "invalid movement value",
+        replaceStats("MV near", "MV (fly)"),
+        'Invalid MV value: "(fly)"',
+      ],
+      [
+        "invalid HP value",
+        replaceStats("HP 4", "HP four"),
+        'Invalid HP value: "four"',
+      ],
+      [
+        "invalid strength value",
+        replaceStats("S +0", "S nope"),
+        'Invalid S value: "nope"',
+      ],
+      [
+        "invalid dexterity value",
+        replaceStats("D +0", "D nope"),
+        'Invalid D value: "nope"',
+      ],
+      [
+        "invalid constitution value",
+        replaceStats("C +0", "C nope"),
+        'Invalid C value: "nope"',
+      ],
+      [
+        "invalid intelligence value",
+        replaceStats("I +0", "I nope"),
+        'Invalid I value: "nope"',
+      ],
+      [
+        "invalid wisdom value",
+        replaceStats("W +0", "W nope"),
+        'Invalid W value: "nope"',
+      ],
+      [
+        "invalid charisma value",
+        replaceStats("Ch +0", "Ch nope"),
+        'Invalid Ch value: "nope"',
+      ],
+      [
+        "invalid X charisma value",
+        replaceStats("Ch +0", "X nope"),
+        'Invalid X value: "nope"',
+      ],
+      [
+        "invalid Z charisma value",
+        replaceStats("Ch +0", "Z nope"),
+        'Invalid Z value: "nope"',
+      ],
+      [
+        "invalid alignment value",
+        replaceStats("AL N", "AL Q"),
+        'Invalid AL value: "Q"',
+      ],
+      [
+        "missing HP section",
+        replaceStats("HP 4, ", ""),
+        'HP missing from "AC 12, ATK 1 bite +1 (1d4), MV near, S +0, D +0, C +0, I +0, W +0, Ch +0, AL N, LV 1"',
+      ],
+      [
+        "missing ATK section",
+        replaceStats("ATK 1 bite +1 (1d4), ", ""),
+        'ATK missing from "AC 12, HP 4, MV near, S +0, D +0, C +0, I +0, W +0, Ch +0, AL N, LV 1"',
+      ],
+      [
+        "missing strength section",
+        replaceStats("S +0, ", ""),
+        'Missing Str stat from "AC 12, HP 4, ATK 1 bite +1 (1d4), MV near, D +0, C +0, I +0, W +0, Ch +0, AL N, LV 1"',
+      ],
+      [
+        "missing dexterity section",
+        replaceStats("D +0, ", ""),
+        'Missing Dex stat from "AC 12, HP 4, ATK 1 bite +1 (1d4), MV near, S +0, C +0, I +0, W +0, Ch +0, AL N, LV 1"',
+      ],
+      [
+        "missing constitution section",
+        replaceStats("C +0, ", ""),
+        'Missing Con stat from "AC 12, HP 4, ATK 1 bite +1 (1d4), MV near, S +0, D +0, I +0, W +0, Ch +0, AL N, LV 1"',
+      ],
+      [
+        "missing intelligence section",
+        replaceStats("I +0, ", ""),
+        'Missing Int stat from "AC 12, HP 4, ATK 1 bite +1 (1d4), MV near, S +0, D +0, C +0, W +0, Ch +0, AL N, LV 1"',
+      ],
+      [
+        "missing wisdom section",
+        replaceStats("W +0, ", ""),
+        'Missing Wis stat from "AC 12, HP 4, ATK 1 bite +1 (1d4), MV near, S +0, D +0, C +0, I +0, Ch +0, AL N, LV 1"',
+      ],
+      [
+        "missing charisma section",
+        replaceStats("Ch +0, ", ""),
+        'Missing Cha stat from "AC 12, HP 4, ATK 1 bite +1 (1d4), MV near, S +0, D +0, C +0, I +0, W +0, AL N, LV 1"',
+      ],
+      [
+        "missing movement section",
+        replaceStats("MV near, ", ""),
+        'MV missing from "AC 12, HP 4, ATK 1 bite +1 (1d4), S +0, D +0, C +0, I +0, W +0, Ch +0, AL N, LV 1"',
+      ],
+      [
+        "missing alignment section",
+        replaceStats("AL N, ", ""),
+        'Missing AL from "AC 12, HP 4, ATK 1 bite +1 (1d4), MV near, S +0, D +0, C +0, I +0, W +0, Ch +0, LV 1"',
+      ],
+    ])("throws on %s", (_, statblock, error) => {
+      expect(() => parseStatblock(statblock)).toThrow(error);
+    });
+
+    it("throws on an invalid level value", () => {
+      expect(() =>
+        parseStats(
+          "AC 12, HP 4, ATK 1 bite +1 (1d4), MV near, S +0, D +0, C +0, I +0, W +0, Ch +0, AL N, LV one",
+        ),
+      ).toThrow('Invalid LV value: "one"');
+    });
+
+    it("throws on a missing AC section", () => {
+      expect(() =>
+        parseStats(
+          "HP 4, ATK 1 bite +1 (1d4), MV near, S +0, D +0, C +0, I +0, W +0, Ch +0, AL N, LV 1",
+        ),
+      ).toThrow(
+        'AC missing from "HP 4, ATK 1 bite +1 (1d4), MV near, S +0, D +0, C +0, I +0, W +0, Ch +0, AL N, LV 1"',
+      );
+    });
+
+    it("throws on a missing level section", () => {
+      expect(() =>
+        parseStats(
+          "AC 12, HP 4, ATK 1 bite +1 (1d4), MV near, S +0, D +0, C +0, I +0, W +0, Ch +0, AL N",
+        ),
+      ).toThrow(
+        'Missing LV from "AC 12, HP 4, ATK 1 bite +1 (1d4), MV near, S +0, D +0, C +0, I +0, W +0, Ch +0, AL N"',
+      );
+    });
+
+    it("throws on an invalid statline section", () => {
+      const statblock = replaceStats("HP 4, ", "HP 4,, ");
+      expect(() => parseStatblock(statblock)).toThrow(
+        'Invalid statline section ',
+      );
+    });
+
+    it("throws on an invalid stat key", () => {
+      const statblock = replaceStats("HP 4", "QQ 4");
+      expect(() => parseStatblock(statblock)).toThrow(
+        '"QQ" is not a valid stat key',
+      );
+    });
+
+    it("throws on an invalid internal core stat mapping", () => {
+      expect(() => getStatNameFromPrefix("AL")).toThrow(
+        "Invalid core stat AL",
+      );
+    });
+  });
+
   it("Does not infinitely loop when it can't find the end of the statblock", () => {
     const parseHydra = () =>
       parseStatblock(`
