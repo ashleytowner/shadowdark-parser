@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.1.1](https://github.com/ashleytowner/shadowdark-parser/compare/v4.1.0...v4.1.1) (2026-04-23)
+
+
+### Miscellaneous Chores
+
+* Bump dependencies ([78cab08](https://github.com/ashleytowner/shadowdark-parser/commit/78cab080e2c12a739b02074f2f664af02b88491c))
+
 ## [4.1.0](https://github.com/ashleytowner/shadowdark-parser/compare/v4.0.2...v4.1.0) (2026-04-23)
 
 
