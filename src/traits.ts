@@ -11,6 +11,8 @@ export function isTraitStart(line: string): boolean {
   if (!lastWordBeforePeriod) {
     throw new Error(`Failed to parse possible trait start, ${line}`);
   }
+  const hasWordAfterPeriod = /\. *\w/.test(line);
+  if (!hasWordAfterPeriod) return false;
   if (!/^[A-Z]$/.test(lastWordBeforePeriod.charAt(0))) return false;
   return true;
 }

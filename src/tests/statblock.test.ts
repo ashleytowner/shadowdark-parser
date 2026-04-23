@@ -162,7 +162,7 @@ describe("parseStatblock", () => {
     it("throws on an invalid statline section", () => {
       const statblock = replaceStats("HP 4, ", "HP 4,, ");
       expect(() => parseStatblock(statblock)).toThrow(
-        'Invalid statline section ',
+        "Invalid statline section ",
       );
     });
 
@@ -174,9 +174,7 @@ describe("parseStatblock", () => {
     });
 
     it("throws on an invalid internal core stat mapping", () => {
-      expect(() => getStatNameFromPrefix("AL")).toThrow(
-        "Invalid core stat AL",
-      );
+      expect(() => getStatNameFromPrefix("AL")).toThrow("Invalid core stat AL");
     });
   });
 
@@ -576,6 +574,25 @@ for 1d4 rounds.`);
       name: "Power Attack",
       description:
         "If monster hits the same target with two or more attacks, CON 15+ or stunned for 1d4 rounds.",
+    });
+  });
+
+  it("parses traits who end in a word in all caps on its own line", () => {
+    const monster = parseStatblock(`MONSTER
+A monster that is indeed definitely a monster
+AC 12 (leather), HP 49, ATK 4
+spear (close/far) +5 (2d6), MV
+double near (climb), S +4, D +1,
+C +4, I -1, W -1, Ch -1, AL C, LV 10
+Some Trait. Ranged
+attacks against monster have
+DISADV.
+`);
+    expect(monster.traits).toHaveLength(1);
+    expect(monster.traits[0]).toEqual({
+      type: "trait",
+      name: "Some Trait",
+      description: "Ranged attacks against monster have DISADV.",
     });
   });
 });

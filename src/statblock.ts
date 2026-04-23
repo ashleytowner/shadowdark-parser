@@ -94,7 +94,7 @@ type CoreStat = "str" | "dex" | "con" | "int" | "wis" | "cha";
 type ParsedStats = {
   hp: number | string;
   attacks: Attack[][];
-  coreStats: Record<CoreStat, number | undefined>;
+  coreStats: Record<CoreStat, number>;
   alignment: Alignment;
   level: number | string;
   ac: number;
@@ -229,7 +229,7 @@ export function parseStats(stats: string): ParsedStats {
   return {
     hp,
     attacks,
-    coreStats,
+    coreStats: coreStats as any, // We've already checked this is all defined above
     alignment,
     level,
     ac,
