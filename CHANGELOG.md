@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.1.0](https://github.com/ashleytowner/shadowdark-parser/compare/v4.0.2...v4.1.0) (2026-04-23)
+
+
+### Features
+
+* **monsters:** Split parsing up into sections to get give error ([0e6c14a](https://github.com/ashleytowner/shadowdark-parser/commit/0e6c14aa3805658098ff26426482e0a01d0aed79))
+
+
+### Bug Fixes
+
+* Single line words with all capitals parsing incorrectly ([f800efc](https://github.com/ashleytowner/shadowdark-parser/commit/f800efcde8462fd8b1a1f593e6aee0fc6ca01d49)), closes [#23](https://github.com/ashleytowner/shadowdark-parser/issues/23)
+
 ## [4.0.2](https://github.com/ashleytowner/shadowdark-parser/compare/v4.0.1...v4.0.2) (2025-10-21)
 
 
