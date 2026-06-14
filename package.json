@@ -32,7 +32,7 @@
     "@babel/preset-typescript": "^7.27.1",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.3.0",
-    "esbuild": "^0.25.11",
+    "esbuild": "^0.28.1",
     "jest": "^30.0.5",
     "typedoc": "^0.28.12",
     "typedoc-plugin-markdown": "^4.8.1",
