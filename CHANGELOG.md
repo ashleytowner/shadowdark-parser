@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.0.1](https://github.com/ashleytowner/shadowdark-parser/compare/v5.0.0...v5.0.1) (2026-07-20)
+
+
+### Bug Fixes
+
+* Update dependencies ([df50c5f](https://github.com/ashleytowner/shadowdark-parser/commit/df50c5f830b476daca56ba3f7ad24f186a03c356))
+
 ## [5.0.0](https://github.com/ashleytowner/shadowdark-parser/compare/v4.1.1...v5.0.0) (2026-07-20)
 
 
