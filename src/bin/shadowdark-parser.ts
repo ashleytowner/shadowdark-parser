@@ -2,10 +2,13 @@
 import readline from "readline";
 import fs from "fs";
 import { program } from "commander";
-import { bulkParse, parse } from "../parser";
-import { allCapsStrategy } from "../splitbulk";
-import type { Entity } from "../entity";
-import getTemplateFromFile from "../templates";
+import {
+  allCapsStrategy,
+  bulkParse,
+  getTemplateFromFile,
+  parse,
+  type Entity,
+} from "shadowdark-parser/node";
 
 program
   .name("shadowdark-parser")

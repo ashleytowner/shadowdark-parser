@@ -8,7 +8,7 @@
 
 > **identify**(`entity`): `undefined` \| `"MONSTER"` \| `"TABLE"` \| `"SPELL"` \| `"MAGICITEM"`
 
-Defined in: [parser.ts:12](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/parser.ts#L12)
+Defined in: [parser.ts:12](https://github.com/ashleytowner/shadowdark-parser/blob/2d0b7eb2093d1c323d22fa4f991edc1ad77811ba/src/parser.ts#L12)
 
 Identify what type of entry is being processed
 

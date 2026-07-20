@@ -8,17 +8,27 @@
 
 > **Table** = `object`
 
-Defined in: [entity.ts:120](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L120)
+Defined in: [entity.ts:120](https://github.com/ashleytowner/shadowdark-parser/blob/2d0b7eb2093d1c323d22fa4f991edc1ad77811ba/src/entity.ts#L120)
 
 A rollable table
 
 ## Properties
 
+### formula?
+
+> `optional` **formula**: `string`
+
+Defined in: [entity.ts:126](https://github.com/ashleytowner/shadowdark-parser/blob/2d0b7eb2093d1c323d22fa4f991edc1ad77811ba/src/entity.ts#L126)
+
+The dice formula of the table
+
+***
+
 ### name
 
 > **name**: `string`
 
-Defined in: [entity.ts:124](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L124)
+Defined in: [entity.ts:124](https://github.com/ashleytowner/shadowdark-parser/blob/2d0b7eb2093d1c323d22fa4f991edc1ad77811ba/src/entity.ts#L124)
 
 The name of the table
 
@@ -28,7 +38,7 @@ The name of the table
 
 > **results**: `object`[]
 
-Defined in: [entity.ts:126](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L126)
+Defined in: [entity.ts:128](https://github.com/ashleytowner/shadowdark-parser/blob/2d0b7eb2093d1c323d22fa4f991edc1ad77811ba/src/entity.ts#L128)
 
 The table rows
 
@@ -54,6 +64,6 @@ The text of the row result
 
 > **type**: `"table"`
 
-Defined in: [entity.ts:122](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/entity.ts#L122)
+Defined in: [entity.ts:122](https://github.com/ashleytowner/shadowdark-parser/blob/2d0b7eb2093d1c323d22fa4f991edc1ad77811ba/src/entity.ts#L122)
 
 Discriminator field

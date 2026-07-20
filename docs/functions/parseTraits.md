@@ -8,7 +8,7 @@
 
 > **parseTraits**(`lines`): [`Trait`](../type-aliases/Trait.md)[]
 
-Defined in: [traits.ts:22](https://github.com/ashleytowner/shadowdark-parser/blob/dabe9e4969052fd9b68d443cdc0e58a3975f21cc/src/traits.ts#L22)
+Defined in: [traits.ts:24](https://github.com/ashleytowner/shadowdark-parser/blob/2d0b7eb2093d1c323d22fa4f991edc1ad77811ba/src/traits.ts#L24)
 
 Parse the traits section of a statblock
 

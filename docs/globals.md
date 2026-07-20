@@ -22,7 +22,6 @@
 ## Functions
 
 - [bulkParse](functions/bulkParse.md)
-- [getTemplateFromFile](functions/getTemplateFromFile.md)
 - [identify](functions/identify.md)
 - [parse](functions/parse.md)
 - [parseAttack](functions/parseAttack.md)

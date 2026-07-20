@@ -86,6 +86,12 @@ DC 9 STR on turn to remove.
 // ...
 ```
 
+Node-only template support is available from the explicit Node entry point:
+
+```js
+import { getTemplateFromFile } from "shadowdark-parser/node";
+```
+
 ## Contributions
 
 This repo is open to contributions, but given the complexity of the parser, please

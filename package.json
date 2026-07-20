@@ -1,14 +1,36 @@
 {
   "name": "shadowdark-parser",
   "version": "5.0.1",
-  "main": "dist/index.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./node": {
+      "types": "./dist/node.d.ts",
+      "import": "./dist/node.mjs",
+      "require": "./dist/node.cjs"
+    }
+  },
   "scripts": {
     "test": "jest",
-    "build": "tsc",
+    "build": "npm run clean && npm run build:types && npm run build:lib && npm run build:cli",
+    "clean": "rm -rf dist",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:lib": "npm run build:lib:esm && npm run build:lib:cjs && npm run build:node:esm && npm run build:node:cjs",
+    "build:lib:esm": "esbuild src/index.ts --bundle --platform=browser --format=esm --outfile=dist/index.mjs",
+    "build:lib:cjs": "esbuild src/index.ts --bundle --platform=browser --format=cjs --outfile=dist/index.cjs",
+    "build:node:esm": "esbuild src/node.ts --bundle --platform=node --format=esm --outfile=dist/node.mjs",
+    "build:node:cjs": "esbuild src/node.ts --bundle --platform=node --format=cjs --outfile=dist/node.cjs",
+    "build:cli": "esbuild src/bin/shadowdark-parser.ts --bundle --platform=node --format=cjs --outfile=dist/bin/shadowdark-parser.js --alias:shadowdark-parser/node=./src/node.ts",
     "docs": "typedoc --out docs --plugin typedoc-plugin-markdown src/",
-    "bundle": "npm run bundle:lib && npm run bundle:cli",
+    "bundle": "npm run build && npm run bundle:lib && npm run bundle:cli",
     "bundle:lib": "esbuild src/index.ts --bundle --platform=node --outfile=dist/bundle.js --format=cjs",
-    "bundle:cli": "esbuild src/bin/shadowdark-parser.ts --bundle --platform=node --outfile=dist/bundle-cli.js --format=cjs"
+    "bundle:cli": "esbuild src/bin/shadowdark-parser.ts --bundle --platform=node --outfile=dist/bundle-cli.js --format=cjs --alias:shadowdark-parser/node=./src/node.ts"
   },
   "files": [
     "dist"
