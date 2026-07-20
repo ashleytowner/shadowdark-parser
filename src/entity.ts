@@ -101,7 +101,7 @@ export type Spell = {
   type: "spell";
   name: string;
   tier: number;
-  classes: string[];
+  classes: { class: string; alignment: Alignment }[];
   duration: string;
   range: string;
   description: string;

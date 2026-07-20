@@ -3,6 +3,13 @@ import type { Alignment, Attack, Monster } from "./entity";
 import { parseTraits } from "./traits";
 import { getLines, getName } from "./util";
 
+export const alignmentMap = new Map<string, Alignment>([
+  ["L", "Lawful"],
+  ["N", "Neutral"],
+  ["C", "Chaotic"],
+  ["*", "*"],
+]);
+
 /**
  * Parse the AC value of the statline
  * @param ac the AC value
@@ -184,12 +191,6 @@ export function parseStats(stats: string): ParsedStats {
         if (!/^L|N|C|\*$/.test(value)) {
           throw new Error(`Invalid AL value: "${value}"`);
         }
-        const alignmentMap = new Map<string, Alignment>([
-          ["L", "Lawful"],
-          ["N", "Neutral"],
-          ["C", "Chaotic"],
-          ["*", "*"],
-        ]);
 
         const al = alignmentMap.get(value);
         if (!al) {

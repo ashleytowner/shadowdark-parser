@@ -1,4 +1,5 @@
 import type { Spell } from "./entity";
+import { alignmentMap } from "./statblock";
 import { getLines, getName } from "./util";
 
 /**
@@ -42,11 +43,16 @@ export function parseSpell(spellText: string): Spell {
   descriptionLines = descriptionLines
     .map((line) => line.trim())
     .filter(Boolean);
+  const mappedClasses = classes.map((cls) => {
+    const matches = cls.match(/^([^(]+)(\(([LNC])\))?$/);
+    const al = alignmentMap.get(matches?.[3] ?? "*") ?? "*";
+    return { class: matches![1]!.trim(), alignment: al };
+  });
   return {
     type: "spell",
     name,
     tier,
-    classes,
+    classes: mappedClasses,
     duration,
     range,
     description: descriptionLines.join("\n"),

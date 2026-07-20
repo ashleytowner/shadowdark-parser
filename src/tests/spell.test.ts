@@ -21,7 +21,10 @@ Very good.
   });
   it("should get the spell classes", () => {
     const spell = parseSpell(demoSpell);
-    expect(spell.classes).toEqual(["priest", "wizard"]);
+    expect(spell.classes).toEqual([
+      { class: "priest", alignment: "*" },
+      { class: "wizard", alignment: "*" },
+    ]);
   });
   it("should get the spell duration", () => {
     const spell = parseSpell(demoSpell);
@@ -36,5 +39,20 @@ Very good.
     expect(spell.description).toBe(
       "This is some spell description.\nThis is a bit more spell description stuff.\nVery good.",
     );
+  });
+  it("should separate class & alignment", () => {
+    const alignmentSpell = `
+ALIGNMENT SPELL
+Tier 1, wizard (N)
+Duration: 2 rounds
+Range: Far
+This is some spell description
+With some more description
+`;
+    const spell = parseSpell(alignmentSpell);
+    expect(spell.classes[0]).toEqual({
+      class: "wizard",
+      alignment: "Neutral",
+    });
   });
 });
