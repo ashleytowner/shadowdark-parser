@@ -1,5 +1,16 @@
 # Changelog
 
+## [5.0.0](https://github.com/ashleytowner/shadowdark-parser/compare/v4.1.1...v5.0.0) (2026-07-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* Add ability to parse new alignment spells
+
+### Features
+
+* Add ability to parse new alignment spells ([901d38d](https://github.com/ashleytowner/shadowdark-parser/commit/901d38d3982b5b3cd20babd679974bd15cac0d8a))
+
 ## [4.1.1](https://github.com/ashleytowner/shadowdark-parser/compare/v4.1.0...v4.1.1) (2026-04-23)
 
 
