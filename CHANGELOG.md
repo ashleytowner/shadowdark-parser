@@ -1,5 +1,16 @@
 # Changelog
 
+## [6.0.0](https://github.com/ashleytowner/shadowdark-parser/compare/v5.0.1...v6.0.0) (2026-07-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* Create separate node & browser-safe versions for both mjs and cjs
+
+### Features
+
+* Create separate node & browser-safe versions for both mjs and cjs ([9309ac0](https://github.com/ashleytowner/shadowdark-parser/commit/9309ac0821fe6ace9854a2fd80019cc186fb07fe))
+
 ## [5.0.1](https://github.com/ashleytowner/shadowdark-parser/compare/v5.0.0...v5.0.1) (2026-07-20)
 
 
